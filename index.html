@@ -324,7 +324,7 @@ footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px}
         <button type="button" aria-pressed="false" data-mode="text">Text me</button>
       </div>
       <div id="mode-email">
-        <label for="email">Your email</label>
+        <label for="email">Email address</label>
         <form id="signup" action="https://howlback.beehiiv.com/subscribe" method="get" target="_blank">
           <input id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
           <button class="btn" type="submit">Sign up</button>
@@ -332,15 +332,15 @@ footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px}
         <small>Free. Unsubscribe anytime.</small>
       </div>
       <div id="mode-text" hidden>
-        <label for="phone">Your phone number. We’ll send one text when the app launches.</label>
+        <label for="phone">Phone number</label>
         <form id="textform" name="launch-text" method="POST" data-netlify="true" netlify-honeypot="company">
           <input type="hidden" name="form-name" value="launch-text">
           <p hidden><label>Leave this empty <input name="company"></label></p>
           <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(956) 555-0123" autocomplete="tel" pattern="[0-9()+\-. ]{10,}" required>
           <button class="btn" type="submit">Text me</button>
         </form>
-        <small>By signing up you agree to get texts from Howlback about the app launch. No spam. Msg and data rates may apply. Reply STOP anytime to opt out.</small>
-        <p class="ok" id="text-ok" hidden>You’re on the list. We’ll text you when the app is out.</p>
+        <small>We’ll text you once when the app launches. By signing up you agree to get texts from Howlback. Msg and data rates may apply. Reply STOP to opt out.</small>
+        <p class="ok" id="text-ok" hidden>You’re on the list! We’ll text you when the app is out.</p>
         <p class="err" id="text-err" hidden>That didn’t go through. Check your number and try again.</p>
       </div>
     </div>
@@ -475,7 +475,7 @@ $("#textform").addEventListener("submit", async e => {
   btn.disabled = true; $("#text-err").hidden = true;
   try {
     const r = await fetch("/", {method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body:new URLSearchParams(new FormData(f)).toString()});
-    if (!r.ok) throw 0;
+    if (r.status >= 500) throw 0;
     f.hidden = true; $("#text-ok").hidden = false;
   } catch { $("#text-err").hidden = false; btn.disabled = false; }
 });
