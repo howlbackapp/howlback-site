@@ -199,9 +199,9 @@ pg += """  <div class="wrap app-hero">
     <div class="wrap">
       <div class="head"><h2>How it will work</h2></div>
       <ol class="app-steps">
-        <li><h3>A neighbor fosters a dog</h3><p class="muted">They post the dog’s story: where they found them, how they’re doing, and updates along the way.</p></li>
-        <li><h3>They add their receipts</h3><p class="muted">Vet visits, vaccines, flea meds, food, and supplies. Every receipt is checked before it counts.</p></li>
-        <li><h3>Neighbors chip in</h3><p class="muted">Follow the dog, cheer them on, and help cover their costs. The foster gets paid back.</p></li>
+        <li><h3>A neighbor fosters a dog</h3><p class="muted">Someone finds a dog on the street and takes them in. They make a profile for the dog with photos and their story: where they were found, what shape they were in, and what they need.</p><p class="muted">Fosters verify their ID once, then post updates as the dog heals, so followers can watch the progress.</p></li>
+        <li><h3>They add their receipts</h3><p class="muted">Every time the foster pays for something, they snap the receipt: vet visits, vaccines, flea and heartworm meds, food, a crate, a leash.</p><p class="muted">Each receipt is checked before it counts, and only receipts from businesses qualify. The dog’s total is only what’s already been spent, never a guess or a wish list.</p></li>
+        <li><h3>Neighbors chip in</h3><p class="muted">Anyone can follow a dog, cheer them on, and chip in any amount toward their verified costs. You see exactly which receipts your help covers.</p><p class="muted">The foster gets paid back for what they spent, and you get a note when the dog finds a home.</p></li>
       </ol>
     </div>
   </section>
