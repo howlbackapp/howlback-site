@@ -99,6 +99,20 @@ h4{font-size:15px;font-weight:800;margin-top:4px}
 .read{background:var(--mint);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:7px}
 .read div{display:flex;justify-content:space-between;font-size:13px;font-weight:600}.read div span{color:var(--muted);font-weight:500}
 .n{width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:800;display:inline-grid;place-items:center;margin-right:6px}
+
+.home{flex:1;background:linear-gradient(160deg,#f7c9ae 0%,#f4dccd 35%,#cfe6dd 70%,#a9cfc4 100%);display:flex;flex-direction:column;padding:8px 22px 0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px 14px;margin-top:22px}
+.ap{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:#1f3a3f}
+.ap i{font-style:normal;width:64px;height:64px;border-radius:16px;display:grid;place-items:center;box-shadow:0 3px 8px rgba(0,0,0,.12)}
+.ap i svg{width:32px;height:32px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ap.hb i{background:#3d6b73;font-family:"Bricolage Grotesque";font-weight:800;font-size:17px;line-height:.88;display:flex;justify-content:center;align-items:center;flex-direction:column;letter-spacing:-.5px;text-shadow:none;box-shadow:0 0 0 4px #fff,0 0 0 8px #f4a582,0 8px 18px rgba(0,0,0,.2)}
+.ap.hb i b{color:#fff;display:block;font-weight:800}.ap.hb i em{font-style:normal;color:#f4a582;display:block}
+.widget{grid-column:span 4;height:150px;border-radius:24px;background:rgba(255,255,255,.35);backdrop-filter:blur(8px);padding:16px;color:#1f3a3f;display:flex;flex-direction:column;justify-content:space-between}
+.widget b{font-size:40px;font-weight:300;font-family:Figtree}
+.dock{margin:auto -6px 14px;background:rgba(255,255,255,.4);border-radius:30px;padding:12px;display:flex;justify-content:space-around}
+.dock i{width:60px;height:60px;border-radius:15px;display:grid;place-items:center}
+.dock i svg{width:30px;height:30px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hbtag{position:absolute;z-index:6;background:#fff;color:#1f3a3f;font-weight:800;font-size:13px;padding:7px 12px;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,.15)}
 </style></head><body>
 
 <!-- 1 FEED -->
@@ -194,5 +208,11 @@ h4{font-size:15px;font-weight:800;margin-top:4px}
  </div>
  <div style="flex:1"></div>
  <div class="tabs"><div><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/></svg>Home</div><div><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/></svg>Near you</div><div class="on"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Post</div><div><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Help</div><div><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Me</div></div>
+</div></div></div>
+
+<!-- 7 HOME SCREEN -->
+<div class="pw" id="s7"><div class="phone"><div class="scr"><div class="island"></div>
+ <div class="status" style="background:#f7c9ae"><span>9:41</span><span class="bar">●●●● ▮</span></div>
+ <div class="home"><div class="grid"><div class="widget"><span style="font-weight:700;font-size:14px">Thursday</span><b>Oct 15</b><span style="font-size:13px;font-weight:600">Clinic Sat · Edinburg</span></div><div class="ap"><i style="background:#5b8def"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></i>Camera</div><div class="ap"><i style="background:#f2b84b"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6zM9 8h6M9 12h6M9 16h4"/></svg></i>Notes</div><div class="ap"><i style="background:#57b37b"><svg viewBox="0 0 24 24"><path d="M9 4l6 2 5-2v14l-5 2-6-2-5 2V6z"/><path d="M9 4v14M15 6v14"/></svg></i>Maps</div><div class="ap"><i style="background:#4aa3df"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg></i>Weather</div><div class="ap"><i style="background:#e8607a"><svg viewBox="0 0 24 24"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></i>Music</div><div class="ap"><i style="background:#2f3437"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i>Clock</div><div class="ap hb"><i><b>howl</b><b style="color:#f4a582">back</b></i>Howlback</div><div class="ap"><i style="background:#8e7cc3"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg></i>Settings</div><div class="ap"><i style="background:#3fb6a8"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg></i>Mail</div><div class="ap"><i style="background:#f08a5d"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 8"/></svg></i>Photos</div><div class="ap"><i style="background:#e3a33c"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM9 8h6M9 12h6"/></svg></i>Books</div><div class="ap"><i style="background:#5f6b70"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h3"/></svg></i>Files</div></div><div class="dock"><i style="background:#4cc265"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-3 2a11 11 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></i><i style="background:#4aa3df"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></i><i style="background:#5b8def"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg></i><i style="background:#f08a5d"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 16l-5-5-9 8"/></svg></i></div></div>
 </div></div></div>
 </body></html>
