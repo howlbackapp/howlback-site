@@ -156,3 +156,27 @@ if ($("#copy")) $("#copy").addEventListener("click", async () => {
   catch { const r = document.createRange(); r.selectNodeContents($("#addr")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected"; }
   setTimeout(() => b.textContent = "Copy address", 1800);
 });
+
+/* install page: device tabs + Android install button */
+const osTabs = document.querySelectorAll(".os-tabs button");
+if (osTabs.length) {
+  const show = os => {
+    osTabs.forEach(b => b.setAttribute("aria-selected", b.dataset.os === os));
+    document.querySelectorAll("[data-panel]").forEach(p => p.hidden = p.dataset.panel !== os);
+  };
+  osTabs.forEach(b => b.addEventListener("click", () => show(b.dataset.os)));
+  const ua = navigator.userAgent;
+  show(/android/i.test(ua) ? "android" : /iphone|ipad|ipod/i.test(ua) || (navigator.maxTouchPoints > 1 && /mac/i.test(ua)) ? "ios" : /mobile/i.test(ua) ? "ios" : "mac");
+}
+let deferredInstall;
+window.addEventListener("beforeinstallprompt", e => {
+  e.preventDefault(); deferredInstall = e;
+  if ($("#install-btn")) $("#install-btn").hidden = false;
+});
+if ($("#install-btn")) $("#install-btn").addEventListener("click", async () => {
+  if (!deferredInstall) return;
+  deferredInstall.prompt(); await deferredInstall.userChoice; deferredInstall = null; $("#install-btn").hidden = true;
+});
+
+/* offline support */
+if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("/sw.js").catch(() => {});

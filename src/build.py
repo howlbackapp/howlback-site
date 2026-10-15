@@ -11,7 +11,23 @@ POSTS = json.load(open(os.path.join(ROOT, "src/posts.json")))
 SITE = "https://howlback.app"
 
 NAV = [("/help/", "Local help"), ("/clinics/", "Clinics"), ("/rescues/", "Rescues"),
-       ("/stories/", "Stories"), ("/app/", "The app"), ("/share/", "Share a story")]
+       ("/stories/", "Stories"), ("/app/", "The app"), ("/share/", "Share a story"),
+       ("/install/", "Add to home screen")]
+
+TABS = [("/", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>'),
+        ("/help/", "Help", '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"/>'),
+        ("/clinics/", "Clinics", '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
+        ("/stories/", "Stories", '<path d="M5 4h14v16H5zM9 8h6M9 12h6M9 16h3"/>'),
+        ("/app/", "App", '<rect x="7" y="2" width="10" height="20" rx="3"/><path d="M11 18h2"/>')]
+
+def tabbar(active):
+    out = ""
+    for h, t, icon in TABS:
+        on = (h == active) or (h != "/" and active.startswith(h))
+        cur = ' aria-current="page"' if on else ""
+        out += f'<a href="{h}"{cur}><svg viewBox="0 0 24 24" aria-hidden="true">{icon}</svg><span>{t}</span></a>'
+    return f'<nav class="tabbar" aria-label="App">{out}</nav>\n'
+
 
 def fix_paths(t):
     t = t.replace('src="img/', 'src="/img/')
@@ -34,16 +50,25 @@ def head(title, desc, path, img="/img/street-dog.jpg"):
 <meta property="og:image" content="{SITE}{img}">
 <meta property="og:url" content="{SITE}{path}">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/img/icon.png">
+<link rel="icon" href="/img/favicon-48.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#3d6b73">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Howlback">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+<div class="shell">
 """
 
 def header(active):
+    ACTIVE[0] = active
     cur = ' aria-current="page"'
     links = "".join(f'<a href="{h}"{cur if h == active else ""}>{t}</a>' for h, t in NAV)
     return f"""<header class="top">
@@ -51,16 +76,18 @@ def header(active):
     <a class="logo" href="/">howl<i>back</i></a>
     <nav aria-label="Main" id="site-nav">{links}</nav>
     <div class="right">
-      <a class="btn hide-sm" href="#join" data-focus-email>Get updates</a>
-      <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <a class="icon-btn" href="#join" data-focus-email aria-label="Get updates"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21h4"/></svg></a>
+      <button class="icon-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
     </div>
   </div>
 </header>
 <main id="top">
 """
 
+ACTIVE = ["/"]
 def foot():
-    return "\n" + fix_paths(P["join"]) + "\n</main>\n\n" + fix_paths(P["footer"]) + '\n<script src="/site.js"></script>\n</body>\n</html>\n'
+    return ("\n" + fix_paths(P["join"]) + "\n</main>\n\n" + fix_paths(P["footer"]) + "\n" + tabbar(ACTIVE[0]) +
+            '</div>\n<script src="/site.js"></script>\n</body>\n</html>\n')
 
 def page_head(h1, lead):
     return f"""  <div class="wrap page-head"><div class="head"><h1 style="font-size:clamp(36px,5vw,56px)">{h1}</h1><p class="lead">{lead}</p></div></div>
@@ -81,11 +108,15 @@ def card(p):
 hero = fix_paths(P["hero"])
 hero = hero.replace('class="wrap hero"', 'class="wrap hero home-hero"')
 hero = re.sub(r'<a class="where soon-pill"[^>]*>.*?</a>',
-              '<a class="where soon-pill" href="/app/">The Howlback app is coming soon. See a preview</a>', hero)
+              '<a class="where soon-pill" href="/app/">The app is coming soon. Take a peek</a>', hero)
 hero = hero.replace('href="#help"', 'href="/help/"').replace('href="#stories"', 'href="/stories/"')
 
 home = head("Howlback", "Local help for street dogs in the Rio Grande Valley: who to call, low-cost vets, vaccine clinics, rescues, and stories from South Texas.", "/")
-home += header("/") + hero
+home += header("/") + hero + """
+  <div class="wrap hide-installed" style="padding-bottom:8px">
+    <a class="install-card" href="/install/"><img src="/img/icon-192.png" alt=""><div><b>Add Howlback to your home screen</b><span>Opens like an app. No download.</span></div><span class="go">How ›</span></a>
+  </div>
+"""
 home += f"""
   <section class="stories" id="stories">
     <div class="wrap">
@@ -241,6 +272,49 @@ pg += """  <div class="wrap app-hero">
 """
 pg += foot()
 write("/app/", pg)
+
+
+# ---------- INSTALL ----------
+pg = head("Add Howlback to your home screen", "Add Howlback to your phone's home screen so it opens like an app. Steps for iPhone, Android, and Mac.", "/install/", "/img/app/home-screen.webp")
+pg += header("/install/")
+pg += """  <div class="wrap page-head"><div class="head"><h1>Add Howlback to your home screen</h1><p class="lead">It takes 10 seconds. Howlback gets its own icon and opens full screen, just like an app. No app store needed.</p></div></div>
+  <section class="page" style="padding-top:12px"><div class="wrap">
+    <div class="install-hero"><img src="/img/app/home-screen.webp" alt="A phone home screen with the Howlback app icon next to other apps"></div>
+    <button class="btn" id="install-btn" type="button" hidden style="width:100%;margin:8px 0 4px;padding:15px">Add Howlback to this phone</button>
+    <div class="os-tabs" role="tablist" aria-label="Your device">
+      <button role="tab" aria-selected="true" data-os="ios">iPhone</button>
+      <button role="tab" aria-selected="false" data-os="android">Android</button>
+      <button role="tab" aria-selected="false" data-os="mac">Computer</button>
+    </div>
+    <div data-panel="ios">
+      <ol class="howto">
+        <li><span>Open <b>howlback.app</b> in <b>Safari</b>.</span></li>
+        <li><span>Tap the <span class="kbd"><svg viewBox="0 0 24 24"><path d="M12 3v12M8 7l4-4 4 4M5 12v8h14v-8"/></svg>Share</span> button at the bottom of the screen (on iPad it’s at the top).</span></li>
+        <li><span>Scroll down and tap <b>Add to Home Screen</b>.</span></li>
+        <li><span>Tap <b>Add</b>. Howlback now opens from your home screen, full screen.</span></li>
+      </ol>
+      <p class="muted" style="margin-top:18px">Want it in Safari favorites too? Tap <span class="kbd"><svg viewBox="0 0 24 24"><path d="M12 3v12M8 7l4-4 4 4M5 12v8h14v-8"/></svg>Share</span>, then <b>Add to Favorites</b>.</p>
+    </div>
+    <div data-panel="android" hidden>
+      <ol class="howto">
+        <li><span>Open <b>howlback.app</b> in <b>Chrome</b>.</span></li>
+        <li><span>Tap the <span class="kbd"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></svg>menu</span> (three dots, top right).</span></li>
+        <li><span>Tap <b>Add to home screen</b> or <b>Install app</b>.</span></li>
+        <li><span>Tap <b>Install</b>. Howlback shows up with your other apps.</span></li>
+      </ol>
+      <p class="muted" style="margin-top:18px">To bookmark it instead, tap <span class="kbd"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></svg>menu</span>, then the ☆ star.</p>
+    </div>
+    <div data-panel="mac" hidden>
+      <ol class="howto">
+        <li><span><b>Safari on Mac:</b> open howlback.app, click <b>File</b> in the menu bar, then <b>Add to Dock</b>.</span></li>
+        <li><span><b>Chrome:</b> click the install icon at the right end of the address bar, or <span class="kbd"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></svg>menu</span> → <b>Cast, save, and share</b> → <b>Install page as app</b>.</span></li>
+        <li><span><b>Just bookmark it:</b> press <span class="kbd">⌘ D</span> on Mac or <span class="kbd">Ctrl D</span> on Windows.</span></li>
+      </ol>
+    </div>
+  </div></section>
+"""
+pg += foot()
+write("/install/", pg)
 
 # ---------- CSS ----------
 base = open(os.path.join(ROOT, "src/base.css")).read()
