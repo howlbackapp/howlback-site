@@ -167,7 +167,7 @@ if (osTabs.length) {
   };
   osTabs.forEach(b => b.addEventListener("click", () => show(b.dataset.os)));
   const ua = navigator.userAgent;
-  show(/android/i.test(ua) ? "android" : /iphone|ipad|ipod/i.test(ua) || (navigator.maxTouchPoints > 1 && /mac/i.test(ua)) ? "ios" : /mobile/i.test(ua) ? "ios" : "mac");
+  show(/android/i.test(ua) ? "android" : "ios");
 }
 let deferredInstall;
 window.addEventListener("beforeinstallprompt", e => {

@@ -275,7 +275,7 @@ write("/app/", pg)
 
 
 # ---------- INSTALL ----------
-pg = head("Add Howlback to your home screen", "Add Howlback to your phone's home screen so it opens like an app. Steps for iPhone, Android, and Mac.", "/install/", "/img/app/home-screen.webp")
+pg = head("Add Howlback to your home screen", "Add Howlback to your phone's home screen so it opens like an app. Steps for iPhone and Android.", "/install/", "/img/app/home-screen.webp")
 pg += header("/install/")
 pg += """  <div class="wrap page-head"><div class="head"><h1>Add Howlback to your home screen</h1><p class="lead">It takes 10 seconds. Howlback gets its own icon and opens full screen, just like an app. No app store needed.</p></div></div>
   <section class="page" style="padding-top:12px"><div class="wrap">
@@ -284,7 +284,6 @@ pg += """  <div class="wrap page-head"><div class="head"><h1>Add Howlback to you
     <div class="os-tabs" role="tablist" aria-label="Your device">
       <button role="tab" aria-selected="true" data-os="ios">iPhone</button>
       <button role="tab" aria-selected="false" data-os="android">Android</button>
-      <button role="tab" aria-selected="false" data-os="mac">Computer</button>
     </div>
     <div data-panel="ios">
       <ol class="howto">
@@ -303,13 +302,6 @@ pg += """  <div class="wrap page-head"><div class="head"><h1>Add Howlback to you
         <li><span>Tap <b>Install</b>. Howlback shows up with your other apps.</span></li>
       </ol>
       <p class="muted" style="margin-top:18px">To bookmark it instead, tap <span class="kbd"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></svg>menu</span>, then the ☆ star.</p>
-    </div>
-    <div data-panel="mac" hidden>
-      <ol class="howto">
-        <li><span><b>Safari on Mac:</b> open howlback.app, click <b>File</b> in the menu bar, then <b>Add to Dock</b>.</span></li>
-        <li><span><b>Chrome:</b> click the install icon at the right end of the address bar, or <span class="kbd"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></svg>menu</span> → <b>Cast, save, and share</b> → <b>Install page as app</b>.</span></li>
-        <li><span><b>Just bookmark it:</b> press <span class="kbd">⌘ D</span> on Mac or <span class="kbd">Ctrl D</span> on Windows.</span></li>
-      </ol>
     </div>
   </div></section>
 """
