@@ -308,6 +308,16 @@ pg += """  <div class="wrap page-head"><div class="head"><h1>Add Howlback to you
 pg += foot()
 write("/install/", pg)
 
+
+# ---------- SITEMAP + ROBOTS ----------
+pages = ["/", "/help/", "/clinics/", "/rescues/", "/stories/", "/share/", "/app/", "/install/"] + [f"/stories/{p['slug']}/" for p in POSTS]
+sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+for u in pages:
+    sm += f"  <url><loc>{SITE}{u}</loc></url>\n"
+sm += "</urlset>\n"
+open(os.path.join(ROOT, "sitemap.xml"), "w").write(sm)
+open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
+
 # ---------- CSS ----------
 base = open(os.path.join(ROOT, "src/base.css")).read()
 extra = open(os.path.join(ROOT, "src/extra.css")).read()
