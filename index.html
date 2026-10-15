@@ -13,7 +13,31 @@
 <meta property="og:image" content="https://howlback.app/img/street-dog.jpg">
 <meta property="og:url" content="https://howlback.app/">
 <link rel="icon" href="img/icon.png">
-<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}/* hero (compact) + quick links + join band */
+.hero{padding-block:56px 48px}
+.photo{display:flex;justify-content:flex-end}
+.photo img{max-width:380px!important;border-radius:190px 190px 28px 28px!important}
+.photo::before{width:min(100%,380px)!important;right:-18px;left:auto}
+.quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding-bottom:24px}
+.q{font:inherit;text-align:left;cursor:pointer;border:1.5px solid var(--line);background:#fff;border-radius:20px;padding:22px;display:flex;flex-direction:column;gap:6px;color:var(--ink)}
+.q b{font-family:var(--display);font-size:20px;font-weight:700}
+.q span{color:var(--muted);font-size:16px}
+.q:hover{border-color:var(--teal);background:var(--mint)}
+.join{background:var(--mint)}
+.join .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center}
+.join-copy{display:flex;flex-direction:column;gap:12px}
+.join .signup{margin:0;max-width:none;background:#fff;border-radius:24px;padding:24px}
+.join .signup form{box-shadow:none}
+@media (max-width:900px){
+  .quick{grid-template-columns:1fr}
+  .join .wrap{grid-template-columns:minmax(0,1fr);gap:28px}
+  .tabs button{padding:9px 13px;font-size:14px}
+  .photo{justify-content:flex-start}
+  .photo img{max-width:100%!important;aspect-ratio:4/3!important;border-radius:24px!important}
+  .photo::before{display:none}
+}
+
+</style>
 <style>
 /* Light only, on purpose: white page, soft mint and blush bands, teal for actions, peach used sparingly.
    Layout: calm hero with photo; photo strip; how it works (sequence); one "Local help" area with tabs
@@ -61,7 +85,7 @@ section{padding-block:88px}
 .top .btn{padding:10px 18px;font-size:15px}
 
 /* hero */
-.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding-block:64px 72px}
+.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:56px;align-items:center;padding-block:64px 72px}
 .hero-copy{display:flex;flex-direction:column;gap:22px;min-width:0}
 .where{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:var(--mint);color:var(--teal);font-weight:600;font-size:15px;border-radius:999px;padding:6px 14px}
 .soon-pill{text-decoration:none}
@@ -81,8 +105,8 @@ section{padding-block:88px}
 .err{font-weight:600;color:var(--peach-ink)}
 .signup small{color:var(--muted);font-size:14px;padding-left:4px}
 .photo{position:relative;min-width:0}
-.photo img{display:block;width:100%;max-width:440px;margin-left:auto;aspect-ratio:4/5;object-fit:cover;border-radius:200px 200px 28px 28px}
-.photo::before{content:"";position:absolute;inset:auto -18px -18px auto;width:min(100%,440px);height:70%;background:var(--blush);border-radius:28px;z-index:-1}
+.photo img{display:block;width:100%;height:auto;max-width:320px;margin-left:auto;aspect-ratio:1/1;object-fit:cover;border-radius:160px 160px 28px 28px}
+.photo::before{content:"";position:absolute;inset:auto -18px -18px auto;width:min(100%,320px);height:70%;background:var(--blush);border-radius:28px;z-index:-1}
 
 /* photo strip */
 .strip{padding-block:0 88px}
@@ -173,8 +197,8 @@ footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px}
 
 @media (max-width:900px){
   .top nav{display:none}
-  .photo img{margin-left:0;aspect-ratio:1/1;max-width:100%;border-radius:28px}
-  .photo::before{inset:auto auto -14px 14px}
+  .photo img{margin-left:0;aspect-ratio:4/3;max-width:420px;border-radius:24px}
+  .photo::before{inset:auto auto -14px 14px;width:min(100%,420px)}
   .hero,.how-more,.feat .wrap,.found{grid-template-columns:1fr}
   .hero{gap:40px;padding-top:40px}
   .photo{max-width:520px}
@@ -217,52 +241,16 @@ footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px}
       <h1>Helping the street dogs of the Valley.</h1>
       <p class="lead">Found a stray? Need a low-cost vet or a vaccine clinic? Howlback brings together local help, rescues, and stories from across South Texas.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="#help">Find local help</a><a class="btn soft" href="#stories">Read the stories</a></div>
-      <div class="signup" id="join">
-        <div class="sw" role="group" aria-label="How should we reach you?">
-          <button type="button" aria-pressed="true" data-mode="email">Email me</button>
-          <button type="button" aria-pressed="false" data-mode="text">Text me</button>
-        </div>
-        <div id="mode-email">
-          <label for="email">Get local stories, clinic dates, and first word when the app launches</label>
-          <form id="signup" action="https://howlback.beehiiv.com/subscribe" method="get" target="_blank">
-            <input id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-            <button class="btn" type="submit">Sign up</button>
-          </form>
-          <small>Free. Unsubscribe anytime.</small>
-        </div>
-        <div id="mode-text" hidden>
-          <label for="phone">Get one text when the Howlback app launches</label>
-          <form id="textform" name="launch-text" method="POST" data-netlify="true" netlify-honeypot="company">
-            <input type="hidden" name="form-name" value="launch-text">
-            <p hidden><label>Leave this empty <input name="company"></label></p>
-            <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(956) 555-0123" autocomplete="tel" pattern="[0-9()+\-. ]{10,}" required>
-            <button class="btn" type="submit">Text me</button>
-          </form>
-          <small>By signing up you agree to get texts from Howlback about the app launch. No spam. Msg and data rates may apply. Reply STOP anytime to opt out.</small>
-          <p class="ok" id="text-ok" hidden>You’re on the list. We’ll text you when the app is out.</p>
-          <p class="err" id="text-err" hidden>That didn’t go through. Check your number and try again.</p>
-        </div>
-      </div>
     </div>
     <div class="photo">
       <img src="img/street-dog.jpg" alt="A tan and black street dog with big ears sitting on concrete, looking up at the camera" width="900" height="919">
     </div>
   </div>
 
-  <div class="strip">
-    <div class="wrap">
-      <div class="strip-row">
-        <img src="img/mama-pups.jpg" alt="A mother dog lying in the dirt with three puppies climbing on her" loading="lazy">
-        <img src="img/black-pup.jpg" alt="A small black puppy standing on sandy ground" loading="lazy">
-        <img src="img/nursing-mama.jpg" alt="A thin white mother dog nursing three cream puppies on a concrete slab" loading="lazy">
-        <img src="img/trio-road.jpg" alt="A dog with mange standing on a dirt road near dumped trash bags, with two more dogs behind" loading="lazy">
-        <img src="img/brown-pup.jpg" alt="A brown puppy with a white blaze sitting in the dirt, looking up" loading="lazy">
-      </div>
-      <div class="strip-cap">
-        <span>These are the dogs Howlback is for. Every one of them needs a foster.</span>
-        <span>Rio Grande Valley. Photos by Nikki Bee.</span>
-      </div>
-    </div>
+  <div class="wrap quick" aria-label="Quick links">
+    <button type="button" class="q" data-tab="t-call"><b>Found a stray?</b><span>What to do first, and who to call in your city.</span></button>
+    <button type="button" class="q" data-tab="t-events"><b>Vaccine clinics</b><span>Free and low-cost clinics coming up around the Valley.</span></button>
+    <button type="button" class="q" data-tab="t-rescues"><b>Local rescues</b><span>24 South Texas groups saving dogs every day.</span></button>
   </div>
 
   <section id="help">
@@ -273,7 +261,7 @@ footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px}
       </div>
       <div class="tabs" role="tablist" aria-label="Local help">
         <button role="tab" id="t-call" aria-controls="p-call" aria-selected="true">Who to call</button>
-        <button role="tab" id="t-events" aria-controls="p-events" aria-selected="false" tabindex="-1">Clinics &amp; events</button>
+        <button role="tab" id="t-events" aria-controls="p-events" aria-selected="false" tabindex="-1">Clinics</button>
         <button role="tab" id="t-rescues" aria-controls="p-rescues" aria-selected="false" tabindex="-1">Rescues</button>
       </div>
 
@@ -327,6 +315,41 @@ footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px}
         <a href="https://howlback.beehiiv.com/p/rgv-pet-resource-directory" target="_blank" rel="noopener"><b>RGV Pet Resource Directory</b><span class="muted">The full list, with addresses.</span></a>
         <a href="https://howlback.beehiiv.com/" target="_blank" rel="noopener"><b>Read all stories</b><span class="muted">Rescue stories, laws, and local guides.</span></a>
       </div>
+    </div>
+  </section>
+
+  <section class="join">
+    <div class="wrap">
+      <div class="join-copy">
+        <h2>Stay in the loop</h2>
+        <p class="lead">Local stories, upcoming clinics, and first word when the Howlback app launches. By email or text, your pick.</p>
+      </div>
+    <div class="signup" id="join">
+      <div class="sw" role="group" aria-label="How should we reach you?">
+        <button type="button" aria-pressed="true" data-mode="email">Email me</button>
+        <button type="button" aria-pressed="false" data-mode="text">Text me</button>
+      </div>
+      <div id="mode-email">
+        <label for="email">Your email</label>
+        <form id="signup" action="https://howlback.beehiiv.com/subscribe" method="get" target="_blank">
+          <input id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+          <button class="btn" type="submit">Sign up</button>
+        </form>
+        <small>Free. Unsubscribe anytime.</small>
+      </div>
+      <div id="mode-text" hidden>
+        <label for="phone">Your phone number. We’ll send one text when the app launches.</label>
+        <form id="textform" name="launch-text" method="POST" data-netlify="true" netlify-honeypot="company">
+          <input type="hidden" name="form-name" value="launch-text">
+          <p hidden><label>Leave this empty <input name="company"></label></p>
+          <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(956) 555-0123" autocomplete="tel" pattern="[0-9()+\-. ]{10,}" required>
+          <button class="btn" type="submit">Text me</button>
+        </form>
+        <small>By signing up you agree to get texts from Howlback about the app launch. No spam. Msg and data rates may apply. Reply STOP anytime to opt out.</small>
+        <p class="ok" id="text-ok" hidden>You’re on the list. We’ll text you when the app is out.</p>
+        <p class="err" id="text-err" hidden>That didn’t go through. Check your number and try again.</p>
+      </div>
+    </div>
     </div>
   </section>
 
@@ -461,6 +484,12 @@ $("#textform").addEventListener("submit", async e => {
     f.hidden = true; $("#text-ok").hidden = false;
   } catch { $("#text-err").hidden = false; btn.disabled = false; }
 });
+
+/* quick links open a tab */
+document.querySelectorAll(".q").forEach(q => q.addEventListener("click", () => {
+  const t = document.getElementById(q.dataset.tab); openTab(t);
+  document.getElementById("help").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"});
+}));
 
 /* tabs */
 const tabs = [...document.querySelectorAll('[role="tab"]')];
