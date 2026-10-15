@@ -11,13 +11,13 @@ POSTS = json.load(open(os.path.join(ROOT, "src/posts.json")))
 SITE = "https://howlback.app"
 
 NAV = [("/help/", "Local help"), ("/clinics/", "Clinics"), ("/rescues/", "Rescues"),
-       ("/stories/", "Stories"), ("/app/", "The app"), ("/share/", "Share a story"),
+       ("/blog/", "Blog"), ("/app/", "The app"), ("/share/", "Share a story"),
        ("/install/", "Add to home screen")]
 
 TABS = [("/", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>'),
         ("/help/", "Help", '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"/>'),
         ("/clinics/", "Clinics", '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
-        ("/stories/", "Stories", '<path d="M5 4h14v16H5zM9 8h6M9 12h6M9 16h3"/>'),
+        ("/blog/", "Blog", '<path d="M5 4h14v16H5zM9 8h6M9 12h6M9 16h3"/>'),
         ("/app/", "App", '<rect x="7" y="2" width="10" height="20" rx="3"/><path d="M11 18h2"/>')]
 
 def tabbar(active):
@@ -101,7 +101,7 @@ def write(path, content):
 def card(p):
     img = (f'<img src="/img/{p["img"]}" alt="{html.escape(p["alt"])}" loading="lazy">' if p["img"]
            else f'<span class="noimg">{html.escape(p["title"])}</span>')
-    return (f'<a class="card" href="/stories/{p["slug"]}/">{img}<span class="topic">{p["topic"]}</span>'
+    return (f'<a class="card" href="/blog/{p["slug"]}/">{img}<span class="topic">{p["topic"]}</span>'
             f'<h3>{html.escape(p["title"])}</h3><p class="muted">{html.escape(p["desc"].split(". ")[0].rstrip("."))}.</p></a>')
 
 # ---------- HOME ----------
@@ -109,7 +109,7 @@ hero = fix_paths(P["hero"])
 hero = hero.replace('class="wrap hero"', 'class="wrap hero home-hero"')
 hero = re.sub(r'<a class="where soon-pill"[^>]*>.*?</a>',
               '<a class="where soon-pill" href="/app/">The app is coming soon. Take a peek</a>', hero)
-hero = hero.replace('href="#help"', 'href="/help/"').replace('href="#stories"', 'href="/stories/"')
+hero = hero.replace('href="#help"', 'href="/help/"').replace('href="#stories"', 'href="/blog/"')
 
 home = head("Howlback", "Local help for street dogs in the Rio Grande Valley: who to call, low-cost vets, vaccine clinics, rescues, and stories from South Texas.", "/")
 home += header("/") + hero + """
@@ -120,7 +120,7 @@ home += header("/") + hero + """
 home += f"""
   <section class="stories" id="stories">
     <div class="wrap">
-      <div class="section-top"><h2>Latest stories</h2><a class="link" href="/stories/">All stories</a></div>
+      <div class="section-top"><h2>Latest on the blog</h2><a class="link" href="/blog/">All posts</a></div>
       <div class="cards">{''.join(card(p) for p in POSTS if p["img"])[:]}</div>
     </div>
   </section>
@@ -173,20 +173,20 @@ pg += '  <section class="page"><div class="wrap">\n        <div class="rgrid" id
 write("/rescues/", pg)
 
 # ---------- STORIES ----------
-pg = head("Stories", "Rescue stories, Texas animal laws, and local dog guides from the Rio Grande Valley.", "/stories/")
-pg += header("/stories/") + page_head("Stories", "Rescue stories, Texas laws, and local guides from the Valley.")
+pg = head("Blog", "Rescue stories, Texas animal laws, and local dog guides from the Rio Grande Valley.", "/blog/")
+pg += header("/blog/") + page_head("Blog", "Rescue stories, Texas laws, and local guides from the Valley.")
 pg += f'  <section class="page"><div class="wrap"><div class="cards">{"".join(card(p) for p in POSTS)}</div></div></section>\n' + foot()
-write("/stories/", pg)
+write("/blog/", pg)
 
 for p in POSTS:
     cover = f'<img class="cover" src="/img/{p["img"]}" alt="{html.escape(p["alt"])}">' if p["img"] else ""
     srcs = "".join(f'<li><a href="{u}" target="_blank" rel="noopener">{html.escape(t)}</a></li>' for t, u in p["sources"])
-    url = f"{SITE}/stories/{p['slug']}/"
-    pg = head(p["title"], p["desc"], f"/stories/{p['slug']}/", f"/img/{p['img'] or 'street-dog.jpg'}")
-    pg += header("/stories/")
+    url = f"{SITE}/blog/{p['slug']}/"
+    pg = head(p["title"], p["desc"], f"/blog/{p['slug']}/", f"/img/{p['img'] or 'street-dog.jpg'}")
+    pg += header("/blog/")
     pg += f"""  <article class="wrap article">
     <header>
-      <a class="crumb" href="/stories/">‹ All stories</a>
+      <a class="crumb" href="/blog/">‹ All posts</a>
       <span class="topic">{p["topic"]}</span>
       <h1>{html.escape(p["title"])}</h1>
     </header>
@@ -202,7 +202,7 @@ for p in POSTS:
   </article>
 """
     pg += foot()
-    write(f"/stories/{p['slug']}/", pg)
+    write(f"/blog/{p['slug']}/", pg)
 
 # ---------- SHARE ----------
 feat = fix_paths(P["feat"]).replace('id="featured"', 'id="featured" style="background:none"')
@@ -310,7 +310,7 @@ write("/install/", pg)
 
 
 # ---------- SITEMAP + ROBOTS ----------
-pages = ["/", "/help/", "/clinics/", "/rescues/", "/stories/", "/share/", "/app/", "/install/"] + [f"/stories/{p['slug']}/" for p in POSTS]
+pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in pages:
     sm += f"  <url><loc>{SITE}{u}</loc></url>\n"
