@@ -36,8 +36,12 @@ const RES = [
 ];
 const EVENTS = [
  {date:"2026-10-17", title:"Free dog vaccines and microchips", where:"Bert Ogden Arena parking lot, Edinburg", time:"Starts 8 AM, first 100 dogs", items:["Rabies and DAPPv vaccines, plus microchips","Dogs 12 weeks and up, leashed, max 3 per family","Hosted by Yaqui Animal Rescue and Bert Ogden Subaru"], link:"https://foxrgv.tv/free-dog-vaccination-and-microchip-clinic-scheduled-in-edinburg-on-october-17th/", linkText:"Event details"},
+ {date:"2026-10-17", title:"Howlin' Harvest fall festival", where:"Laurie P. Andrews Center, 2451 N US Expressway 281, Edinburg", time:"5 to 9 PM", items:["Family games and pet-friendly activities","Helps the animals at Palm Valley Animal Society"], link:"https://www.pvastx.org/events", linkText:"Event details"},
+ {date:"2026-10-24", title:"Community vaccine clinic", where:"Palm Valley Animal Society, Edinburg", time:"Line starts at 9 AM", items:["Low-cost vaccines and microchips for dogs and cats","Up to 4 pets per vehicle, 2 per handler","Card payment only"], link:"https://www.pvastx.org/communityclinic", linkText:"Clinic info"},
+ {date:"2026-10-25", title:"Barktoberfest", where:"Hopper Haus, 418 E Queen Isabella Blvd, Port Isabel", time:"Starts 1 PM", items:["Pet costume contests, raffles, and food specials","Benefits Laguna Madre Humane Society"], link:"https://business.spichamber.com/events/details/barktoberfest-2026-17543", linkText:"Event details"},
  {date:"2026-10-31", title:"Low-cost vaccine clinic", where:"RGV Humane Society, 18038 Garrett Rd, Harlingen", time:"9 to 11:30 AM, pre-registration required", items:["Rabies $13, DHPPV $16, microchip $11","Flea, tick, and heartworm meds available","Pets must ride inside the vehicle"], link:"https://www.rgvhs.org/monthly-clinic", linkText:"Register"},
  {date:"", title:"Monthly community clinic", where:"Palm Valley Animal Society, Edinburg", time:"Monthly, call for dates", items:["Low-cost vaccines and microchips","Open to all pets, not just adoptions","Card payment only"], link:"https://www.pvastx.org/communityclinic", linkText:"Clinic info"},
+ {date:"", title:"Weekend adoptions in McAllen", where:"PetSmart and Petco near 10th St and Trenton Rd, McAllen", time:"Sundays 12:30 to 5:30 PM", items:["Meet adoptable dogs from Palm Valley Animal Society"], link:"https://www.pvastx.org/events", linkText:"Event details"},
 ];
 const RESCUES = [
  ["A Long Walk Home Rescue","Rio Grande Valley","facebook.com/ALongWalkHome956"],
