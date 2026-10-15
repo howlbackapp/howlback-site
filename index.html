@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Howlback</title>
+<meta name="description" content="Local help for street dogs in the Rio Grande Valley: who to call, low-cost vets, vaccine clinics, rescues, and stories from South Texas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<meta property="og:title" content="Howlback">
+<meta property="og:description" content="Local help, rescues, and stories for the street dogs of the Rio Grande Valley.">
+<meta property="og:image" content="https://howlback.app/img/street-dog.jpg">
+<meta property="og:url" content="https://howlback.app/">
+<link rel="icon" href="img/icon.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+/* Light only, on purpose: white page, soft mint and blush bands, teal for actions, peach used sparingly.
+   Layout: calm hero with photo; photo strip; how it works (sequence); one "Local help" area with tabs
+   (Who to call / Clinics & events / Rescues) so the long lists don't stack up; stories; get featured; footer. */
+:root{
+  color-scheme:light;
+  --teal:#3d6b73; --teal-dark:#2f565d; --peach:#f4a582; --peach-ink:#b4532a;
+  --mint:#eef6f2; --mint-2:#dcefe8; --blush:#fdf0e9;
+  --bg:#ffffff; --ink:#1f3a3f; --muted:#5f7174; --line:#e6ebe8;
+  --display:"Bricolage Grotesque","Avenir Next",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px;background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;color:var(--ink)}
+h1{font-size:clamp(40px,6vw,68px);line-height:1.02;font-weight:700;letter-spacing:-.025em}
+h2{font-size:clamp(28px,3.4vw,40px);line-height:1.1;font-weight:700;letter-spacing:-.02em}
+h3{font-size:19px;line-height:1.3;font-weight:700;letter-spacing:-.005em}
+p{margin:0}
+.muted{color:var(--muted)}
+.lead{font-size:19px;color:var(--muted);max-width:56ch}
+section{padding-block:88px}
+.head{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:40px;max-width:640px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-weight:700;font-size:16px;text-decoration:none;border:0;border-radius:999px;padding:13px 22px;background:var(--teal);color:#fff;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--teal-dark)}
+.btn.soft{background:var(--mint-2);color:var(--ink)}
+.btn.soft:hover{background:#cde6dc}
+.link{color:var(--teal);font-weight:700;text-decoration:none}
+.link:hover{text-decoration:underline}
+:focus-visible{outline:3px solid var(--peach);outline-offset:3px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* nav */
+.top{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
+.logo{font-family:var(--display);font-weight:800;font-size:25px;letter-spacing:-.02em;color:var(--teal);text-decoration:none}
+.logo i{font-style:normal;color:var(--peach)}
+.top nav{display:flex;gap:28px;font-weight:600;font-size:15px}
+.top nav a{text-decoration:none;color:var(--muted)}
+.top nav a:hover{color:var(--ink)}
+.top .btn{padding:10px 18px;font-size:15px}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;padding-block:64px 72px}
+.hero-copy{display:flex;flex-direction:column;gap:22px;min-width:0}
+.where{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;background:var(--mint);color:var(--teal);font-weight:600;font-size:15px;border-radius:999px;padding:6px 14px}
+.soon-pill{text-decoration:none}
+.soon-pill:hover{background:var(--mint-2)}
+.where::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--peach)}
+.signup{display:flex;flex-direction:column;gap:10px;margin-top:6px;max-width:470px}
+.signup label{font-weight:700}
+.signup form{display:flex;gap:8px;background:#fff;border:1.5px solid var(--line);border-radius:999px;padding:6px;box-shadow:0 8px 28px rgba(31,58,63,.07)}
+.signup form:focus-within{border-color:var(--teal)}
+.signup input{flex:1;min-width:0;font:inherit;padding:10px 14px;border:0;background:transparent;color:var(--ink);outline:none}
+.sw{display:flex;gap:4px;background:var(--mint);border-radius:999px;padding:4px;align-self:flex-start}
+.sw button{font:inherit;font-size:14px;font-weight:700;border:0;background:transparent;color:var(--muted);border-radius:999px;padding:7px 14px;cursor:pointer}
+.sw button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(31,58,63,.08)}
+#mode-email,#mode-text{display:flex;flex-direction:column;gap:10px}
+#mode-email[hidden],#mode-text[hidden]{display:none}
+.ok{font-weight:700;color:var(--teal)}
+.err{font-weight:600;color:var(--peach-ink)}
+.signup small{color:var(--muted);font-size:14px;padding-left:4px}
+.photo{position:relative;min-width:0}
+.photo img{display:block;width:100%;max-width:440px;margin-left:auto;aspect-ratio:4/5;object-fit:cover;border-radius:200px 200px 28px 28px}
+.photo::before{content:"";position:absolute;inset:auto -18px -18px auto;width:min(100%,440px);height:70%;background:var(--blush);border-radius:28px;z-index:-1}
+
+/* photo strip */
+.strip{padding-block:0 88px}
+.strip-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.strip-row img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:18px;display:block;background:var(--mint)}
+.strip-cap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:15px;color:var(--muted)}
+
+/* how it works */
+.how{background:var(--mint)}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px;counter-reset:s;position:relative}
+.steps li{display:flex;flex-direction:column;gap:8px;min-width:0;position:relative}
+.steps li::before{counter-increment:s;content:counter(s);width:44px;height:44px;border-radius:50%;background:#fff;color:var(--teal);display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:20px;margin-bottom:8px;box-shadow:0 0 0 6px var(--mint);position:relative;z-index:1}
+.steps::before{content:"";position:absolute;top:22px;left:22px;right:calc(33.333% - 22px);height:2px;background:var(--mint-2)}
+.how-more{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:64px;padding-top:48px;border-top:1px solid var(--mint-2)}
+.how-more > div{display:flex;flex-direction:column;gap:16px;min-width:0}
+.checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+.checks li{display:flex;gap:12px}
+.checks svg{flex:none;width:22px;height:22px;color:var(--teal);margin-top:2px}
+.plain{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.plain li::marker{color:var(--peach)}
+
+/* local help */
+.tabs{display:flex;gap:6px;background:var(--mint);border-radius:999px;padding:5px;align-self:flex-start;margin-bottom:36px;overflow-x:auto;max-width:100%}
+.tabs button{font:inherit;font-weight:700;font-size:15px;border:0;background:transparent;color:var(--muted);border-radius:999px;padding:10px 18px;cursor:pointer;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:#fff;color:var(--ink);box-shadow:0 2px 8px rgba(31,58,63,.08)}
+.found{background:var(--blush);border-radius:24px;padding:28px;margin-bottom:40px;display:grid;grid-template-columns:200px 1fr;gap:24px}
+.found ol{margin:0;padding-left:22px;display:grid;grid-template-columns:1fr 1fr;gap:10px 32px}
+.found li::marker{font-weight:700;color:var(--peach-ink)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.tools input,.tools select{font:inherit;font-size:16px;padding:12px 16px;border-radius:999px;border:1.5px solid var(--line);background:#fff;color:var(--ink)}
+.tools input{flex:1 1 260px;min-width:0}
+.tools input:focus,.tools select:focus{border-color:var(--teal);outline:none}
+.cats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.cats button{font:inherit;font-size:14px;font-weight:600;border:1.5px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:7px 14px;cursor:pointer}
+.cats button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.list{border-top:1px solid var(--line)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 24px;padding:18px 4px;border-bottom:1px solid var(--line)}
+.row b{font-weight:700}
+.row .sub{color:var(--muted);font-size:15px}
+.row .kind{color:var(--peach-ink);font-size:14px;font-weight:600}
+.row .ph{grid-row:1/4;grid-column:2;align-self:center;font-weight:700;color:var(--teal);text-decoration:none;font-variant-numeric:tabular-nums;white-space:nowrap}
+.row .ph:hover{text-decoration:underline}
+.showall{margin-top:16px;align-self:flex-start}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.ev{display:flex;flex-direction:column}
+.e{display:grid;grid-template-columns:110px minmax(0,1fr);gap:28px;padding:28px 0;border-bottom:1px solid var(--line)}
+.e:first-child{border-top:1px solid var(--line)}
+.cal{background:var(--mint);border-radius:18px;padding:14px 10px;text-align:center;align-self:start;font-family:var(--display)}
+.cal b{display:block;font-size:38px;line-height:1;color:var(--teal);font-weight:700}
+.cal span{display:block;font-size:14px;font-weight:600;color:var(--muted);margin-top:4px}
+.e-body{display:flex;flex-direction:column;gap:6px}
+.e-body ul{margin:6px 0 4px;padding-left:20px;color:var(--muted);font-size:16px}
+.rgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 32px;border-top:1px solid var(--line)}
+.r{padding:16px 2px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:1px;min-width:0}
+.r small{color:var(--muted);font-size:14px}
+.r a{font-size:14px;color:var(--teal);font-weight:600;text-decoration:none;overflow-wrap:anywhere}
+.r a:hover{text-decoration:underline}
+.note-box{margin-top:28px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--mint);border-radius:20px;padding:20px 24px}
+
+/* stories */
+.stories{background:#fafbf9;border-top:1px solid var(--line)}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.card{display:flex;flex-direction:column;gap:10px;text-decoration:none;min-width:0}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:20px;display:block;margin-bottom:6px}
+.card:hover h3{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.card .topic{font-size:14px;font-weight:600;color:var(--peach-ink)}
+.more-stories{margin-top:48px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;border-top:1px solid var(--line);padding-top:28px}
+.more-stories a{text-decoration:none;display:flex;flex-direction:column;gap:4px}
+.more-stories a:hover b{text-decoration:underline}
+
+/* featured */
+.feat{background:var(--blush)}
+.feat .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.feat .box{background:#fff;border-radius:24px;padding:28px;display:flex;flex-direction:column;gap:14px}
+.feat .box ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.mail{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.mail code{font-family:var(--body);font-weight:700;font-size:18px;background:var(--mint);border-radius:12px;padding:9px 14px;user-select:all}
+
+/* footer */
+footer{padding-block:56px;border-top:1px solid var(--line)}
+footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
+.social{display:flex;gap:10px;flex-wrap:wrap}
+.social a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:600;font-size:15px;border:1.5px solid var(--line);border-radius:999px;padding:9px 15px}
+.social a:hover{border-color:var(--teal);color:var(--teal)}
+.social svg{width:18px;height:18px}
+.fine{font-size:14px;color:var(--muted);max-width:52ch}
+
+@media (max-width:900px){
+  .top nav{display:none}
+  .photo img{margin-left:0;aspect-ratio:1/1;max-width:100%;border-radius:28px}
+  .photo::before{inset:auto auto -14px 14px}
+  .hero,.how-more,.feat .wrap,.found{grid-template-columns:1fr}
+  .hero{gap:40px;padding-top:40px}
+  .photo{max-width:520px}
+  .steps{grid-template-columns:1fr;gap:28px}
+  .steps::before{display:none}
+  .strip-row{grid-template-columns:repeat(5,minmax(150px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px}
+  .strip-row img{scroll-snap-align:start}
+  .cards,.more-stories{grid-template-columns:1fr}
+  .rgrid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  section{padding-block:64px}
+  .rgrid,.found ol{grid-template-columns:1fr}
+  .e{grid-template-columns:1fr;gap:14px}
+  .cal{display:flex;align-items:baseline;gap:10px;align-self:flex-start;padding:10px 16px}
+  .cal span{margin:0}
+  .cal b{font-size:26px}
+  .row{grid-template-columns:1fr}
+  .row .ph{grid-row:auto;grid-column:1}
+  .top .btn{padding:9px 14px;font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#top">howl<i>back</i></a>
+    <nav aria-label="Main">
+      <a href="#help">Local help</a><a href="#stories">Stories</a><a href="#featured">Share a story</a>
+    </nav>
+    <a class="btn" href="#join" data-focus-email>Get email updates</a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div class="hero-copy">
+      <a class="where soon-pill" href="#join" data-focus-email>The Howlback app is coming soon. Get first word</a>
+      <h1>Helping the street dogs of the Valley.</h1>
+      <p class="lead">Found a stray? Need a low-cost vet or a vaccine clinic? Howlback brings together local help, rescues, and stories from across South Texas.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="#help">Find local help</a><a class="btn soft" href="#stories">Read the stories</a></div>
+      <div class="signup" id="join">
+        <div class="sw" role="group" aria-label="How should we reach you?">
+          <button type="button" aria-pressed="true" data-mode="email">Email me</button>
+          <button type="button" aria-pressed="false" data-mode="text">Text me</button>
+        </div>
+        <div id="mode-email">
+          <label for="email">Get local stories, clinic dates, and first word when the app launches</label>
+          <form id="signup" action="https://howlback.beehiiv.com/subscribe" method="get" target="_blank">
+            <input id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+            <button class="btn" type="submit">Sign up</button>
+          </form>
+          <small>Free. Unsubscribe anytime.</small>
+        </div>
+        <div id="mode-text" hidden>
+          <label for="phone">Get one text when the Howlback app launches</label>
+          <form id="textform" name="launch-text" method="POST" data-netlify="true" netlify-honeypot="company">
+            <input type="hidden" name="form-name" value="launch-text">
+            <p hidden><label>Leave this empty <input name="company"></label></p>
+            <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(956) 555-0123" autocomplete="tel" pattern="[0-9()+\-. ]{10,}" required>
+            <button class="btn" type="submit">Text me</button>
+          </form>
+          <small>By signing up you agree to get texts from Howlback about the app launch. No spam. Msg and data rates may apply. Reply STOP anytime to opt out.</small>
+          <p class="ok" id="text-ok" hidden>You’re on the list. We’ll text you when the app is out.</p>
+          <p class="err" id="text-err" hidden>That didn’t go through. Check your number and try again.</p>
+        </div>
+      </div>
+    </div>
+    <div class="photo">
+      <img src="img/street-dog.jpg" alt="A tan and black street dog with big ears sitting on concrete, looking up at the camera" width="900" height="919">
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="wrap">
+      <div class="strip-row">
+        <img src="img/mama-pups.jpg" alt="A mother dog lying in the dirt with three puppies climbing on her" loading="lazy">
+        <img src="img/black-pup.jpg" alt="A small black puppy standing on sandy ground" loading="lazy">
+        <img src="img/nursing-mama.jpg" alt="A thin white mother dog nursing three cream puppies on a concrete slab" loading="lazy">
+        <img src="img/trio-road.jpg" alt="A dog with mange standing on a dirt road near dumped trash bags, with two more dogs behind" loading="lazy">
+        <img src="img/brown-pup.jpg" alt="A brown puppy with a white blaze sitting in the dirt, looking up" loading="lazy">
+      </div>
+      <div class="strip-cap">
+        <span>These are the dogs Howlback is for. Every one of them needs a foster.</span>
+        <span>Rio Grande Valley. Photos by Nikki Bee.</span>
+      </div>
+    </div>
+  </div>
+
+  <section id="help">
+    <div class="wrap" style="display:flex;flex-direction:column">
+      <div class="head">
+        <h2>Local help in the Valley</h2>
+        <p class="lead">Who to call, upcoming clinics, and the rescues doing the work. Hours change often, so call ahead.</p>
+      </div>
+      <div class="tabs" role="tablist" aria-label="Local help">
+        <button role="tab" id="t-call" aria-controls="p-call" aria-selected="true">Who to call</button>
+        <button role="tab" id="t-events" aria-controls="p-events" aria-selected="false" tabindex="-1">Clinics &amp; events</button>
+        <button role="tab" id="t-rescues" aria-controls="p-rescues" aria-selected="false" tabindex="-1">Rescues</button>
+      </div>
+
+      <div role="tabpanel" id="p-call" aria-labelledby="t-call">
+        <div class="found">
+          <h3>Found a stray? Start here.</h3>
+          <ol>
+            <li>Keep yourself safe. Don’t grab a scared or hurt dog.</li>
+            <li>Get them scanned for a microchip. Many vets and shelters do it free.</li>
+            <li>Post a photo in your city’s lost and found pets group.</li>
+            <li>Can’t keep them? Call your city’s shelter or animal control below.</li>
+          </ol>
+        </div>
+        <div class="tools">
+          <input id="q" type="search" placeholder="Search by name or city" aria-label="Search resources">
+          <select id="city" aria-label="Filter by city"></select>
+        </div>
+        <div class="cats" id="cats" role="group" aria-label="Filter by type"></div>
+        <div class="list" id="res" aria-live="polite"></div>
+        <button class="btn soft showall" type="button" id="showall" hidden></button>
+      </div>
+
+      <div role="tabpanel" id="p-events" aria-labelledby="t-events" hidden>
+        <div class="ev" id="ev"></div>
+        <p class="muted" style="margin-top:20px">Know of a clinic we missed? Email <a class="link" href="mailto:hello@howlback.app">hello@howlback.app</a>.</p>
+      </div>
+
+      <div role="tabpanel" id="p-rescues" aria-labelledby="t-rescues" hidden>
+        <p class="muted" style="margin-bottom:20px;max-width:60ch">Most South Texas rescues are foster-based and don’t take drop-offs, so reach out online first.</p>
+        <div class="rgrid" id="rg"></div>
+        <div class="note-box">
+          <p><b>Run a rescue?</b> Want your info updated, removed, or your dogs featured?</p>
+          <a class="btn" href="#featured">Contact us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stories" id="stories">
+    <div class="wrap">
+      <div class="head">
+        <h2>From the Howlback blog</h2>
+      </div>
+      <div class="cards">
+        <a class="card" href="https://howlback.beehiiv.com/p/how-many-stray-dogs-are-on-valley-streets" target="_blank" rel="noopener"><img src="img/husky-mange.jpg" alt="A blue-eyed stray with mange standing in a dirt lot" loading="lazy"><span class="topic">RGV numbers</span><h3>How many stray dogs are on Valley streets?</h3><p class="muted">The numbers behind the dogs you see every day.</p></a>
+        <a class="card" href="https://howlback.beehiiv.com/p/dumping-a-dog-is-a-crime-in-texas" target="_blank" rel="noopener"><img src="img/dumped-trash.jpg" alt="A thin dog searching a pile of dumped trash bags beside a dirt road" loading="lazy"><span class="topic">Know the law</span><h3>Dumping a dog is a crime in Texas</h3><p class="muted">What the law says, and what to do if you see it happen.</p></a>
+        <a class="card" href="https://howlback.beehiiv.com/p/recently-adopted-a-dog-in-brownsville" target="_blank" rel="noopener"><img src="img/rescue-dog.jpg" alt="A happy shepherd mix in a harness lying on a dog cot" loading="lazy"><span class="topic">Brownsville</span><h3>Recently adopted a dog in Brownsville?</h3><p class="muted">Trails, dog parks, pup cups, patios, and vets.</p></a>
+      </div>
+      <div class="more-stories">
+        <a href="https://howlback.beehiiv.com/p/texas-banned-chaining-dogs-here-s-what-the-law-says" target="_blank" rel="noopener"><b>Texas banned chaining dogs</b><span class="muted">What every dog tied up outside must have.</span></a>
+        <a href="https://howlback.beehiiv.com/p/rgv-pet-resource-directory" target="_blank" rel="noopener"><b>RGV Pet Resource Directory</b><span class="muted">The full list, with addresses.</span></a>
+        <a href="https://howlback.beehiiv.com/" target="_blank" rel="noopener"><b>Read all stories</b><span class="muted">Rescue stories, laws, and local guides.</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="feat" id="featured">
+    <div class="wrap">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h2>Have a rescue story? Share it.</h2>
+        <p class="lead" style="color:var(--ink)">We feature local fosters, rescuers, and adopted dogs in the Howlback newsletter. Rescues and businesses can also reach us here to update a listing.</p>
+      </div>
+      <div class="box">
+        <b>Email us your story</b>
+        <div class="mail"><code id="addr">hello@howlback.app</code><button class="btn soft" type="button" id="copy" style="padding:9px 18px">Copy</button></div>
+        <p>Include:</p>
+        <ul>
+          <li>The dog’s name and city</li>
+          <li>How you found them and how they’re doing now</li>
+          <li>2 or 3 photos you took</li>
+          <li>How you’d like to be credited</li>
+        </ul>
+        <small class="muted">By sending photos you confirm they’re yours and okay for us to share.</small>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <a class="logo" href="#top">howl<i>back</i></a>
+      <p class="fine">Local help, rescues, and stories for the street dogs of South Texas.</p>
+      <p class="fine">Listings are for information only. Call ahead to confirm hours and services.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <b>Follow Howlback</b>
+      <div class="social">
+        <a href="https://www.instagram.com/howlback.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=61595201828343" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v7h4v-7h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg>Facebook</a>
+        <a href="https://www.tiktok.com/@howlback.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 3c.4 2.4 1.9 4 4.5 4.2v3.4c-1.6 0-3.1-.5-4.4-1.4v6.3A5.5 5.5 0 1 1 10.6 10v3.5a2 2 0 1 0 1.9 2V3z"/></svg>TikTok</a>
+        <a href="#join" data-focus-email><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Get email updates</a>
+      </div>
+      <p class="fine">Contact: hello@howlback.app<br>© 2026 Howlback</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+const RES = [
+ // [name, type, city, address, phone, note]
+ ["Brownsville Animal Regulation and Care Center (BARC)","Shelter & animal control","Brownsville","416 FM 511, Olmito","(956) 544-7351",""],
+ ["City of Harlingen Animal Shelter","Shelter & animal control","Harlingen","1106 Markowsky Ave","(956) 216-5250",""],
+ ["Cameron County Animal Shelter","Shelter & animal control","San Benito","26981 FM 510","(956) 361-8206",""],
+ ["San Benito Animal Control","Shelter & animal control","San Benito","401 N Sam Houston Blvd","(956) 361-3804",""],
+ ["Palm Valley Animal Society, Laurie P. Andrews Center","Shelter & animal control","Edinburg","2451 N Expressway 281","(956) 720-4563","Has a foster program and monthly low-cost clinics"],
+ ["Palm Valley Animal Society, Trenton Center","Shelter & animal control","Edinburg","2501 W Trenton Rd","(956) 686-1141",""],
+ ["McAllen Animal Care Services","Shelter & animal control","McAllen","311 N 15th St","(956) 681-1919",""],
+ ["Edinburg Animal Care Services","Shelter & animal control","Edinburg","1301 N Doolittle Rd","(956) 316-2185",""],
+ ["Pharr Animal Control","Shelter & animal control","Pharr","1015 E Ferguson Ave","(956) 402-4350",""],
+ ["Mission Animal Shelter","Shelter & animal control","Mission","227 Abelino Farias St","(956) 580-8741",""],
+ ["Weslaco Animal Care Services","Shelter & animal control","Weslaco","1912 Joe Stephens Ave","(956) 447-3406",""],
+ ["Hidalgo County Animal Control","Shelter & animal control","Edinburg","1304 S 25th Ave","(956) 383-0111","For areas outside city limits"],
+ ["Brownsville Spay Neuter Clinic","Low-cost vet & vaccines","Brownsville","1050 MacKintosh Dr, Ste A","(956) 550-8366",""],
+ ["Laguna Madre Humane Society","Low-cost vet & vaccines","Port Isabel","417 1/2 E Maxan St","(956) 266-3140","Low-cost clinic for the island and Laguna Vista area"],
+ ["Rio Grande Valley Humane Society","Low-cost vet & vaccines","Harlingen","18038 Garrett Rd","(956) 556-5885","Monthly low-cost vaccine clinic and spay/neuter"],
+ ["RGV Low Cost Spay/Neuter Clinic","Low-cost vet & vaccines","McAllen","500 E Hackberry Ave, Ste 100 B","(956) 687-7728",""],
+ ["Texas Wellness Spay and Neuter Clinic","Low-cost vet & vaccines","McAllen","901 N Ware Rd","(956) 638-2970",""],
+ ["YMR Veterinary Services","Low-cost vet & vaccines","McAllen","1912 Beaumont Ave","(956) 306-8868",""],
+ ["Ram Spay & Neuter Wellness Clinic","Low-cost vet & vaccines","McAllen","800 E Dove Ave, Ste L","(956) 322-3877",""],
+ ["Pet Doctor 911","Urgent & after-hours vet","McAllen","7017 N 10th St","(956) 683-7387","Open 24/7"],
+ ["McAllen Urgent Vet","Urgent & after-hours vet","McAllen","101 E Expressway 83, Ste 140","(956) 803-0191",""],
+ ["Harlingen Urgent Vet","Urgent & after-hours vet","Harlingen","6710 W Expressway 83, Ste 105","(956) 654-4887",""],
+ ["WeekendVET","Urgent & after-hours vet","Brownsville","2908 W Alton Gloor Blvd","(956) 370-3600","Open weekends"],
+ ["Boca Chica Animal Hospital","Urgent & after-hours vet","Brownsville","1245 Frontage Rd","(956) 441-2287",""],
+ ["RGVHS Pet Pantry","Pet food help","Harlingen","1106 Markowsky Ave","(956) 425-7297","Free pet food when donations allow. Call ahead"],
+ ["Food for Hunger WME","Pet food help","Alton","1115 S Maryland St","(956) 585-9966",""],
+ ["San Benito Food Pantry","Pet food help","San Benito","2007 E Expressway","(956) 399-1659",""],
+ ["PetSmart","Pet supplies","Brownsville","585 Morrison Rd","(956) 350-0608",""],
+ ["The Paw Pantry","Pet supplies","Harlingen","707 N 77 Sunshine Strip","(956) 412-7297",""],
+ ["Pet Supplies Plus","Pet supplies","McAllen","5800 N 10th St, Ste 800","(956) 331-8451","Self-serve dog wash"],
+ ["Pet-Max","Pet supplies","McAllen","520 S 10th St","(956) 322-3237",""],
+ ["Paw Organic","Pet supplies","McAllen","1109 W Nolana Ave, Ste 303","(956) 522-1795",""],
+ ["SBCQueen Bully and Pet Supplies","Pet supplies","Alamo","835 US 83 Frontage Rd S","(956) 648-9412",""],
+];
+const EVENTS = [
+ {date:"2026-10-17", title:"Free dog vaccines and microchips", where:"Bert Ogden Arena parking lot, Edinburg", time:"Starts 8 AM, first 100 dogs", items:["Rabies and DAPPv vaccines, plus microchips","Dogs 12 weeks and up, leashed, max 3 per family","Hosted by Yaqui Animal Rescue and Bert Ogden Subaru"], link:"https://foxrgv.tv/free-dog-vaccination-and-microchip-clinic-scheduled-in-edinburg-on-october-17th/", linkText:"Event details"},
+ {date:"2026-10-31", title:"Low-cost vaccine clinic", where:"RGV Humane Society, 18038 Garrett Rd, Harlingen", time:"9 to 11:30 AM, pre-registration required", items:["Rabies $13, DHPPV $16, microchip $11","Flea, tick, and heartworm meds available","Pets must ride inside the vehicle"], link:"https://www.rgvhs.org/monthly-clinic", linkText:"Register"},
+ {date:"", title:"Monthly community clinic", where:"Palm Valley Animal Society, Edinburg", time:"Monthly, call for dates", items:["Low-cost vaccines and microchips","Open to all pets, not just adoptions","Card payment only"], link:"https://www.pvastx.org/communityclinic", linkText:"Clinic info"},
+];
+const RESCUES = [
+ ["A Long Walk Home Rescue","Rio Grande Valley","facebook.com/ALongWalkHome956"],
+ ["Ana's Safe Haven Rescue","Harlingen","anassafehavenrescue.org"],
+ ["Answering a Stray Dog's Prayer","Edinburg","answeringastraydogsprayer.org"],
+ ["Bee's Animal Safe Haven","Rio Grande Valley","facebook.com/beesanimalsafehaven"],
+ ["Border Paws of the RGV","Rio Grande Valley","linktr.ee/borderpawsrgv"],
+ ["Brownsville Animal Defense","Brownsville","brownsvilleanimaldefense.org"],
+ ["Cinderella Pet Rescue","Peñitas","cinderella-pet-rescue.org"],
+ ["Donja's Dogs","Harlingen","donjasdogs.com"],
+ ["Forgotten Friends Texas Rescue","Mission","forgotten-friends.org"],
+ ["Friends of Animal Rescue","South Padre Island","spifriendsofanimalrescue.com"],
+ ["Harley's Hounds","Harlingen","harleyshoundsinc.com"],
+ ["Lucky's Legacy Animal Rescue","Weslaco","facebook.com/LuckysLegacyAR"],
+ ["Luv Us Mutts","Mission","luvusmutts.com"],
+ ["No-Kill RGV Coalition","San Juan","nkrgvcoalition.org"],
+ ["Paws and Strides Rescue","San Benito","pawsandstridesrescue.org"],
+ ["Paws Fur Help","McAllen","pawsfurhelp.org"],
+ ["PawStories","Mission","pawstories.pet"],
+ ["Recycled Rovers & Friends","Donna","recycledroversrgv.com"],
+ ["RGV Paws Huellitas del Valle","Mission","facebook.com/RGVPawsHuellitasDelValle"],
+ ["Sanctuary Park Rescue","Brownsville","sanctuaryparkrescue.org"],
+ ["South Texas Rescue Network","San Benito","facebook.com/SouthTexasRescueandNetwork"],
+ ["Texas Pet Rescue","Brownsville","texaspetrescue.net"],
+ ["Valley Paws Animal Rescue","Weslaco","facebook.com/valleypawsrgv"],
+ ["Yaqui Animal Rescue","Sullivan City","yaquianimalrescue.com"],
+];
+
+const $ = s => document.querySelector(s);
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* signup: email or text */
+document.querySelectorAll(".sw button").forEach(b => b.addEventListener("click", () => {
+  const m = b.dataset.mode;
+  document.querySelectorAll(".sw button").forEach(x => x.setAttribute("aria-pressed", x === b));
+  $("#mode-email").hidden = m !== "email"; $("#mode-text").hidden = m !== "text";
+  (m === "email" ? $("#email") : $("#phone")).focus();
+}));
+$("#textform").addEventListener("submit", async e => {
+  e.preventDefault();
+  const f = e.target, btn = f.querySelector("button");
+  btn.disabled = true; $("#text-err").hidden = true;
+  try {
+    const r = await fetch("/", {method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body:new URLSearchParams(new FormData(f)).toString()});
+    if (!r.ok) throw 0;
+    f.hidden = true; $("#text-ok").hidden = false;
+  } catch { $("#text-err").hidden = false; btn.disabled = false; }
+});
+
+/* tabs */
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function openTab(t){
+  tabs.forEach(x => { const on = x === t; x.setAttribute("aria-selected", on); x.tabIndex = on ? 0 : -1; document.getElementById(x.getAttribute("aria-controls")).hidden = !on; });
+}
+tabs.forEach((t,i) => {
+  t.addEventListener("click", () => openTab(t));
+  t.addEventListener("keydown", e => {
+    if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+    const n = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length]; openTab(n); n.focus();
+  });
+});
+
+/* email links focus the signup box */
+document.querySelectorAll("[data-focus-email]").forEach(a => a.addEventListener("click", () => setTimeout(() => $("#email").focus({preventScroll:true}), 450)));
+
+/* resources */
+const CATS = ["All", ...new Set(RES.map(r => r[1]))];
+const CITIES = ["All cities", ...[...new Set(RES.map(r => r[2]))].sort()];
+let cat = "All";
+$("#city").innerHTML = CITIES.map(c => `<option>${esc(c)}</option>`).join("");
+$("#cats").innerHTML = CATS.map(c => `<button type="button" aria-pressed="${c===cat}">${esc(c)}</button>`).join("");
+$("#cats").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  cat = b.textContent; all = false;
+  [...$("#cats").children].forEach(x => x.setAttribute("aria-pressed", x === b));
+  draw();
+});
+let all = false;
+$("#showall").addEventListener("click", () => { all = true; draw(); });
+$("#q").addEventListener("input", draw);
+$("#city").addEventListener("change", () => { all = false; draw(); });
+function draw(){
+  const q = $("#q").value.trim().toLowerCase(), city = $("#city").value;
+  const list = RES.filter(r => (cat==="All" || r[1]===cat) && (city==="All cities" || r[2]===city) && (!q || (r[0]+" "+r[2]+" "+r[3]).toLowerCase().includes(q)));
+  const LIMIT = 8, shown = (all || q) ? list : list.slice(0, LIMIT);
+  $("#showall").hidden = shown.length === list.length;
+  $("#showall").textContent = `Show all ${list.length}`;
+  $("#res").innerHTML = list.length ? shown.map(r => `
+    <div class="row"><b>${esc(r[0])}</b>
+      <a class="ph" href="tel:${r[4].replace(/\D/g,"")}">${esc(r[4])}</a>
+      <span class="sub">${esc(r[3])}, ${esc(r[2])}${r[5] ? ". " + esc(r[5]) : ""}</span>
+      <span class="kind">${esc(r[1])}</span></div>`).join("")
+    : `<p class="empty">Nothing matches that search. Try another city or type.</p>`;
+}
+draw();
+
+/* events */
+const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const today = new Date(); today.setHours(0,0,0,0);
+const upcoming = EVENTS.filter(e => !e.date || new Date(e.date+"T23:59:59") >= today);
+$("#ev").innerHTML = upcoming.map(e => {
+  let d = `<div class="cal"><span>Monthly</span></div>`;
+  if (e.date){ const [y,m,dd] = e.date.split("-").map(Number); const wd = new Date(y,m-1,dd).toLocaleDateString("en-US",{weekday:"short"}); d = `<div class="cal"><b>${dd}</b><span>${MON[m-1]}, ${wd}</span></div>`; }
+  return `<article class="e">${d}<div class="e-body"><h3>${esc(e.title)}</h3><p><b style="font-weight:600">${esc(e.where)}</b></p><p class="muted">${esc(e.time)}</p>
+    <ul>${e.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>
+    <a class="link" href="${e.link}" target="_blank" rel="noopener">${esc(e.linkText)}</a></div></article>`;
+}).join("");
+
+/* rescues */
+$("#rg").innerHTML = RESCUES.map(r => `<div class="r"><b>${esc(r[0])}</b><small>${esc(r[1])}</small><a href="https://${r[2]}" target="_blank" rel="noopener">${esc(r[2])}</a></div>`).join("");
+
+$("#copy").addEventListener("click", async () => {
+  const b = $("#copy");
+  try { await navigator.clipboard.writeText("hello@howlback.app"); b.textContent = "Copied"; }
+  catch { const r = document.createRange(); r.selectNodeContents($("#addr")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected"; }
+  setTimeout(() => b.textContent = "Copy", 1800);
+});
+</script>
+</body>
+</html>
