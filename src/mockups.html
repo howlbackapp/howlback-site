@@ -1,0 +1,143 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Figtree';font-weight:400;src:url('file:///tmp/claude-0/fonts/node_modules/@fontsource/figtree/files/figtree-latin-400-normal.woff2')}
+@font-face{font-family:'Figtree';font-weight:600;src:url('file:///tmp/claude-0/fonts/node_modules/@fontsource/figtree/files/figtree-latin-600-normal.woff2')}
+@font-face{font-family:'Figtree';font-weight:700;src:url('file:///tmp/claude-0/fonts/node_modules/@fontsource/figtree/files/figtree-latin-700-normal.woff2')}
+@font-face{font-family:'Figtree';font-weight:800;src:url('file:///tmp/claude-0/fonts/node_modules/@fontsource/figtree/files/figtree-latin-800-normal.woff2')}
+@font-face{font-family:'Bricolage Grotesque';font-weight:400;src:url('file:///tmp/claude-0/fonts/node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-400-normal.woff2')}
+@font-face{font-family:'Bricolage Grotesque';font-weight:600;src:url('file:///tmp/claude-0/fonts/node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-600-normal.woff2')}
+@font-face{font-family:'Bricolage Grotesque';font-weight:700;src:url('file:///tmp/claude-0/fonts/node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-700-normal.woff2')}
+@font-face{font-family:'Bricolage Grotesque';font-weight:800;src:url('file:///tmp/claude-0/fonts/node_modules/@fontsource/bricolage-grotesque/files/bricolage-grotesque-latin-800-normal.woff2')}
+
+:root{--teal:#3d6b73;--peach:#f4a582;--peach-ink:#b4532a;--mint:#eef6f2;--mint2:#dcefe8;--blush:#fdf0e9;--ink:#1f3a3f;--muted:#5f7174;--line:#e6ebe8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:transparent;font-family:Figtree,sans-serif;color:var(--ink);display:flex;gap:0;padding:0;flex-wrap:wrap}
+.pw{padding:20px 50px 80px}
+.phone{width:410px;height:864px;border-radius:62px;background:#1c1f20;padding:12px;box-shadow:0 24px 48px rgba(31,58,63,.22),inset 0 0 0 2px #3a3f41;position:relative;flex:none}
+.scr{width:386px;height:840px;border-radius:50px;background:#fff;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.island{position:absolute;top:22px;left:50%;transform:translateX(-50%);width:118px;height:34px;background:#0b0c0c;border-radius:20px;z-index:5}
+.status{height:56px;flex:none;display:flex;justify-content:space-between;align-items:flex-end;padding:0 32px 6px;font-weight:700;font-size:15px}
+.bar{display:flex;gap:5px;align-items:center}
+.top{display:flex;justify-content:space-between;align-items:center;padding:10px 20px 12px}
+.logo{font-family:"Bricolage Grotesque";font-weight:800;font-size:24px;color:var(--teal);letter-spacing:-.02em}.logo i{font-style:normal;color:var(--peach)}
+.icon{width:38px;height:38px;border-radius:50%;background:var(--mint);display:grid;place-items:center}
+.icon svg{width:20px;height:20px;stroke:var(--teal);fill:none;stroke-width:2}
+.body{flex:1;overflow:hidden;padding:0 16px}
+.tabs{flex:none;height:84px;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding-top:10px;background:#fff}
+.tabs div{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:700;color:#9aa8aa}
+.tabs div.on{color:var(--teal)}
+.tabs svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2}
+.chips{display:flex;gap:8px;margin-bottom:12px}
+.chips span{font-size:13px;font-weight:700;padding:7px 12px;border-radius:99px;background:var(--mint);color:var(--muted)}
+.chips span.on{background:var(--ink);color:#fff}
+.card{border-radius:24px;overflow:hidden;background:#fff;box-shadow:0 6px 20px rgba(31,58,63,.1);margin-bottom:14px}
+.card img{width:100%;height:300px;object-fit:cover;display:block}
+.ci{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px}
+.name{font-family:"Bricolage Grotesque";font-weight:700;font-size:22px;letter-spacing:-.01em}
+.meta{font-size:13px;color:var(--muted);font-weight:600}
+.ver{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--teal);background:var(--mint);padding:4px 9px;border-radius:99px;align-self:flex-start}
+.prog{height:8px;background:var(--mint2);border-radius:99px;overflow:hidden}.prog b{display:block;height:100%;background:var(--teal);border-radius:99px}
+.pt{display:flex;justify-content:space-between;font-size:13px;font-weight:700}.pt span{color:var(--muted);font-weight:600}
+.btns{display:flex;gap:8px;margin-top:4px}
+.b{flex:1;text-align:center;padding:12px;border-radius:99px;font-weight:800;font-size:15px}
+.b.pri{background:var(--teal);color:#fff}.b.alt{background:var(--mint);color:var(--ink)}
+.hero{height:330px;position:relative;flex:none;margin:-56px 0 0}
+.hero img{width:100%;height:100%;object-fit:cover}
+.back{position:absolute;top:66px;left:16px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.9);display:grid;place-items:center}
+.back svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:2.4}
+.sheet{background:#fff;border-radius:26px 26px 0 0;margin-top:-26px;position:relative;padding:20px 18px;flex:1;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.story{font-size:14px;line-height:1.5;color:var(--muted)}
+h4{font-size:15px;font-weight:800;margin-top:4px}
+.rc{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:14px}
+.rc .ic{width:34px;height:34px;border-radius:10px;background:var(--blush);display:grid;place-items:center;flex:none}
+.rc .ic svg{width:18px;height:18px;stroke:var(--peach-ink);fill:none;stroke-width:2}
+.rc div{flex:1;font-size:13px;font-weight:700;display:flex;flex-direction:column}.rc div span{font-weight:500;color:var(--muted);font-size:12px}
+.rc .amt{font-weight:800;font-size:14px}
+.ok{width:20px;height:20px;border-radius:50%;background:var(--teal);display:grid;place-items:center;flex:none}.ok svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:3.4}
+.dim{position:absolute;inset:0;background:rgba(20,30,32,.45);z-index:3}
+.modal{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:28px 28px 0 0;z-index:4;padding:12px 20px 34px;display:flex;flex-direction:column;gap:14px}
+.grab{width:40px;height:5px;border-radius:9px;background:#d5dcda;align-self:center}
+.amts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.amts span{text-align:center;padding:14px 0;border-radius:16px;border:1.5px solid var(--line);font-weight:800;font-size:17px}
+.amts span.on{border-color:var(--teal);background:var(--mint);color:var(--teal)}
+.note{font-size:13px;color:var(--muted);display:flex;gap:8px;align-items:flex-start;line-height:1.45}
+.alert{background:var(--blush);border-radius:18px;padding:12px;display:flex;gap:12px;align-items:center;margin-bottom:14px}
+.alert img{width:56px;height:56px;border-radius:14px;object-fit:cover}
+.alert div{font-size:13px;font-weight:600;line-height:1.35}.alert b{display:block;font-size:14px;font-weight:800}
+.row{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.row img{width:64px;height:64px;border-radius:16px;object-fit:cover}
+.row div{flex:1;display:flex;flex-direction:column;gap:3px}.row b{font-size:15px}.row span{font-size:12px;color:var(--muted);font-weight:600}
+.mini{height:6px;background:var(--mint2);border-radius:9px;overflow:hidden;margin-top:3px}.mini i{display:block;height:100%;background:var(--teal)}
+.dist{font-size:12px;font-weight:800;color:var(--teal);background:var(--mint);padding:4px 8px;border-radius:99px}
+.sec{font-family:"Bricolage Grotesque";font-weight:700;font-size:20px;margin:6px 0 8px}
+.board{display:flex;flex-direction:column;gap:8px}
+.post{border:1px solid var(--line);border-radius:14px;padding:10px 12px;font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.post span{font-size:11px;font-weight:800;color:var(--peach-ink);background:var(--blush);padding:3px 8px;border-radius:99px}
+</style></head><body>
+
+<!-- 1 FEED -->
+<div class="pw" id="s1"><div class="phone"><div class="scr"><div class="island"></div>
+ <div class="status"><span>9:41</span><span class="bar">●●●● ▮</span></div>
+ <div class="top"><div class="logo">howl<i>back</i></div><div class="icon"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21h4"/></svg></div></div>
+ <div class="body">
+  <div class="chips"><span class="on">Near you</span><span>Puppies</span><span>Needs vet</span><span>New</span></div>
+  <div class="card"><img src="../img/mama-pups.jpg">
+   <div class="ci"><div class="name">Rosie &amp; her 3 pups</div><div class="meta">Brownsville · 2.1 mi · fostered by Ana M.</div>
+    <span class="ver">✓ 4 verified receipts</span>
+    <div class="prog"><b style="width:68%"></b></div><div class="pt">$164 covered <span>of $240 spent</span></div>
+    <div class="btns"><div class="b alt">Follow</div><div class="b pri">Chip in</div></div></div></div>
+  <div class="card"><img src="../img/mange-pair.jpg" style="height:220px">
+   <div class="ci"><div class="name">Duke</div><div class="meta">Harlingen · 5.4 mi</div></div></div>
+ </div>
+ <div class="tabs"><div class="on"><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/></svg>Home</div><div><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/></svg>Near you</div><div><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Post</div><div><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Help</div><div><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Me</div></div>
+</div></div></div>
+
+<!-- 2 PROFILE + RECEIPTS -->
+<div class="pw" id="s2"><div class="phone"><div class="scr"><div class="island"></div>
+ <div class="status" style="position:relative;z-index:2;color:#fff"><span>9:41</span><span class="bar">●●●● ▮</span></div>
+ <div class="hero"><img src="../img/black-pup.jpg"><div class="back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></div></div>
+ <div class="sheet">
+  <div class="name" style="font-size:26px">Pepper</div>
+  <div class="meta">Puppy · about 10 weeks · Harlingen · fostered by Jess R.</div>
+  <p class="story">Found alone in a sandy lot off FM 509. Thin, full of fleas, but already wagging. Now dewormed, on her first round of shots, and gaining weight.</p>
+  <div class="prog"><b style="width:55%"></b></div><div class="pt">$71 covered <span>of $129 spent</span></div>
+  <h4>Verified receipts</h4>
+  <div class="rc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16"/></svg></div><div>Vet visit and deworming<span>Vet clinic · Oct 3</span></div><span class="amt">$58</span><span class="ok"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span></div>
+  <div class="rc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7 20l10-16M5 8l4 4M15 16l4 4"/></svg></div><div>First puppy vaccines<span>Low-cost clinic · Oct 5</span></div><span class="amt">$36</span><span class="ok"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span></div>
+  <div class="rc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6zM9 8V5h6v3"/></svg></div><div>Puppy food and flea meds<span>Pet store · Oct 6</span></div><span class="amt">$35</span><span class="ok"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span></div>
+ </div>
+</div></div></div>
+
+<!-- 3 CHIP IN -->
+<div class="pw" id="s3"><div class="phone"><div class="scr"><div class="island"></div>
+ <div class="status" style="position:relative;z-index:2;color:#fff"><span>9:41</span><span class="bar">●●●● ▮</span></div>
+ <div class="hero"><img src="../img/black-pup.jpg"></div>
+ <div class="sheet"><div class="name" style="font-size:26px">Pepper</div><div class="meta">Harlingen · fostered by Jess R.</div></div>
+ <div class="dim"></div>
+ <div class="modal"><div class="grab"></div>
+  <div class="name">Chip in for Pepper</div>
+  <div class="meta" style="margin-top:-8px">$58 of her receipts still need covering</div>
+  <div class="amts"><span>$5</span><span class="on">$10</span><span>$25</span><span>Other</span></div>
+  <div class="note"><span class="ok" style="margin-top:1px"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span>Goes toward Pepper’s verified vet, food, and supply receipts. Jess gets paid back.</div>
+  <div class="note"><span class="ok" style="margin-top:1px;background:var(--peach)"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span>You’ll get Pepper’s updates and a note when she finds a home.</div>
+  <div class="b pri" style="padding:16px;font-size:17px">Chip in $10</div>
+ </div>
+</div></div></div>
+
+<!-- 4 NEAR YOU -->
+<div class="pw" id="s4"><div class="phone"><div class="scr"><div class="island"></div>
+ <div class="status"><span>9:41</span><span class="bar">●●●● ▮</span></div>
+ <div class="top"><div class="name">Near you</div><div class="icon"><svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg></div></div>
+ <div class="body">
+  <div class="alert"><img src="../img/brown-pup.jpg"><div><b>Biscuit found a home! 🎉</b>Adopted 3 miles from you. You helped cover his vet bills.</div></div>
+  <div class="row"><img src="../img/nursing-mama.jpg"><div><b>Blanca &amp; litter</b><span>San Benito · needs puppy food</span><div class="mini"><i style="width:30%"></i></div></div><span class="dist">4 mi</span></div>
+  <div class="row"><img src="../img/trio-road.jpg"><div><b>Scout</b><span>Los Fresnos · mange treatment</span><div class="mini"><i style="width:45%"></i></div></div><span class="dist">7 mi</span></div>
+  <div class="row"><img src="../img/street-dog.jpg"><div><b>Chico</b><span>Brownsville · first vet visit</span><div class="mini"><i style="width:80%"></i></div></div><span class="dist">1 mi</span></div>
+  <div class="sec" style="margin-top:14px">Help board</div>
+  <div class="board"><div class="post">Ride to Harlingen vet, Sat AM<span>Ride</span></div><div class="post">Need a medium crate for 2 weeks<span>Supplies</span></div></div>
+ </div>
+ <div class="tabs"><div><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/></svg>Home</div><div class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/></svg>Near you</div><div><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Post</div><div><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Help</div><div><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Me</div></div>
+</div></div></div>
+</body></html>

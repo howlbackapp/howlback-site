@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Share a story | Howlback</title>
+<meta name="description" content="Have a Rio Grande Valley rescue story? Share it with Howlback to be featured in the newsletter.">
+<link rel="canonical" href="https://howlback.app/share/">
+<meta property="og:title" content="Share a story | Howlback">
+<meta property="og:description" content="Have a Rio Grande Valley rescue story? Share it with Howlback to be featured in the newsletter.">
+<meta property="og:image" content="https://howlback.app/img/street-dog.jpg">
+<meta property="og:url" content="https://howlback.app/share/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/">howl<i>back</i></a>
+    <nav aria-label="Main" id="site-nav"><a href="/help/">Local help</a><a href="/clinics/">Clinics</a><a href="/rescues/">Rescues</a><a href="/stories/">Stories</a><a href="/app/">The app</a><a href="/share/" aria-current="page">Share a story</a></nav>
+    <div class="right">
+      <a class="btn hide-sm" href="#join" data-focus-email>Get updates</a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    </div>
+  </div>
+</header>
+<main id="top">
+  <div style="padding-top:16px"></div>
+  <section class="feat" id="featured" style="background:none">
+    <div class="wrap">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h2>Have a rescue story? Share it.</h2>
+        <p class="lead" style="color:var(--ink)">We feature local fosters, rescuers, and adopted dogs in the Howlback newsletter. Rescues and businesses can also reach us here to update a listing.</p>
+      </div>
+      <div class="box">
+        <b>Email us your story</b>
+        <div class="mail"><code id="addr">hello@howlback.app</code></div>
+        <div class="mail"><a class="btn" href="mailto:hello@howlback.app?subject=My%20rescue%20story" style="padding:10px 18px">Open email</a><button class="btn soft" type="button" id="copy" style="padding:10px 18px">Copy address</button></div>
+        <p>Include:</p>
+        <ul>
+          <li>The dog’s name and city</li>
+          <li>How you found them and how they’re doing now</li>
+          <li>2 or 3 photos you took</li>
+          <li>How you’d like to be credited</li>
+        </ul>
+        <small class="muted">By sending photos you confirm they’re yours and okay for us to share.</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="join">
+    <div class="wrap">
+      <div class="join-copy">
+        <h2>Stay in the loop</h2>
+        <p class="lead">Local stories, upcoming clinics, and first word when the Howlback app launches. By email or text, your pick.</p>
+      </div>
+    <div class="signup" id="join">
+      <div class="sw" role="group" aria-label="How should we reach you?">
+        <button type="button" aria-pressed="true" data-mode="email">Email me</button>
+        <button type="button" aria-pressed="false" data-mode="text">Text me</button>
+      </div>
+      <div id="mode-email">
+        <label for="email">Email address</label>
+        <form id="signup" action="https://howlback.beehiiv.com/subscribe" method="get" target="_blank">
+          <input id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+          <button class="btn" type="submit">Sign up</button>
+        </form>
+        <small>Free. Unsubscribe anytime.</small>
+      </div>
+      <div id="mode-text" hidden>
+        <label for="phone">Phone number</label>
+        <form id="textform" name="launch-text" method="POST" data-netlify="true" netlify-honeypot="company">
+          <input type="hidden" name="form-name" value="launch-text">
+          <p hidden><label>Leave this empty <input name="company"></label></p>
+          <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(956) 555-0123" autocomplete="tel" pattern="[0-9()+\-. ]{10,}" required>
+          <button class="btn" type="submit">Text me</button>
+        </form>
+        <small>We’ll text you once when the app launches. By signing up you agree to get texts from Howlback. Msg and data rates may apply. Reply STOP to opt out.</small>
+        <p class="ok" id="text-ok" hidden>You’re on the list! We’ll text you when the app is out.</p>
+        <p class="err" id="text-err" hidden>That didn’t go through. Check your number and try again.</p>
+      </div>
+    </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <a class="logo" href="#top">howl<i>back</i></a>
+      <p class="fine">Local help, rescues, and stories for the street dogs of South Texas.</p>
+      <p class="fine">Listings are for information only. Call ahead to confirm hours and services.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <b>Follow Howlback</b>
+      <div class="social">
+        <a href="https://www.instagram.com/howlback.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=61595201828343" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v7h4v-7h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg>Facebook</a>
+        <a href="https://www.tiktok.com/@howlback.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 3c.4 2.4 1.9 4 4.5 4.2v3.4c-1.6 0-3.1-.5-4.4-1.4v6.3A5.5 5.5 0 1 1 10.6 10v3.5a2 2 0 1 0 1.9 2V3z"/></svg>TikTok</a>
+        <a href="#join" data-focus-email><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Get email updates</a>
+      </div>
+      <p class="fine">Contact: hello@howlback.app<br>© 2026 Howlback</p>
+    </div>
+  </div>
+</footer>
+<script src="/site.js"></script>
+</body>
+</html>
