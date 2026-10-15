@@ -93,8 +93,8 @@ if ($("#textform")) $("#textform").addEventListener("submit", async e => {
   const f = e.target, btn = f.querySelector("button");
   btn.disabled = true; $("#text-err").hidden = true;
   try {
-    const r = await fetch("/", {method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body:new URLSearchParams(new FormData(f)).toString()});
-    if (r.status >= 500) throw 0;
+    // phone signups are saved in Netlify Forms (the site itself is hosted on GitHub Pages)
+    await fetch("https://melodious-manatee-98786c.netlify.app/", {method:"POST", mode:"no-cors", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body:new URLSearchParams(new FormData(f)).toString()});
     f.hidden = true; $("#text-ok").hidden = false;
   } catch { $("#text-err").hidden = false; btn.disabled = false; }
 });

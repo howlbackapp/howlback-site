@@ -318,6 +318,18 @@ sm += "</urlset>\n"
 open(os.path.join(ROOT, "sitemap.xml"), "w").write(sm)
 open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
 
+
+# ---------- GITHUB PAGES EXTRAS ----------
+open(os.path.join(ROOT, "CNAME"), "w").write("howlback.app\n")
+open(os.path.join(ROOT, ".nojekyll"), "w").write("")
+for slug in [p["slug"] for p in POSTS] + [""]:
+    target = f"/blog/{slug}/" if slug else "/blog/"
+    d = os.path.join(ROOT, "stories", slug) if slug else os.path.join(ROOT, "stories")
+    os.makedirs(d, exist_ok=True)
+    open(os.path.join(d, "index.html"), "w").write(f'<!doctype html><meta charset="utf-8"><title>Moved</title><link rel="canonical" href="{SITE}{target}"><meta http-equiv="refresh" content="0; url={target}"><a href="{target}">This page moved</a>\n')
+nf = """<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Page not found | Howlback</title><link rel="stylesheet" href="/style.css"></head><body><div class="shell"><div class="wrap page-head"><div class="head"><h1>Page not found</h1><p class="lead">That page moved or doesn't exist.</p><a class="btn" href="/" style="align-self:flex-start">Go to the homepage</a></div></div></div></body></html>"""
+open(os.path.join(ROOT, "404.html"), "w").write(nf)
+
 # ---------- CSS ----------
 base = open(os.path.join(ROOT, "src/base.css")).read()
 extra = open(os.path.join(ROOT, "src/extra.css")).read()
