@@ -355,7 +355,8 @@ footer .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:32px}
       </div>
       <div class="box">
         <b>Email us your story</b>
-        <div class="mail"><code id="addr">hello@howlback.app</code><button class="btn soft" type="button" id="copy" style="padding:9px 18px">Copy</button></div>
+        <div class="mail"><code id="addr">hello@howlback.app</code></div>
+        <div class="mail"><a class="btn" href="mailto:hello@howlback.app?subject=My%20rescue%20story" style="padding:10px 18px">Open email</a><button class="btn soft" type="button" id="copy" style="padding:10px 18px">Copy address</button></div>
         <p>Include:</p>
         <ul>
           <li>The dog’s name and city</li>
@@ -551,7 +552,7 @@ $("#copy").addEventListener("click", async () => {
   const b = $("#copy");
   try { await navigator.clipboard.writeText("hello@howlback.app"); b.textContent = "Copied"; }
   catch { const r = document.createRange(); r.selectNodeContents($("#addr")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Selected"; }
-  setTimeout(() => b.textContent = "Copy", 1800);
+  setTimeout(() => b.textContent = "Copy address", 1800);
 });
 </script>
 </body>
