@@ -75,6 +75,30 @@ h4{font-size:15px;font-weight:800;margin-top:4px}
 .board{display:flex;flex-direction:column;gap:8px}
 .post{border:1px solid var(--line);border-radius:14px;padding:10px 12px;font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
 .post span{font-size:11px;font-weight:800;color:var(--peach-ink);background:var(--blush);padding:3px 8px;border-radius:99px}
+
+.vf{position:relative;margin:0 16px;border-radius:24px;overflow:hidden;height:360px}
+.vf img{width:100%;height:100%;object-fit:cover}
+.vf .corner{position:absolute;width:34px;height:34px;border:4px solid #fff}
+.vf .c1{top:14px;left:14px;border-right:0;border-bottom:0;border-radius:10px 0 0 0}.vf .c2{top:14px;right:14px;border-left:0;border-bottom:0;border-radius:0 10px 0 0}
+.vf .c3{bottom:14px;left:14px;border-right:0;border-top:0;border-radius:0 0 0 10px}.vf .c4{bottom:14px;right:14px;border-left:0;border-top:0;border-radius:0 0 10px 0}
+.stamp{position:absolute;left:50%;transform:translateX(-50%);bottom:18px;background:rgba(20,30,32,.7);color:#fff;font-size:12px;font-weight:700;padding:6px 12px;border-radius:99px;white-space:nowrap}
+.shutter{width:70px;height:70px;border-radius:50%;border:5px solid var(--teal);display:grid;place-items:center;margin:16px auto 6px}.shutter i{width:52px;height:52px;border-radius:50%;background:var(--teal);display:block}
+.due{margin:0 16px 12px;background:var(--blush);border-radius:16px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700}
+.due span{font-size:12px;font-weight:800;color:var(--peach-ink)}
+.hist{margin:8px 16px 0;display:flex;gap:8px}
+.hist div{flex:1;border:1px solid var(--line);border-radius:12px;padding:8px;text-align:center;font-size:12px;font-weight:700;color:var(--muted)}
+.hist div b{display:block;color:var(--teal);font-size:15px}
+.steps2{padding:0 16px;display:flex;flex-direction:column;gap:12px}
+.slot{border-radius:18px;border:1.5px solid var(--line);padding:12px;display:flex;gap:12px;align-items:center}
+.slot .th{width:92px;height:112px;border-radius:12px;flex:none;overflow:hidden;display:grid;place-items:center}
+.rcpt{background:#fff;border:1px solid #e3e3e3;width:76px;height:104px;padding:7px 6px;font-family:ui-monospace,monospace;font-size:6.5px;line-height:1.5;color:#444;box-shadow:0 2px 6px rgba(0,0,0,.08);transform:rotate(-3deg)}
+.rcpt b{display:block;text-align:center;font-size:7.5px;margin-bottom:3px}
+.slot .cam{background:var(--mint);border:2px dashed #b9d8cd}
+.slot .cam svg{width:30px;height:30px;stroke:var(--teal);fill:none;stroke-width:2}
+.slot h5{font-size:15px;font-weight:800;margin-bottom:3px}.slot p{font-size:12.5px;color:var(--muted);line-height:1.4}
+.read{background:var(--mint);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:7px}
+.read div{display:flex;justify-content:space-between;font-size:13px;font-weight:600}.read div span{color:var(--muted);font-weight:500}
+.n{width:22px;height:22px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:800;display:inline-grid;place-items:center;margin-right:6px}
 </style></head><body>
 
 <!-- 1 FEED -->
@@ -139,5 +163,36 @@ h4{font-size:15px;font-weight:800;margin-top:4px}
   <div class="board"><div class="post">Ride to Harlingen vet, Sat AM<span>Ride</span></div><div class="post">Need a medium crate for 2 weeks<span>Supplies</span></div></div>
  </div>
  <div class="tabs"><div><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/></svg>Home</div><div class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/></svg>Near you</div><div><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Post</div><div><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Help</div><div><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Me</div></div>
+</div></div></div>
+
+<!-- 5 CHECK-IN -->
+<div class="pw" id="s5"><div class="phone"><div class="scr"><div class="island"></div>
+ <div class="status"><span>9:41</span><span class="bar">●●●● ▮</span></div>
+ <div class="top"><div class="name">Pepper’s check-in</div><div class="icon"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></div></div>
+ <div class="due">Check-in due today<span>Every 3 days</span></div>
+ <div class="vf"><img src="../img/black-pup.jpg"><i class="corner c1"></i><i class="corner c2"></i><i class="corner c3"></i><i class="corner c4"></i><div class="stamp">● Live photo · Oct 15, 9:41 AM · Harlingen</div></div>
+ <div class="shutter"><i></i></div>
+ <div class="meta" style="text-align:center;padding:0 30px">Photos are taken in the app, not uploaded, so every check-in is fresh.</div>
+ <div class="hist"><div><b>✓</b>Oct 12</div><div><b>✓</b>Oct 9</div><div><b>✓</b>Oct 6</div><div><b>✓</b>Oct 3</div></div>
+ <div style="flex:1"></div>
+ <div class="tabs"><div><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/></svg>Home</div><div><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/></svg>Near you</div><div class="on"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Post</div><div><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Help</div><div><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Me</div></div>
+</div></div></div>
+
+<!-- 6 ADD RECEIPT -->
+<div class="pw" id="s6"><div class="phone"><div class="scr"><div class="island"></div>
+ <div class="status"><span>9:41</span><span class="bar">●●●● ▮</span></div>
+ <div class="top"><div class="name">Add a receipt</div><div class="icon"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></div></div>
+ <div class="steps2">
+  <div class="slot"><div class="th" style="background:#f3f1ec"><div class="rcpt"><b>PET STORE</b>PUPPY FOOD 5LB<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;24.99<br>FLEA TREATMENT<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10.13<br>--------------<br>TOTAL&nbsp;&nbsp;&nbsp;&nbsp;35.12<br>10/06/26</div></div>
+   <div><h5><span class="n">1</span>Receipt</h5><p>Snap the full receipt with the store name, date, and total.</p></div><span class="ok"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span></div>
+  <div class="slot"><div class="th cam"><svg viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></div>
+   <div><h5><span class="n">2</span>Item + receipt</h5><p>Take one photo of the food and flea meds sitting next to the receipt.</p></div></div>
+  <div class="read"><b style="font-size:14px">We read your receipt</b>
+   <div>Store<span>Pet store · Harlingen</span></div><div>Date<span>Oct 6, 2026</span></div><div>Total<span style="color:var(--ink);font-weight:800">$35.12</span></div></div>
+  <div class="meta">Big vet bills are confirmed directly with the clinic.</div>
+  <div class="b pri" style="padding:15px;font-size:16px;opacity:.45">Submit for review</div>
+ </div>
+ <div style="flex:1"></div>
+ <div class="tabs"><div><svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9H3z"/></svg>Home</div><div><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/></svg>Near you</div><div class="on"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Post</div><div><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Help</div><div><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>Me</div></div>
 </div></div></div>
 </body></html>
