@@ -35,6 +35,9 @@ def fix_paths(t):
     t = t.replace('href="#featured"', 'href="/share/"')
     return t
 
+def isrc(i):
+    return i if i.startswith("http") else f"/img/{i}"
+
 def head(title, desc, path, img="/img/street-dog.jpg", schema=None):
     full = title if title == "Howlback" else f"{title} | Howlback"
     ld = "" if not schema else '<script type="application/ld+json">' + json.dumps(schema, ensure_ascii=False).replace("</", "<\\/") + '</script>\n' 
@@ -48,7 +51,7 @@ def head(title, desc, path, img="/img/street-dog.jpg", schema=None):
 <link rel="canonical" href="{SITE}{path}">
 <meta property="og:title" content="{html.escape(full)}">
 <meta property="og:description" content="{html.escape(desc)}">
-<meta property="og:image" content="{SITE}{img}">
+<meta property="og:image" content="{img if img.startswith("http") else SITE + img}">
 <meta property="og:url" content="{SITE}{path}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/img/favicon-48.png">
@@ -110,7 +113,7 @@ def write(path, content):
     open(out, "w").write(content)
 
 def card(p):
-    img = (f'<img src="/img/{p["img"]}" alt="{html.escape(p["alt"])}" loading="lazy">' if p["img"]
+    img = (f'<img src="{isrc(p["img"])}" alt="{html.escape(p["alt"])}" loading="lazy">' if p["img"]
            else f'<span class="noimg">{html.escape(p["title"])}</span>')
     return (f'<a class="card" href="/blog/{p["slug"]}/">{img}<span class="topic">{p["topic"]}</span>'
             f'<h3>{html.escape(p["title"])}</h3><p class="muted">{html.escape(p["desc"].split(". ")[0].rstrip("."))}.</p></a>')
@@ -206,15 +209,15 @@ pg += f'  <section class="page"><div class="wrap"><div class="cards">{"".join(ca
 write("/blog/", pg)
 
 for p in POSTS:
-    cover = f'<img class="cover" src="/img/{p["img"]}" alt="{html.escape(p["alt"])}">' if p["img"] else ""
+    cover = f'<img class="cover" src="{isrc(p["img"])}" alt="{html.escape(p["alt"])}">' if p["img"] else ""
     srcs = "".join(f'<li><a href="{u}" target="_blank" rel="noopener">{html.escape(t)}</a></li>' for t, u in p["sources"])
     url = f"{SITE}/blog/{p['slug']}/"
     art = {"@context": "https://schema.org", "@type": "Article", "headline": p["title"], "description": p["desc"],
-           "image": f"{SITE}/img/{p['img'] or 'street-dog.jpg'}", "datePublished": p.get("date", ""),
+           "image": (p['img'] if p['img'].startswith('http') else f"{SITE}/img/{p['img'] or 'street-dog.jpg'}"), "datePublished": p.get("date", ""),
            "author": {"@type": "Organization", "name": "Howlback", "url": SITE},
            "publisher": {"@type": "Organization", "name": "Howlback", "logo": {"@type": "ImageObject", "url": f"{SITE}/img/icon-512.png"}},
            "mainEntityOfPage": f"{SITE}/blog/{p['slug']}/"}
-    pg = head(p["title"], p["desc"], f"/blog/{p['slug']}/", f"/img/{p['img'] or 'street-dog.jpg'}", schema=art)
+    pg = head(p["title"], p["desc"], f"/blog/{p['slug']}/", isrc(p['img'] or 'street-dog.jpg'), schema=art)
     pg += header("/blog/")
     pg += f"""  <article class="wrap article">
     <header>

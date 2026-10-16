@@ -240,3 +240,6 @@ body{background:transparent!important;margin:0}
 .lf-chips span{background:var(--mint);color:var(--ink);font-weight:700;font-size:13px;border-radius:999px;padding:5px 11px}
 .found-note{margin:14px 0 0;background:#fff6ec;border:1px solid #f6d9b8;border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.45}
 .prod-img{width:100%;max-width:200px;margin-left:auto;margin-right:auto;aspect-ratio:1/1;object-fit:contain;background:#f6f4ef;border-radius:16px;display:block;margin-bottom:4px}
+.post-fig{margin:22px 0}
+.post-fig img{width:100%;max-height:520px;object-fit:cover;border-radius:18px;display:block}
+.post-fig figcaption{font-size:13px;color:var(--muted);margin-top:6px}
