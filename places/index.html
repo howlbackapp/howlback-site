@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dog-friendly places in the RGV | Howlback</title>
+<meta name="description" content="Dog-friendly trails, beaches, dog parks, and patios in Brownsville, South Padre Island, Harlingen, San Benito, and Los Fresnos, on one map. Trails list parking, distance, and if they&#x27;re paved.">
+<link rel="canonical" href="https://howlback.app/places/">
+<meta property="og:title" content="Dog-friendly places in the RGV | Howlback">
+<meta property="og:description" content="Dog-friendly trails, beaches, dog parks, and patios in Brownsville, South Padre Island, Harlingen, San Benito, and Los Fresnos, on one map. Trails list parking, distance, and if they&#x27;re paved.">
+<meta property="og:image" content="https://howlback.app/img/rescue-dog.jpg">
+<meta property="og:url" content="https://howlback.app/places/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/img/favicon-48.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#3d6b73">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Howlback">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="/style.css?v=c4507254">
+<script data-goatcounter="https://howlback.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div class="shell">
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="/">howl<i>back</i></a>
+    <nav aria-label="Main" id="site-nav"><a href="/lost-found/">Lost & found</a><a href="/help/">Local help</a><a href="/clinics/">Clinics</a><a href="/rescues/">Rescues</a><a href="/blog/">Blog</a><a href="/places/" aria-current="page">Dog-friendly places</a><a href="/must-haves/">Foster must-haves</a><a href="/app/">The app</a><a href="/share/">Share a story</a><a href="/install/">Add to home screen</a></nav>
+    <div class="right">
+      <a class="icon-btn" href="#join" data-focus-email aria-label="Get updates"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10 21h4"/></svg></a>
+      <button class="icon-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+<main id="top">
+  <div class="wrap page-head"><div class="head"><h1 style="font-size:clamp(36px,5vw,56px)">Dog-friendly places</h1><p class="lead">Trails, beaches, dog parks, and patios around the Valley. Tap a pin or a card for details and directions. Policies change, so call ahead before you go.</p></div></div>
+  <section class="page" style="padding-top:8px"><div class="wrap places">
+    <div class="pl-filters"><div class="pl-row" id="pl-city"><button type="button" class="on" data-v="">All cities</button><button type="button" data-v="Brownsville">Brownsville</button><button type="button" data-v="South Padre Island">South Padre Island</button><button type="button" data-v="Harlingen">Harlingen</button><button type="button" data-v="San Benito">San Benito</button><button type="button" data-v="Los Fresnos">Los Fresnos</button></div>
+    <div class="pl-row" id="pl-type"><button type="button" class="on" data-v="">Everything</button><button type="button" data-v="trail">🥾 Trails</button><button type="button" data-v="dogpark">🐕 Dog parks</button><button type="button" data-v="beach">🏖️ Beaches</button><button type="button" data-v="park">🌳 Parks</button><button type="button" data-v="food">🍔 Food & drinks</button></div></div>
+    <div id="pl-map" role="region" aria-label="Map of dog-friendly places"></div>
+    <p class="muted pl-count" id="pl-count"></p>
+    <ul class="pl-list" id="pl-list"></ul>
+    <p class="muted pl-foot">Know a spot we missed? Email <a href="mailto:hello@howlback.app">hello@howlback.app</a>. Always leash up, bring water, and skip hot pavement midday.</p>
+  </div></section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>window.PLACES=[{"name": "Historic Battlefield Trail", "type": "trail", "city": "Brownsville", "lat": 25.96215, "lng": -97.48808, "addr": "Brownsville Events Center, 1 Event Center Dr, Brownsville, TX", "miles": "10.1 miles", "surface": "Paved", "parking": "Big free lots at the Brownsville Events Center off Paredes Line Rd. Also at Linear Park on E 6th St (by the courthouse) and the Palo Alto Battlefield visitor center.", "note": "Flat with little shade. Go early and bring water."}, {"name": "Paseo de la Resaca Trail", "type": "trail", "city": "Brownsville", "lat": 25.95447, "lng": -97.48404, "addr": "Texas Trail of Trees Park, Brownsville, TX", "miles": "7 miles", "surface": "Paved", "parking": "Park at Texas Trail of Trees Park, North Park, or the Brownsville Events Center.", "note": "Runs along the resacas through north Brownsville. Leash required."}, {"name": "Rose M.Z. Gowen Trail", "type": "trail", "city": "Brownsville", "lat": 25.9169, "lng": -97.49789, "addr": "Prax Orive (Sunrise) Park, 1245 Palm Blvd, Brownsville, TX", "miles": "6.6 miles", "surface": "Paved", "parking": "Lot at Prax Orive (Sunrise) Park on W 1st St, off W Van Buren St. Also at Linear Park on E 6th St.", "note": "Old rail line, flat and easy."}, {"name": "Resaca de la Palma State Park", "type": "trail", "city": "Brownsville", "lat": 25.99628, "lng": -97.57127, "addr": "1000 New Carmen Ave, Brownsville, TX 78521", "miles": "2.8 mile loop, plus about 10 miles of short nature trails", "surface": "Tram Loop is paved. Other trails are dirt.", "parking": "Park at the visitor center. No cars past that point. $4 per adult, kids 12 and under free.", "note": "Open 6 AM to 10 PM. Keep dogs leashed and bring water for them."}, {"name": "Monte Bella Park", "type": "trail", "city": "Brownsville", "lat": 25.95385, "lng": -97.54353, "addr": "2485 W Alton Gloor Blvd, Brownsville, TX", "miles": "About 6 miles", "surface": "Not paved (dirt)", "parking": "Lot at the park entrance on W Alton Gloor Blvd.", "note": "Shared with mountain bikers, so keep your pup close."}, {"name": "Catherine B. Stillman Dog Park", "type": "dogpark", "city": "Brownsville", "lat": 26.01519, "lng": -97.54802, "addr": "416 FM 511, Olmito, TX 78575", "note": "Fenced. Separate big and small dog areas, benches, shade trees, and water."}, {"name": "Sweet St Dog Park", "type": "dogpark", "city": "Brownsville", "lat": 25.94464, "lng": -97.47482, "addr": "2843 Sweet St, Brownsville, TX 78521", "note": "Small fenced area, good for a quick run."}, {"name": "The Broken Sprocket", "type": "food", "city": "Brownsville", "lat": 25.99026, "lng": -97.48332, "addr": "6305 Paredes Line Rd, Brownsville, TX 78526", "note": "Food truck park with outdoor tables and its own dog park."}, {"name": "Cobbleheads", "type": "food", "city": "Brownsville", "lat": 25.94588, "lng": -97.5072, "addr": "3154 Central Blvd, Brownsville, TX 78520", "note": "Outdoor table by the water."}, {"name": "7th and Park", "type": "food", "city": "Brownsville", "lat": 25.91082, "lng": -97.49427, "addr": "1554 E 7th St, Brownsville, TX 78520", "note": "Coffee and bike shop with outdoor tables."}, {"name": "Rudy's Country Store and Bar-B-Q", "type": "food", "city": "Brownsville", "lat": 25.95878, "lng": -97.50707, "addr": "2780 N Expressway, Brownsville, TX 78526", "note": "Outdoor table. No table service, so someone stays outside with the dog while you order."}, {"name": "Arroyo Colorado Hike & Bike Trail", "type": "trail", "city": "Harlingen", "lat": 26.17905, "lng": -97.67822, "addr": "McKelvey Park, 1325 S 77 Sunshine Strip, Harlingen, TX", "miles": "4.6 miles", "surface": "Paved, with boardwalk bridges", "parking": "Paved lots at McKelvey Park (1325 S 77 Sunshine Strip), Harlingen Thicket (311 E Taft), Arroyo Park (New Hampshire St and Hale St), and C.B. Wood Park (400 W Harding Ave).", "note": "Restrooms and water at McKelvey Park and Arroyo Park. Can get muddy after rain."}, {"name": "Meg Jorn Trail", "type": "trail", "city": "Harlingen", "lat": 26.18656, "lng": -97.66232, "addr": "Hugh Ramsey Nature Park, 1000 S Loop 499, Harlingen, TX", "miles": "4.1 miles", "surface": "Paved", "parking": "Lot inside Hugh Ramsey Nature Park at the south end.", "note": "Follows a canal north to Rio Hondo Rd."}, {"name": "Harlingen Rotary Bark Park", "type": "dogpark", "city": "Harlingen", "lat": 26.17886, "lng": -97.71169, "addr": "1601 S M St, Harlingen, TX", "note": "Fenced, off leash, with separate big and small dog areas and water fountains. 2 dogs per person, no digging. Dawn to dusk."}, {"name": "A Piece of Cake by Ybarra's", "type": "food", "city": "Harlingen", "lat": 26.19037, "lng": -97.69434, "addr": "202 E Harrison Ave, Harlingen, TX", "note": "Bakery with outdoor tables."}, {"name": "Heavin Resaca Trail", "type": "trail", "city": "San Benito", "lat": 26.1366, "lng": -97.64238, "addr": "Diaz St and Combes St, San Benito, TX", "miles": "2.6 miles", "surface": "Paved", "parking": "Parking on Diaz St at Combes St.", "note": "Runs along the resaca between Bus. 77 and Expressway 83."}, {"name": "Laguna Atascosa Wildlife Refuge", "type": "trail", "city": "Los Fresnos", "lat": 26.22733, "lng": -97.34863, "addr": "Visitor Center, Ocelot Rd, Los Fresnos, TX", "miles": "0.9 miles (Visitor Center trails) up to 6+ miles", "surface": "Visitor Center trails are paved. Most others are dirt or caliche.", "parking": "Lot at the Visitor Center. Prairie Trail (4.1 mile loop) has a lot off FM 106 just west of San Roman. Entrance fee.", "note": "Leashed dogs welcome. Alligators live here, so keep dogs away from the water. Check hunting season dates before you go."}, {"name": "Los Fresnos Nature Park", "type": "park", "city": "Los Fresnos", "lat": 26.07822, "lng": -97.4756, "addr": "851 N Arroyo Blvd, Los Fresnos, TX", "note": "Nature park with a walking trail. The Historic Battlefield Trail from Brownsville ends here."}, {"name": "South Padre Island beaches", "type": "beach", "city": "South Padre Island", "lat": 26.09808, "lng": -97.16379, "addr": "Gulf Circle Beach Access #3, South Padre Island, TX", "note": "Leashed dogs are allowed on city beaches all year. 24 beach access points along Gulf Blvd with free parking. Gulf Circle (#3) and Treasure Island Circle (#11) have restrooms and showers. Pick up after your dog and skip hot midday sand."}, {"name": "Laguna Madre Nature Trail", "type": "trail", "city": "South Padre Island", "lat": 26.14057, "lng": -97.17435, "addr": "SPI Convention Centre, 7355 Padre Blvd, South Padre Island, TX", "miles": "About 0.3 miles (1,500 ft)", "surface": "Boardwalk (not paved)", "parking": "Free lot at the Convention Centre.", "note": "Boardwalk over the marsh by the bay. Great at sunset."}, {"name": "Lobo Del Mar Cafe", "type": "food", "city": "South Padre Island", "lat": 26.09738, "lng": -97.16841, "addr": "204 W Palm St, South Padre Island, TX", "note": "Outdoor tables by the water. Breakfast, lunch, and dinner."}, {"name": "Longboard Bar & Grill", "type": "food", "city": "South Padre Island", "lat": 26.09681, "lng": -97.16828, "addr": "205 W Palm St, South Padre Island, TX", "note": "Outdoor tables with a water view."}, {"name": "Clayton's Beach Bar & Grill", "type": "food", "city": "South Padre Island", "lat": 26.13747, "lng": -97.16906, "addr": "6900 Padre Blvd, South Padre Island, TX", "note": "Big outdoor area on the beach. Live music."}, {"name": "Padre Island Brewing Co", "type": "food", "city": "South Padre Island", "lat": 26.10938, "lng": -97.16849, "addr": "3400 Padre Blvd, South Padre Island, TX", "note": "Porch tables."}, {"name": "Wanna-Wanna Beach Bar & Grill", "type": "food", "city": "South Padre Island", "lat": 26.12304, "lng": -97.16697, "addr": "5100 Gulf Blvd, South Padre Island, TX", "note": "Beachfront patio."}, {"name": "Cafe Karma", "type": "food", "city": "South Padre Island", "lat": 26.12417, "lng": -97.17022, "addr": "5200 Padre Blvd, South Padre Island, TX", "note": "Coffee shop with an outdoor patio."}, {"name": "KIC's Ice Cream", "type": "food", "city": "South Padre Island", "lat": 26.10301, "lng": -97.16735, "addr": "Amberjack St, South Padre Island, TX", "note": "Outdoor seating and a pup cup."}];</script>
+<script src="/places.js?v=9962263c"></script>
+
+  <section class="join">
+    <div class="wrap">
+      <div class="join-copy">
+        <h2>Stay in the loop</h2>
+        <p class="lead">Local stories, upcoming clinics, and first word when the Howlback app launches. By email or text, your pick.</p>
+      </div>
+    <div class="signup" id="join">
+      <div class="sw" role="group" aria-label="How should we reach you?">
+        <button type="button" aria-pressed="true" data-mode="email">Email me</button>
+        <button type="button" aria-pressed="false" data-mode="text">Text me</button>
+      </div>
+      <div id="mode-email">
+        <label for="email">Email address</label>
+        <form id="signup" action="https://howlback.beehiiv.com/subscribe" method="get" target="_blank">
+          <input id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
+          <button class="btn" type="submit">Sign up</button>
+        </form>
+        <small>Free. Unsubscribe anytime.</small>
+      </div>
+      <div id="mode-text" hidden>
+        <label for="phone">Phone number</label>
+        <form id="textform" name="launch-text" method="POST" data-netlify="true" netlify-honeypot="company">
+          <input type="hidden" name="form-name" value="launch-text">
+          <p hidden><label>Leave this empty <input name="company"></label></p>
+          <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="(956) 555-0123" autocomplete="tel" pattern="[0-9()+\-. ]{10,}" required>
+          <button class="btn" type="submit">Text me</button>
+        </form>
+        <small>We’ll text you once when the app launches. By signing up you agree to get texts from Howlback. Msg and data rates may apply. Reply STOP to opt out.</small>
+        <p class="ok" id="text-ok" hidden>You’re on the list! We’ll text you when the app is out.</p>
+        <p class="err" id="text-err" hidden>That didn’t go through. Check your number and try again.</p>
+      </div>
+    </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <a class="logo" href="#top">howl<i>back</i></a>
+      <p class="fine">Local help, rescues, and stories for the street dogs of South Texas.</p>
+      <p class="fine">Listings are for information only. Call ahead to confirm hours and services.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <b>Follow Howlback</b>
+      <div class="social">
+        <a href="https://www.instagram.com/howlback.app" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>Instagram</a>
+        <a href="https://www.facebook.com/profile.php?id=61595201828343" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8h3V4h-3c-2.8 0-4 1.7-4 4.3V10H7v4h3v7h4v-7h3l1-4h-4V8.6c0-.4.3-.6.6-.6z"/></svg>Facebook</a>
+        <a href="#join" data-focus-email><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Get email updates</a>
+      </div>
+      <p class="fine">Contact: hello@howlback.app<br>© 2026 Howlback</p>
+    </div>
+  </div>
+</footer>
+<nav class="tabbar" aria-label="App"><a href="/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span>Home</span></a><a href="/help/"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"/></svg><span>Help</span></a><a href="/clinics/"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Clinics</span></a><a href="/blog/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14v16H5zM9 8h6M9 12h6M9 16h3"/></svg><span>Blog</span></a><a href="/app/"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="3"/><path d="M11 18h2"/></svg><span>App</span></a></nav>
+</div>
+<script src="/site.js?v=006286a2"></script>
+</body>
+</html>
