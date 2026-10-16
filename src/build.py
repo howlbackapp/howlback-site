@@ -352,7 +352,7 @@ pg = head("Lost and found dogs in the RGV", "Lost or found a dog in the Rio Gran
 pg += header("/lost-found/")
 pg += page_head("Lost and found dogs", "Lost dogs and found strays across the Rio Grande Valley. Free to post. Every post is checked before it goes up.")
 pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap lf">
-    <a class="btn lf-post" href="/lost-found/post/">Post a lost or found dog</a>
+    <a class="btn lf-post lf-red" href="/lost-found/post/">Post a lost or found dog</a>
     <div class="lf-filters">
       <div class="os-tabs" role="tablist" aria-label="Show">
         <button type="button" data-kind="all" aria-selected="true">All</button>
