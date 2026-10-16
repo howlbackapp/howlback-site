@@ -353,7 +353,6 @@ pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap lf">
       <select id="lf-city" aria-label="City"><option value="">All cities</option>{city_opts}</select>
     </div>
     <div id="lf-list" class="lf-list"><p class="muted lf-empty">Loading...</p></div>
-    <p class="muted small" style="margin:0">Lost dogs stay up 60 days and found dogs 30 days. When a dog is home, the post says REUNITED for 24 hours, then comes down.</p>
     {SCAM}
     <p class="muted">Found a dog? See <a href="/help/">what to do first</a>.</p>
   </div></section>
