@@ -143,5 +143,29 @@
     "https://www.aaha.org/petmicrochiplookup"
    ]
   ]
+ },
+ {
+  "slug": "dogs-and-health-rgv",
+  "title": "How a dog can help your health in the RGV",
+  "topic": "Health",
+  "desc": "With high rates of diabetes and obesity in the Rio Grande Valley, a dog can be the reason you get outside and walk every day. How dogs help older adults, kids, and families stay active and less lonely.",
+  "img": "rescue-dog.jpg",
+  "alt": "A happy shepherd mix in a harness lying on a dog cot",
+  "date": "2026-10-16",
+  "html": "<p>A dog gets you up in the morning, out the door, and talking to neighbors. In a region where so many families are dealing with diabetes, that daily push matters more than most people think.</p>\n<h2>The Valley's health numbers</h2>\n<p>Researchers at UTRGV's South Texas Diabetes and Obesity Institute found that about 30% of Mexican-American adults in the Valley have diabetes and another 25% have prediabetes. Around 60% have obesity. Statewide, about 11% of adult Texans have diabetes.</p>\n<p>Walking every day is one of the simplest ways to help lower blood sugar and keep weight in check. The hard part is sticking with it. That's where a dog comes in.</p>\n<h2>A built-in workout buddy</h2>\n<p>A dog doesn't care if you're tired or it's Monday. They need a walk, so you go. A 2019 University of Liverpool study found dog owners were about four times more likely to meet the recommended 150 minutes of activity a week.</p>\n<ul><li>Two 15-minute walks a day adds up to more than 3 hours a week</li><li>Go early or after sunset to beat the heat, for you and their paws</li><li>Need ideas? See <a href=\"/blog/dog-friendly-brownsville/\">dog-friendly spots in Brownsville</a></li></ul>\n<h2>Good company for older adults</h2>\n<p>Living alone can get lonely, especially after retirement or losing a spouse. In a University of Michigan poll of pet owners 50 and older, 72% said their pet helps them enjoy life, 67% said it helps reduce stress, and 66% said it helps them feel loved.</p>\n<p>A dog also gives the day a routine: breakfast, a walk, dinner, another walk. Having someone who depends on you is a reason to keep moving. And walking a dog is an easy way to meet neighbors.</p>\n<p>Tip for seniors: an older, calm dog is often a better fit than a puppy. They're usually house-trained, less likely to pull, and happy with shorter walks.</p>\n<h2>Kids learn responsibility</h2>\n<p>Caring for a dog teaches kids that someone else depends on them. Give them jobs that fit their age:</p>\n<ul><li><strong>Ages 3 to 5</strong>: fill the water bowl and help pick out toys</li><li><strong>Ages 6 to 9</strong>: measure out food, brush the dog, and help on walks with an adult</li><li><strong>Ages 10 and up</strong>: walks, cleaning up the yard, and keeping track of meds and vet visits</li></ul>\n<p>Teach kids to ask before petting any dog they don't know, and to leave a dog alone while it eats or sleeps. Always supervise young kids with dogs.</p>\n<h2>Not sure you're ready? Foster first</h2>\n<p>Fostering lets you try life with a dog without a forever commitment. Many shelters and rescues cover food and vet care, so it can cost you little or nothing. See <a href=\"/blog/cost-to-foster-a-dog-rgv/\">what it costs to foster in the RGV</a>, or find <a href=\"/rescues/\">local rescues</a> looking for fosters.</p>\n<p>There are thousands of dogs on Valley streets waiting for someone. Your next walking buddy might be one of them.</p>",
+  "sources": [
+   [
+    "Texas Tribune, Rio Grande Valley diabetes and obesity",
+    "https://www.texastribune.org/2025/01/23/rio-grande-valley-texas-health-diabetes/"
+   ],
+   [
+    "University of Liverpool, Dog owners more likely to meet exercise targets (2019)",
+    "https://news.liverpool.ac.uk/?p=83980"
+   ],
+   [
+    "University of Michigan, How pets contribute to healthy aging",
+    "https://ihpi.umich.edu/national-poll-healthy-aging/michigan-findings/how-pets-contribute-healthy-aging-benefits-challenges"
+   ]
+  ]
  }
 ]
