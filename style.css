@@ -439,3 +439,4 @@ body{background:transparent!important;margin:0}
 .lf-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
 .lf-chips{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0}
 .lf-chips span{background:var(--mint);color:var(--ink);font-weight:700;font-size:13px;border-radius:999px;padding:5px 11px}
+.found-note{margin:14px 0 0;background:#fff6ec;border:1px solid #f6d9b8;border-radius:14px;padding:12px 14px;font-size:15px;line-height:1.45}

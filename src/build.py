@@ -155,8 +155,8 @@ home += foot()
 write("/", home)
 
 # ---------- LOCAL HELP ----------
-pg = head("Local help", "Who to call in the Rio Grande Valley: shelters, animal control, low-cost vets, urgent vets, pet food help, and pet stores.", "/help/")
-pg += header("/help/") + page_head("Local help in the Valley", "Shelters, animal control, low-cost vets, and pet food help. Hours change often, so call ahead.")
+pg = head("Local help", "Found a stray in the Rio Grande Valley? What to do first, plus low-cost vets, after-hours vets, pet food help, and pet stores.", "/help/")
+pg += header("/help/") + page_head("Local help in the Valley", "What to do when you find a dog, plus low-cost vets, after-hours vets, and pet food help. Hours change often, so call ahead.")
 pg += '  <section class="page"><div class="wrap" style="display:flex;flex-direction:column">\n'
 pg += P["found"] + P["tools"] + "\n  </div></section>\n" + foot()
 write("/help/", pg)

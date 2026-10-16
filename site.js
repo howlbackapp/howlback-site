@@ -1,17 +1,17 @@
 const RES = [
  // [name, type, city, address, phone, note]
- ["Brownsville Animal Regulation and Care Center (BARC)","Shelter & animal control","Brownsville","416 FM 511, Olmito","(956) 544-7351",""],
- ["City of Harlingen Animal Shelter","Shelter & animal control","Harlingen","1106 Markowsky Ave","(956) 216-5250",""],
- ["Cameron County Animal Shelter","Shelter & animal control","San Benito","26981 FM 510","(956) 361-8206",""],
- ["San Benito Animal Control","Shelter & animal control","San Benito","401 N Sam Houston Blvd","(956) 361-3804",""],
- ["Palm Valley Animal Society, Laurie P. Andrews Center","Shelter & animal control","Edinburg","2451 N Expressway 281","(956) 720-4563","Has a foster program and monthly low-cost clinics"],
- ["Palm Valley Animal Society, Trenton Center","Shelter & animal control","Edinburg","2501 W Trenton Rd","(956) 686-1141",""],
- ["McAllen Animal Care Services","Shelter & animal control","McAllen","311 N 15th St","(956) 681-1919",""],
- ["Edinburg Animal Care Services","Shelter & animal control","Edinburg","1301 N Doolittle Rd","(956) 316-2185",""],
- ["Pharr Animal Control","Shelter & animal control","Pharr","1015 E Ferguson Ave","(956) 402-4350",""],
- ["Mission Animal Shelter","Shelter & animal control","Mission","227 Abelino Farias St","(956) 580-8741",""],
- ["Weslaco Animal Care Services","Shelter & animal control","Weslaco","1912 Joe Stephens Ave","(956) 447-3406",""],
- ["Hidalgo County Animal Control","Shelter & animal control","Edinburg","1304 S 25th Ave","(956) 383-0111","For areas outside city limits"],
+ ["Brownsville Animal Regulation and Care Center (BARC)","Shelters (last resort)","Brownsville","416 FM 511, Olmito","(956) 544-7351",""],
+ ["City of Harlingen Animal Shelter","Shelters (last resort)","Harlingen","1106 Markowsky Ave","(956) 216-5250",""],
+ ["Cameron County Animal Shelter","Shelters (last resort)","San Benito","26981 FM 510","(956) 361-8206",""],
+ ["San Benito Animal Control","Shelters (last resort)","San Benito","401 N Sam Houston Blvd","(956) 361-3804",""],
+ ["Palm Valley Animal Society, Laurie P. Andrews Center","Shelters (last resort)","Edinburg","2451 N Expressway 281","(956) 720-4563","Has a foster program and monthly low-cost clinics"],
+ ["Palm Valley Animal Society, Trenton Center","Shelters (last resort)","Edinburg","2501 W Trenton Rd","(956) 686-1141",""],
+ ["McAllen Animal Care Services","Shelters (last resort)","McAllen","311 N 15th St","(956) 681-1919",""],
+ ["Edinburg Animal Care Services","Shelters (last resort)","Edinburg","1301 N Doolittle Rd","(956) 316-2185",""],
+ ["Pharr Animal Control","Shelters (last resort)","Pharr","1015 E Ferguson Ave","(956) 402-4350",""],
+ ["Mission Animal Shelter","Shelters (last resort)","Mission","227 Abelino Farias St","(956) 580-8741",""],
+ ["Weslaco Animal Care Services","Shelters (last resort)","Weslaco","1912 Joe Stephens Ave","(956) 447-3406",""],
+ ["Hidalgo County Animal Control","Shelters (last resort)","Edinburg","1304 S 25th Ave","(956) 383-0111","For areas outside city limits"],
  ["Brownsville Spay Neuter Clinic","Low-cost vet & vaccines","Brownsville","1050 MacKintosh Dr, Ste A","(956) 550-8366",""],
  ["Laguna Madre Humane Society","Low-cost vet & vaccines","Port Isabel","417 1/2 E Maxan St","(956) 266-3140","Low-cost clinic for the island and Laguna Vista area"],
  ["Rio Grande Valley Humane Society","Low-cost vet & vaccines","Harlingen","18038 Garrett Rd","(956) 556-5885","Monthly low-cost vaccine clinic and spay/neuter"],
@@ -102,6 +102,9 @@ document.querySelectorAll("[data-focus-email]").forEach(a => a.addEventListener(
 
 /* resources */
 if ($("#res")) {
+  const ORDER = ["Low-cost vet & vaccines", "Urgent & after-hours vet", "Pet food help", "Pet supplies", "Shelters (last resort)"];
+  const rank = c => { const i = ORDER.indexOf(c); return i < 0 ? 50 : i; };
+  RES.sort((a, b) => rank(a[1]) - rank(b[1]));
   const CATS = ["All", ...new Set(RES.map(r => r[1]))];
   const CITIES = ["All cities", ...[...new Set(RES.map(r => r[2]))].sort()];
   let cat = "All", all = false;
