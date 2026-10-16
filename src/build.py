@@ -35,8 +35,9 @@ def fix_paths(t):
     t = t.replace('href="#featured"', 'href="/share/"')
     return t
 
-def head(title, desc, path, img="/img/street-dog.jpg"):
+def head(title, desc, path, img="/img/street-dog.jpg", schema=None):
     full = title if title == "Howlback" else f"{title} | Howlback"
+    ld = "" if not schema else '<script type="application/ld+json">' + json.dumps(schema, ensure_ascii=False).replace("</", "<\\/") + '</script>\n' 
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -62,7 +63,7 @@ def head(title, desc, path, img="/img/street-dog.jpg"):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="/style.css">
-<script data-goatcounter="https://howlback.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+{ld}<script data-goatcounter="https://howlback.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 <div class="shell">
@@ -112,7 +113,10 @@ hero = re.sub(r'<a class="where soon-pill"[^>]*>.*?</a>',
               '<a class="where soon-pill" href="/app/">The app is coming soon. Take a peek</a>', hero)
 hero = hero.replace('href="#help"', 'href="/help/"').replace('href="#stories"', 'href="/blog/"')
 
-home = head("Howlback", "Local help for street dogs in the Rio Grande Valley: who to call, low-cost vets, vaccine clinics, rescues, and stories from South Texas.", "/")
+org = {"@context": "https://schema.org", "@type": "Organization", "name": "Howlback", "url": SITE, "logo": f"{SITE}/img/icon-512.png",
+       "email": "hello@howlback.app", "areaServed": "Rio Grande Valley, Texas",
+       "sameAs": ["https://www.instagram.com/howlback.app", "https://www.facebook.com/profile.php?id=61595201828343"]}
+home = head("Howlback", "Local help for street dogs in the Rio Grande Valley: who to call, low-cost vets, vaccine clinics, rescues, and stories from South Texas.", "/", schema=org)
 home += header("/") + hero + """
   <div class="wrap hide-installed" style="padding-bottom:8px">
     <a class="install-card" href="/install/"><img src="/img/icon-192.png" alt=""><div><b>Add Howlback to your home screen</b><span>Opens like an app. No download.</span></div><span class="go">How ›</span></a>
@@ -158,7 +162,20 @@ pg += P["found"] + P["tools"] + "\n  </div></section>\n" + foot()
 write("/help/", pg)
 
 # ---------- CLINICS ----------
-pg = head("Vaccine clinics", "Free and low-cost dog vaccine and microchip clinics coming up around the Rio Grande Valley.", "/clinics/")
+import subprocess, datetime
+EVENTS = json.loads(subprocess.run(["node", "-e", "const s=require('fs').readFileSync(process.argv[1],'utf8');process.stdout.write(JSON.stringify(new Function(s.split('const $ =')[0]+'; return EVENTS')()))", os.path.join(ROOT, "site.js")], capture_output=True, text=True, check=True).stdout)
+today = datetime.date.today().isoformat()
+ev_schema = []
+for e in EVENTS:
+    if not e.get("date") or e["date"] < today:
+        continue
+    ev_schema.append({"@context": "https://schema.org", "@type": "Event", "name": e["title"],
+        "startDate": e["date"], "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "location": {"@type": "Place", "name": e["where"].split(",")[0], "address": {"@type": "PostalAddress", "streetAddress": e["where"], "addressRegion": "TX", "addressCountry": "US"}},
+        "description": "; ".join(e.get("items", [])), "url": e.get("link") or f"{SITE}/clinics/",
+        "organizer": {"@type": "Organization", "name": "See event details", "url": e.get("link") or SITE}})
+pg = head("Vaccine clinics", "Free and low-cost dog vaccine and microchip clinics coming up around the Rio Grande Valley.", "/clinics/", schema=ev_schema or None)
 pg += header("/clinics/") + page_head("Vaccine clinics and pet events", "Free and low-cost clinics around the Valley. Past events drop off on their own.")
 pg += """  <section class="page"><div class="wrap">
     <div class="ev" id="ev"></div>
@@ -183,7 +200,12 @@ for p in POSTS:
     cover = f'<img class="cover" src="/img/{p["img"]}" alt="{html.escape(p["alt"])}">' if p["img"] else ""
     srcs = "".join(f'<li><a href="{u}" target="_blank" rel="noopener">{html.escape(t)}</a></li>' for t, u in p["sources"])
     url = f"{SITE}/blog/{p['slug']}/"
-    pg = head(p["title"], p["desc"], f"/blog/{p['slug']}/", f"/img/{p['img'] or 'street-dog.jpg'}")
+    art = {"@context": "https://schema.org", "@type": "Article", "headline": p["title"], "description": p["desc"],
+           "image": f"{SITE}/img/{p['img'] or 'street-dog.jpg'}", "datePublished": p.get("date", ""),
+           "author": {"@type": "Organization", "name": "Howlback", "url": SITE},
+           "publisher": {"@type": "Organization", "name": "Howlback", "logo": {"@type": "ImageObject", "url": f"{SITE}/img/icon-512.png"}},
+           "mainEntityOfPage": f"{SITE}/blog/{p['slug']}/"}
+    pg = head(p["title"], p["desc"], f"/blog/{p['slug']}/", f"/img/{p['img'] or 'street-dog.jpg'}", schema=art)
     pg += header("/blog/")
     pg += f"""  <article class="wrap article">
     <header>
