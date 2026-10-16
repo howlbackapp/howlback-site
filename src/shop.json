@@ -1,47 +1,106 @@
 {
  "_how_to_edit": "Add a link or code to any item and rebuild. Items with show:false or with no link and no code stay hidden (except checklist items).",
- "amazon_tag": "",
+ "amazon_tag": "buddyinmoti0e-20",
  "sections": [
   {
    "title": "Day one basics",
    "intro": "What to have ready the day a dog comes home with you.",
    "checklist": true,
    "items": [
-    {"name": "Slip leash", "why": "Easy to put on a nervous dog, and hard to back out of.", "link": ""},
-    {"name": "Collar and ID tag", "why": "Put your phone number on it in case they slip out.", "link": ""},
-    {"name": "Food and water bowls", "why": "Stainless steel is easy to clean and hard to chew.", "link": ""},
-    {"name": "Crate or a washable bed", "why": "A quiet spot of their own helps a scared dog settle in.", "link": ""},
-    {"name": "Enzyme cleaner", "why": "For accidents. It breaks down the smell so they don't go there again.", "link": ""},
-    {"name": "Poop bags", "why": "You'll need a lot of these.", "link": ""}
+    {
+     "name": "Slip leash",
+     "why": "Easy to put on a nervous dog, and hard to back out of.",
+     "link": "https://www.amazon.com/s?k=slip+lead+dog+leash&tag=buddyinmoti0e-20"
+    },
+    {
+     "name": "Collar and ID tag",
+     "why": "Put your phone number on it in case they slip out.",
+     "link": "https://www.amazon.com/s?k=dog+collar&tag=buddyinmoti0e-20"
+    },
+    {
+     "name": "Food and water bowls",
+     "why": "Stainless steel is easy to clean and hard to chew.",
+     "link": "https://www.amazon.com/s?k=stainless+steel+dog+bowls&tag=buddyinmoti0e-20"
+    },
+    {
+     "name": "Crate or a washable bed",
+     "why": "A quiet spot of their own helps a scared dog settle in.",
+     "link": "https://www.amazon.com/s?k=dog+crate&tag=buddyinmoti0e-20"
+    },
+    {
+     "name": "Enzyme cleaner",
+     "why": "For accidents. It breaks down the smell so they don't go there again.",
+     "link": "https://www.amazon.com/s?k=enzyme+cleaner+pet+urine&tag=buddyinmoti0e-20"
+    },
+    {
+     "name": "Poop bags",
+     "why": "You'll need a lot of these.",
+     "link": "https://www.amazon.com/s?k=dog+poop+bags&tag=buddyinmoti0e-20"
+    }
    ]
   },
   {
    "title": "Food",
    "intro": "Street dogs often have sensitive stomachs. Switch foods slowly over a week.",
    "items": [
-    {"name": "Get Joy", "why": "Fresh and freeze-dried dog food. Buddy's favorite is the beef freeze-dried raw.", "link": "", "code": "", "deal": "", "show": false},
-    {"name": "Rigby", "why": "Dog food that new customers can get 15% off through our link.", "link": "", "code": "", "deal": "15% off your first order", "show": false}
+    {
+     "name": "Get Joy",
+     "why": "Fresh and freeze-dried dog food. Buddy's favorite is the beef freeze-dried raw.",
+     "link": "",
+     "code": "",
+     "deal": "",
+     "show": false
+    },
+    {
+     "name": "Rigby",
+     "why": "Dog food that new customers can get 15% off through our link.",
+     "link": "",
+     "code": "",
+     "deal": "15% off your first order",
+     "show": false
+    }
    ]
   },
   {
    "title": "Grooming and coat care",
    "intro": "For baths and coat care once your vet gives the OK. Mange and skin infections need a vet first.",
    "items": [
-    {"name": "Goldie", "why": "Dog shampoos, wipes, towels, and ear care.", "link": "https://goldiedogessentials.com/", "code": "BUDDY10", "deal": "10% off your order", "show": true}
+    {
+     "name": "Goldie",
+     "why": "Dog shampoos, wipes, towels, and ear care.",
+     "link": "https://goldiedogessentials.com/",
+     "code": "BUDDY10",
+     "deal": "10% off your order",
+     "show": true
+    }
    ]
   },
   {
    "title": "Calm and enrichment",
    "intro": "Lick mats and chews give an anxious dog something to do besides worry.",
    "items": [
-    {"name": "Woof", "why": "Lick pads, pupsicles, and calming treats.", "link": "https://mywoof.com/", "code": "", "deal": "15% off", "show": false}
+    {
+     "name": "Woof",
+     "why": "Lick pads, pupsicles, and calming treats.",
+     "link": "https://mywoof.com/",
+     "code": "",
+     "deal": "15% off",
+     "show": false
+    }
    ]
   },
   {
    "title": "Pet store",
    "intro": "",
    "items": [
-    {"name": "PetSmart", "why": "Food, crates, beds, and everything else in one stop.", "link": "", "code": "", "deal": "", "show": false}
+    {
+     "name": "PetSmart",
+     "why": "Food, crates, beds, and everything else in one stop.",
+     "link": "",
+     "code": "",
+     "deal": "",
+     "show": false
+    }
    ]
   }
  ]

@@ -337,7 +337,7 @@ SHOP = json.load(open(os.path.join(ROOT, "src/shop.json")))
 def shop_item(it, checklist):
     name, why, link = html.escape(it["name"]), html.escape(it["why"]), it.get("link", "")
     if checklist:
-        btn = f'<a class="btn soft sm" href="{link}" target="_blank" rel="sponsored noopener">See it</a>' if link else ""
+        btn = f'<a class="btn soft sm" href="{link}" target="_blank" rel="sponsored noopener">See options</a>' if link else ""
         return f'<li class="chk"><div><b>{name}</b><span>{why}</span></div>{btn}</li>\n'
     code = it.get("code", "")
     deal = html.escape(it.get("deal", ""))
