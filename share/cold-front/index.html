@@ -1,0 +1,5 @@
+<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex"><title>.</title><body>loading
+<script>
+(async()=>{const files=[];for(let i=1;i<=5;i++){const n='cold-front-'+i+'.jpg';files.push({name:n,buf:await (await fetch(n)).arrayBuffer()});}
+const t=window.parent!==window?window.parent:window.opener;const send=()=>{try{t&&t.postMessage({howlbackFiles:files},'*')}catch(e){}};send();setInterval(send,1500);document.body.textContent='sent '+files.length;})();
+</script>
