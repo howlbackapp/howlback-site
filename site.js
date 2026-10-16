@@ -181,3 +181,11 @@ if ($("#install-btn")) $("#install-btn").addEventListener("click", async () => {
 
 /* offline support */
 if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("/sw.js").catch(() => {});
+
+// copy discount codes
+document.querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click", async () => {
+  const small = b.querySelector("small");
+  try { await navigator.clipboard.writeText(b.dataset.copy); if (small) small.textContent = "Copied!"; }
+  catch (e) { if (small) small.textContent = "Code: " + b.dataset.copy; }
+  setTimeout(() => { if (small) small.textContent = "Tap to copy"; }, 2000);
+}));

@@ -11,7 +11,7 @@ POSTS = json.load(open(os.path.join(ROOT, "src/posts.json")))
 SITE = "https://howlback.app"
 
 NAV = [("/help/", "Local help"), ("/clinics/", "Clinics"), ("/rescues/", "Rescues"),
-       ("/blog/", "Blog"), ("/app/", "The app"), ("/share/", "Share a story"),
+       ("/blog/", "Blog"), ("/must-haves/", "Foster must-haves"), ("/app/", "The app"), ("/share/", "Share a story"),
        ("/install/", "Add to home screen")]
 
 TABS = [("/", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>'),
@@ -332,6 +332,40 @@ pg += foot()
 write("/install/", pg)
 
 
+# ---------- MUST-HAVES (affiliate page) ----------
+SHOP = json.load(open(os.path.join(ROOT, "src/shop.json")))
+def shop_item(it, checklist):
+    name, why, link = html.escape(it["name"]), html.escape(it["why"]), it.get("link", "")
+    if checklist:
+        btn = f'<a class="btn soft sm" href="{link}" target="_blank" rel="sponsored noopener">See it</a>' if link else ""
+        return f'<li class="chk"><div><b>{name}</b><span>{why}</span></div>{btn}</li>\n'
+    code = it.get("code", "")
+    deal = html.escape(it.get("deal", ""))
+    codebox = (f'<button class="code" type="button" data-copy="{html.escape(code)}">Code <b>{html.escape(code)}</b><small>Tap to copy</small></button>' if code else "")
+    btn = f'<a class="btn" href="{link}" target="_blank" rel="sponsored noopener">Shop {name}</a>' if link else ""
+    return (f'<li class="prod"><div class="prod-top"><b>{name}</b>{f"<span class=deal>{deal}</span>" if deal else ""}</div>'
+            f'<p>{why}</p><div class="prod-act">{btn}{codebox}</div></li>\n')
+
+pg = head("New to fostering? Must-haves", "Everything you need when you foster or take in a dog in the Rio Grande Valley: day one basics, food, grooming, and calming picks, with discount codes.", "/must-haves/", "/img/rescue-dog.jpg")
+pg += header("/must-haves/")
+pg += page_head("New to fostering? Must-haves", "What to have ready when a dog comes home with you, plus the brands Buddy actually uses.")
+disclose = "Some links on this page earn Howlback a small commission, at no extra cost to you."
+if SHOP.get("amazon_tag"):
+    disclose += " As an Amazon Associate, Howlback earns from qualifying purchases."
+pg += f'  <section class="page" style="padding-top:8px"><div class="wrap shop">\n    <p class="disclose">{disclose}</p>\n'
+for s in SHOP["sections"]:
+    chk = s.get("checklist", False)
+    items = [i for i in s["items"] if chk or (i.get("show", True) and (i.get("link") or i.get("code")))]
+    if not items:
+        continue
+    pg += f'    <div class="shop-sec"><h2>{html.escape(s["title"])}</h2>' + (f'<p class="muted">{html.escape(s["intro"])}</p>' if s.get("intro") else "")
+    pg += f'<ul class="{"chklist" if chk else "prods"}">\n' + "".join(shop_item(i, chk) for i in items) + '</ul></div>\n'
+pg += '    <div class="shop-sec vetnote"><h2>Get these from a vet</h2><p>Vaccines, dewormer, and flea, tick, and heartworm prevention are cheapest at low-cost clinics. See <a href="/clinics/">upcoming clinics</a>, or read <a href="/blog/cost-to-foster-a-dog-rgv/">what it costs to foster a dog in the RGV</a>.</p></div>\n'
+pg += '  </div></section>\n'
+pg += foot()
+write("/must-haves/", pg)
+
+
 # ---------- LINKS (link in bio) ----------
 latest = sorted(enumerate(POSTS), key=lambda x: (x[1]["date"], x[0]))[-1][1]
 LINKS = [
@@ -340,6 +374,7 @@ LINKS = [
     ("/blog/", "All blog posts", "Laws, local guides, and RGV dog news", False),
     ("/clinics/", "Clinics and events", "Low-cost shots, spay and neuter, adoption days", False),
     ("/help/", "Found a dog?", "Who to call in your city", False),
+    ("/must-haves/", "New to fostering? Must-haves", "Day one basics, food, and discount codes", False),
     ("/#join", "Get app updates", "One email or text when the app launches", False),
     ("/app/", "The Howlback app", "Coming soon to the RGV", False),
 ]
@@ -354,7 +389,7 @@ write("/links/", pg)
 
 
 # ---------- SITEMAP + ROBOTS ----------
-pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
+pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/must-haves/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in pages:
     sm += f"  <url><loc>{SITE}{u}</loc></url>\n"
