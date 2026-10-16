@@ -345,3 +345,20 @@ body{background:transparent!important;margin:0}
 .install-hero img{width:100%;max-width:300px;display:block;margin:0 auto}
 #install-btn[hidden]{display:none}
 @media (display-mode: standalone){ .hide-installed{display:none!important} }
+/* link-in-bio page */
+.links-page{padding:44px 20px 48px;display:flex;flex-direction:column;gap:22px;min-height:100dvh;background:linear-gradient(180deg,var(--mint) 0,#fff 260px)}
+.links-top{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px}
+.links-top img{border-radius:22px;box-shadow:0 8px 24px rgba(31,58,63,.18)}
+.links-top h1{font-size:34px!important;margin-top:6px}
+.links-top h1 i{font-style:normal;color:var(--peach-ink)}
+.links-top p{color:var(--muted);font-size:16px;line-height:1.45}
+.links-list{display:flex;flex-direction:column;gap:12px}
+.lnk{display:flex;flex-direction:column;gap:2px;text-align:center;text-decoration:none;background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:15px 18px;box-shadow:0 2px 10px rgba(31,58,63,.05)}
+.lnk b{font-size:17px;color:var(--ink)}
+.lnk span{font-size:14px;color:var(--muted)}
+.lnk:hover{border-color:var(--teal)}
+.lnk.main{background:var(--teal);border-color:var(--teal)}
+.lnk.main b,.lnk.main span{color:#fff}
+.links-social{display:flex;justify-content:center;gap:18px;margin-top:4px}
+.links-social a{font-weight:700;color:var(--teal);text-decoration:none}
+.shell:has(.links-page){padding-bottom:0}
