@@ -43,7 +43,7 @@ if (list) {
       <article class="lf-card${p.status === "reunited" ? " reunited" : ""}">
         <img src="${photo(p.photo_path)}" alt="${esc(p.kind)} dog in ${esc(p.city)}" loading="lazy">
         <div class="lf-body">
-          <span class="lf-tag ${p.kind}">${p.status === "reunited" ? "Reunited 🎉" : p.kind === "lost" ? "Lost" : "Found"}</span>
+          ${p.status === "reunited" ? '<span class="lf-reunited">REUNITED 🎉</span>' : `<span class="lf-tag ${p.kind}">${p.kind === "lost" ? "Lost" : "Found"}</span>`}
           <h3>${esc(p.dog_name || (p.kind === "lost" ? "Lost dog" : "Found dog"))}</h3>
           <p class="lf-where">${esc(p.city)}${p.area ? " · " + esc(p.area) : ""}${p.seen_on ? " · " + fmtDate(p.seen_on) : ""}</p>
           <p>${esc(p.description)}</p>
@@ -104,21 +104,46 @@ if (form) {
     btn.disabled = true; note.textContent = "Uploading photo...";
     try {
       const blob = await shrink(f);
+      const id = crypto.randomUUID(), tok = crypto.randomUUID();
       const path = `${new Date().toISOString().slice(0, 10)}/${crypto.randomUUID()}.jpg`;
       await api(`/storage/v1/object/${BUCKET}/${path}`, {method: "POST", headers: {"Content-Type": "image/jpeg", "x-upsert": "false"}, body: blob});
       note.textContent = "Sending your post...";
       await api("/rest/v1/lost_found", {method: "POST", headers: {"Content-Type": "application/json", Prefer: "return=minimal"},
         body: JSON.stringify({
-          kind: form.kind.value, city: form.city.value, area: form.area.value.trim() || null,
+          id, edit_token: tok, kind: form.kind.value, city: form.city.value, area: form.area.value.trim() || null,
           seen_on: form.seen_on.value || null, dog_name: form.dog_name.value.trim() || null,
           description: form.description.value.trim(), photo_path: path,
           contact_name: form.contact_name.value.trim() || null, contact_phone: phone || null,
           contact_email: email || null, show_phone: !!(phone && form.show_phone.checked)})});
+      const link = `${location.origin}/lost-found/update/?id=${id}&t=${tok}`;
+      $("#lf-link").value = link;
       form.hidden = true; $("#lf-done").hidden = false; window.scrollTo(0, 0);
     } catch (err) {
       note.textContent = /description/.test(err.message) ? "Please write a little more about the dog (at least a sentence)." : "Something went wrong. Check your photo (JPG or PNG under 8 MB) and try again.";
       btn.disabled = false;
     }
+  });
+}
+
+// ---------- copy private link ----------
+const copyLink = $("#lf-copy-link");
+if (copyLink) copyLink.addEventListener("click", async () => {
+  const v = $("#lf-link").value;
+  try { await navigator.clipboard.writeText(v); copyLink.textContent = "Copied!"; } catch (_) { $("#lf-link").select(); }
+});
+
+// ---------- poster marks reunited ----------
+const upd = $("#lf-update");
+if (upd) {
+  const q = new URLSearchParams(location.search), note = $("#lf-upd-note"), b = $("#lf-reunite");
+  if (!q.get("id") || !q.get("t")) { b.hidden = true; note.textContent = "This link is missing some info. Use the full link you saved after posting."; }
+  b.addEventListener("click", async () => {
+    b.disabled = true; note.textContent = "Updating...";
+    try {
+      const ok = await api("/rest/v1/rpc/lf_mark_reunited", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({p_id: q.get("id"), p_token: q.get("t")})});
+      if (ok === true) { b.hidden = true; note.textContent = "🎉 So happy for you! Your post now says REUNITED for 24 hours, then it comes down."; }
+      else { note.textContent = "We couldn\u2019t find that post. It may already be marked reunited."; b.disabled = false; }
+    } catch (e) { note.textContent = "Something went wrong. Try again in a minute."; b.disabled = false; }
   });
 }
 
@@ -186,7 +211,7 @@ if (admin) {
     if (set && art) {
       set.disabled = true;
       await api(`/rest/v1/lost_found?id=eq.${art.dataset.id}`, {method: "PATCH", headers: {"Content-Type": "application/json", Prefer: "return=minimal"},
-        body: JSON.stringify({status: set.dataset.set, reviewed_at: new Date().toISOString()})}, token());
+        body: JSON.stringify(Object.assign({status: set.dataset.set, reviewed_at: new Date().toISOString()}, set.dataset.set === "reunited" ? {reunited_at: new Date().toISOString()} : {}))}, token());
       load(); return;
     }
     if (e.target.closest("[data-copy-cap]") && art) {

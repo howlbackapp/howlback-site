@@ -428,3 +428,7 @@ body{background:transparent!important;margin:0}
 .lf-dialog input,.lf-dialog textarea{font:inherit;font-size:16px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
 .lf-m{border:1.5px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;display:flex;flex-direction:column;gap:6px}
 .lf-m p{margin:0}
+.lf-reunited{align-self:flex-start;font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.04em;color:#fff;background:#2e8b57;border-radius:12px;padding:6px 14px}
+.lf-card.reunited{opacity:1;border-color:#2e8b57}
+.lf-save{display:flex;flex-direction:column;gap:10px;text-align:left;background:var(--mint);border-radius:18px;padding:16px;width:100%;box-sizing:border-box}
+.lf-save input{font:inherit;font-size:14px;border:1.5px solid var(--line);border-radius:12px;padding:10px;width:100%;box-sizing:border-box}

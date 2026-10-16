@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /lost-found/update/
 Sitemap: https://howlback.app/sitemap.xml

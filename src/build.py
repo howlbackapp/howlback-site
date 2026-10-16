@@ -353,6 +353,7 @@ pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap lf">
       <select id="lf-city" aria-label="City"><option value="">All cities</option>{city_opts}</select>
     </div>
     <div id="lf-list" class="lf-list"><p class="muted lf-empty">Loading...</p></div>
+    <p class="muted small" style="margin:0">Lost dogs stay up 60 days and found dogs 30 days. When a dog is home, the post says REUNITED for 24 hours, then comes down.</p>
     {SCAM}
     <p class="muted">Found a dog? See <a href="/help/">what to do first</a>.</p>
   </div></section>
@@ -403,12 +404,26 @@ pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap lf">
     <div id="lf-done" class="lf-done" hidden>
       <h2>Thanks! Your post is in. 🐾</h2>
       <p>We check every post before it goes live, usually the same day. Meanwhile, post in your city's lost and found group too.</p>
+      <div class="lf-save"><b>Save this link.</b> When your dog is home (or the found dog is back with their family), open it and tap <b>Reunited</b>. Screenshot it or copy it somewhere safe.
+        <input id="lf-link" readonly aria-label="Your private link"><button class="btn soft" id="lf-copy-link" type="button">Copy my link</button></div>
       <a class="btn" href="/lost-found/">See lost and found dogs</a>
     </div>
   </div></section>
 """
 pg += foot().replace('<script src="/site.js"></script>', '<script src="/site.js"></script>\n<script src="/lf.js"></script>')
 write("/lost-found/post/", pg)
+
+pg = head("Update your post", "Mark your lost or found dog post as reunited.", "/lost-found/update/").replace('<meta name="description"', '<meta name="robots" content="noindex">\n<meta name="description"')
+pg += header("/lost-found/")
+pg += page_head("Is your dog home?", "Tap below and your post will say REUNITED for 24 hours, then it comes down.")
+pg += """  <section class="page" style="padding-top:8px"><div class="wrap lf" id="lf-update">
+    <button class="btn lf-post" id="lf-reunite" type="button">Yes, mark it Reunited 🎉</button>
+    <p id="lf-upd-note" class="lf-note" aria-live="polite"></p>
+    <a href="/lost-found/">Back to lost and found</a>
+  </div></section>
+"""
+pg += foot().replace('<script src="/site.js"></script>', '<script src="/site.js"></script>\n<script src="/lf.js"></script>')
+write("/lost-found/update/", pg)
 
 pg = head("Admin", "Howlback admin", "/admin/").replace('<meta name="description"', '<meta name="robots" content="noindex, nofollow">\n<meta name="description"')
 pg += """<main id="lf-admin" class="wrap lf" style="padding:28px 20px 60px">
@@ -493,7 +508,7 @@ for u in pages:
     sm += f"  <url><loc>{SITE}{u}</loc></url>\n"
 sm += "</urlset>\n"
 open(os.path.join(ROOT, "sitemap.xml"), "w").write(sm)
-open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: {SITE}/sitemap.xml\n")
+open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /lost-found/update/\nSitemap: {SITE}/sitemap.xml\n")
 
 
 # ---------- GITHUB PAGES EXTRAS ----------
