@@ -95,7 +95,16 @@ def page_head(h1, lead):
     return f"""  <div class="wrap page-head"><div class="head"><h1 style="font-size:clamp(36px,5vw,56px)">{h1}</h1><p class="lead">{lead}</p></div></div>
 """
 
+import hashlib
+def _h(*files):
+    m = hashlib.md5()
+    for f in files: m.update(open(os.path.join(ROOT, f), "rb").read())
+    return m.hexdigest()[:8]
+VER = {"/site.js": _h("site.js"), "/lf.js": _h("lf.js"), "/style.css": _h("src/base.css", "src/extra.css")}
+
 def write(path, content):
+    for f, v in VER.items():
+        content = content.replace(f'"{f}"', f'"{f}?v={v}"')
     out = os.path.join(ROOT, path.strip("/"), "index.html") if path != "/" else os.path.join(ROOT, "index.html")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, "w").write(content)
@@ -536,7 +545,7 @@ for slug in [p["slug"] for p in POSTS] + [""]:
     os.makedirs(d, exist_ok=True)
     open(os.path.join(d, "index.html"), "w").write(f'<!doctype html><meta charset="utf-8"><title>Moved</title><link rel="canonical" href="{SITE}{target}"><meta http-equiv="refresh" content="0; url={target}"><a href="{target}">This page moved</a>\n')
 nf = """<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Page not found | Howlback</title><link rel="stylesheet" href="/style.css"></head><body><div class="shell"><div class="wrap page-head"><div class="head"><h1>Page not found</h1><p class="lead">That page moved or doesn't exist.</p><a class="btn" href="/" style="align-self:flex-start">Go to the homepage</a></div></div></div></body></html>"""
-open(os.path.join(ROOT, "404.html"), "w").write(nf)
+open(os.path.join(ROOT, "404.html"), "w").write(nf.replace('"/style.css"', f'"/style.css?v={VER["/style.css"]}"'))
 
 # ---------- CSS ----------
 base = open(os.path.join(ROOT, "src/base.css")).read()
