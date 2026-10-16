@@ -388,3 +388,43 @@ body{background:transparent!important;margin:0}
 .vetnote{background:var(--mint);border-radius:20px;padding:18px}
 .vetnote p{margin:0}
 .vetnote a{color:var(--teal);font-weight:700}
+/* lost & found */
+.lf{display:flex;flex-direction:column;gap:18px}
+.lf-post{width:100%;justify-content:center;text-align:center;padding:16px}
+.lf-filters{display:flex;flex-direction:column;gap:10px}
+.lf-filters .os-tabs{margin:0}
+.lf select,.lf input:not([type=radio]):not([type=checkbox]),.lf textarea{font:inherit;font-size:16px;width:100%;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;background:#fff;color:var(--ink);box-sizing:border-box}
+.lf-list{display:flex;flex-direction:column;gap:16px}
+.lf-card{border:1.5px solid var(--line);border-radius:22px;overflow:hidden;background:#fff}
+.lf-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;background:var(--mint)}
+.lf-card.reunited{opacity:.75}
+.lf-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px}
+.lf-body h3{font-size:21px!important;margin:2px 0 0}
+.lf-body p{margin:0}
+.lf-where{color:var(--muted);font-weight:600;font-size:15px}
+.lf-tag{align-self:flex-start;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em;border-radius:999px;padding:5px 11px;background:var(--mint);color:var(--teal)}
+.lf-tag.lost{background:#fde3d8;color:#b4532a}
+.lf-act{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.lf-act .btn{flex:1;justify-content:center;text-align:center}
+.lf-empty{text-align:center;padding:30px 10px;border:1.5px dashed var(--line);border-radius:18px}
+.lf-scam{font-size:14px;background:#fff6ec;border:1px solid #f6d9b8;border-radius:14px;padding:12px 14px;margin:0}
+.lf-form{display:flex;flex-direction:column;gap:14px}
+.lf-form label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px}
+.lf-form label.lf-check{flex-direction:row;align-items:center;gap:10px}
+.lf-form .lf-check input,.lf-kind input{width:20px;height:20px;accent-color:var(--teal)}
+.lf-kind{border:0;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.lf-kind legend{font-weight:700;margin-bottom:6px}
+.lf-kind label{flex-direction:row;align-items:center;gap:10px;font-weight:600;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px}
+.lf-form h3{margin:10px 0 0}
+.small{font-size:13px;margin:-6px 0 0}
+.lf-preview img{max-width:100%;max-height:260px;border-radius:16px;display:block}
+.lf-note{font-weight:700;color:var(--teal);margin:0}
+.lf-done{text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center;padding:20px 0}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.lf-dialog{border:0;border-radius:22px;padding:22px;width:min(92vw,440px);box-shadow:0 30px 80px rgba(31,58,63,.3)}
+.lf-dialog::backdrop{background:rgba(31,58,63,.45)}
+.lf-dialog form{display:flex;flex-direction:column;gap:12px}
+.lf-dialog label{display:flex;flex-direction:column;gap:6px;font-weight:700;font-size:15px}
+.lf-dialog input,.lf-dialog textarea{font:inherit;font-size:16px;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.lf-m{border:1.5px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px;display:flex;flex-direction:column;gap:6px}
+.lf-m p{margin:0}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Admin | Howlback</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Howlback admin">
+<link rel="canonical" href="https://howlback.app/admin/">
+<meta property="og:title" content="Admin | Howlback">
+<meta property="og:description" content="Howlback admin">
+<meta property="og:image" content="https://howlback.app/img/street-dog.jpg">
+<meta property="og:url" content="https://howlback.app/admin/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/img/favicon-48.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#3d6b73">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Howlback">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/style.css">
+<script data-goatcounter="https://howlback.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div class="shell">
+<main id="lf-admin" class="wrap lf" style="padding:28px 20px 60px">
+  <h1 style="font-size:30px!important">Lost &amp; found admin</h1>
+  <form id="lf-login" hidden><p>Log in with a one-time link sent to hello@howlback.app.</p><button class="btn" type="submit">Email me a login link</button><p class="lf-note" aria-live="polite"></p></form>
+  <div id="lf-panel" hidden>
+    <h2>Waiting for review (<span id="lf-count">0</span>)</h2><div id="lf-pending" class="lf-list"></div>
+    <h2>Messages to forward</h2><div id="lf-msgs"></div>
+    <h2>Live posts</h2><div id="lf-live" class="lf-list"></div>
+    <button class="btn soft" id="lf-logout" type="button">Log out</button>
+  </div>
+</main>
+</div>
+<script src="/lf.js"></script>
+</body>
+</html>

@@ -10,7 +10,7 @@ P = json.load(open(os.path.join(ROOT, "src/parts.json")))
 POSTS = json.load(open(os.path.join(ROOT, "src/posts.json")))
 SITE = "https://howlback.app"
 
-NAV = [("/help/", "Local help"), ("/clinics/", "Clinics"), ("/rescues/", "Rescues"),
+NAV = [("/lost-found/", "Lost & found"), ("/help/", "Local help"), ("/clinics/", "Clinics"), ("/rescues/", "Rescues"),
        ("/blog/", "Blog"), ("/must-haves/", "Foster must-haves"), ("/app/", "The app"), ("/share/", "Share a story"),
        ("/install/", "Add to home screen")]
 
@@ -332,6 +332,103 @@ pg += foot()
 write("/install/", pg)
 
 
+# ---------- LOST & FOUND ----------
+CITIES = ["Brownsville", "Harlingen", "San Benito", "Los Fresnos", "Port Isabel", "South Padre Island", "Rio Hondo",
+          "Raymondville", "Mercedes", "Weslaco", "Donna", "Alamo", "San Juan", "Pharr", "McAllen", "Edinburg",
+          "Mission", "Palmview", "La Joya", "Rio Grande City", "Roma", "Other RGV"]
+city_opts = "".join(f'<option>{c}</option>' for c in CITIES)
+SCAM = '<p class="lf-scam"><b>Stay safe:</b> never pay someone to return a pet, and meet in a public place. Scammers sometimes contact lost-pet posters asking for money.</p>'
+
+pg = head("Lost and found dogs in the RGV", "Lost or found a dog in the Rio Grande Valley? See lost and found dogs in Brownsville, Harlingen, McAllen, and across the Valley, or post one for free.", "/lost-found/")
+pg += header("/lost-found/")
+pg += page_head("Lost and found dogs", "Lost dogs and found strays across the Rio Grande Valley. Free to post. Every post is checked before it goes up.")
+pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap lf">
+    <a class="btn lf-post" href="/lost-found/post/">Post a lost or found dog</a>
+    <div class="lf-filters">
+      <div class="os-tabs" role="tablist" aria-label="Show">
+        <button type="button" data-kind="all" aria-selected="true">All</button>
+        <button type="button" data-kind="lost" aria-selected="false">Lost</button>
+        <button type="button" data-kind="found" aria-selected="false">Found</button>
+      </div>
+      <select id="lf-city" aria-label="City"><option value="">All cities</option>{city_opts}</select>
+    </div>
+    <div id="lf-list" class="lf-list"><p class="muted lf-empty">Loading...</p></div>
+    {SCAM}
+    <p class="muted">Found a dog? See <a href="/help/">what to do first</a>.</p>
+  </div></section>
+  <dialog id="lf-msg" class="lf-dialog"><form method="dialog">
+    <h3>Message the poster</h3>
+    <p class="muted">Howlback passes your message along. Your contact info goes only to the poster.</p>
+    <input type="hidden" name="post_id">
+    <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label>Your name<input name="from_name" maxlength="80"></label>
+    <label>Your phone or email<input name="from_contact" required maxlength="120"></label>
+    <label>Message<textarea name="message" required minlength="5" maxlength="1000" rows="4" placeholder="I think I saw this dog near..."></textarea></label>
+    <p class="lf-note" aria-live="polite"></p>
+    <div class="lf-act"><button class="btn" type="submit">Send</button><button class="btn soft" type="button" data-close>Cancel</button></div>
+  </form></dialog>
+"""
+pg += foot().replace('<script src="/site.js"></script>', '<script src="/site.js"></script>\n<script src="/lf.js"></script>')
+write("/lost-found/", pg)
+
+pg = head("Post a lost or found dog", "Post a lost or found dog in the Rio Grande Valley for free. Add a photo, where and when, and how to reach you.", "/lost-found/post/")
+pg += header("/lost-found/")
+pg += page_head("Post a lost or found dog", "Free. It takes 2 minutes. We check every post before it goes live, usually the same day.")
+pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap lf">
+    <form id="lf-form" class="lf-form" novalidate>
+      <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <fieldset class="lf-kind"><legend>This dog is</legend>
+        <label><input type="radio" name="kind" value="lost" required> Lost (my dog is missing)</label>
+        <label><input type="radio" name="kind" value="found" checked> Found (I found a dog)</label>
+      </fieldset>
+      <label>Photo of the dog<input type="file" name="photo" accept="image/*" required></label>
+      <div id="lf-preview" class="lf-preview"></div>
+      <p class="muted small">Please crop out faces, house numbers, and license plates.</p>
+      <label>Dog's name (if you know it)<input name="dog_name" maxlength="60"></label>
+      <label>City<select name="city" required><option value="">Choose a city</option>{city_opts}</select></label>
+      <label>Area or cross streets<input name="area" maxlength="120" placeholder="Near Boca Chica and Central"></label>
+      <p class="muted small">Don't put an exact home address.</p>
+      <label>Date seen<input type="date" name="seen_on"></label>
+      <label>Description<textarea name="description" required minlength="10" maxlength="1000" rows="4" placeholder="Color, size, collar, how they act, where you saw them"></textarea></label>
+      <h3>How can people reach you?</h3>
+      <label>Your name<input name="contact_name" maxlength="80"></label>
+      <label>Phone<input type="tel" name="contact_phone" maxlength="30"></label>
+      <label>Email<input type="email" name="contact_email" maxlength="120"></label>
+      <label class="lf-check"><input type="checkbox" name="show_phone"> Show my phone number on the post</label>
+      <p class="muted small">If you leave this unchecked, your number stays hidden and people message you through Howlback.</p>
+      {SCAM}
+      <p id="lf-status" class="lf-note" aria-live="polite"></p>
+      <button class="btn" type="submit">Submit for review</button>
+    </form>
+    <div id="lf-done" class="lf-done" hidden>
+      <h2>Thanks! Your post is in. 🐾</h2>
+      <p>We check every post before it goes live, usually the same day. Meanwhile, post in your city's lost and found group too.</p>
+      <a class="btn" href="/lost-found/">See lost and found dogs</a>
+    </div>
+  </div></section>
+"""
+pg += foot().replace('<script src="/site.js"></script>', '<script src="/site.js"></script>\n<script src="/lf.js"></script>')
+write("/lost-found/post/", pg)
+
+pg = head("Admin", "Howlback admin", "/admin/").replace('<meta name="description"', '<meta name="robots" content="noindex, nofollow">\n<meta name="description"')
+pg += """<main id="lf-admin" class="wrap lf" style="padding:28px 20px 60px">
+  <h1 style="font-size:30px!important">Lost &amp; found admin</h1>
+  <form id="lf-login" hidden><p>Log in with a one-time link sent to hello@howlback.app.</p><button class="btn" type="submit">Email me a login link</button><p class="lf-note" aria-live="polite"></p></form>
+  <div id="lf-panel" hidden>
+    <h2>Waiting for review (<span id="lf-count">0</span>)</h2><div id="lf-pending" class="lf-list"></div>
+    <h2>Messages to forward</h2><div id="lf-msgs"></div>
+    <h2>Live posts</h2><div id="lf-live" class="lf-list"></div>
+    <button class="btn soft" id="lf-logout" type="button">Log out</button>
+  </div>
+</main>
+</div>
+<script src="/lf.js"></script>
+</body>
+</html>
+"""
+write("/admin/", pg)
+
+
 # ---------- MUST-HAVES (affiliate page) ----------
 SHOP = json.load(open(os.path.join(ROOT, "src/shop.json")))
 def shop_item(it, checklist):
@@ -374,6 +471,7 @@ LINKS = [
     ("/blog/", "All blog posts", "Laws, local guides, and RGV dog news", False),
     ("/clinics/", "Clinics and events", "Low-cost shots, spay and neuter, adoption days", False),
     ("/help/", "Found a dog?", "Who to call in your city", False),
+    ("/lost-found/", "Lost or found a dog?", "See posts or post one for free", False),
     ("/must-haves/", "New to fostering? Must-haves", "Day one basics, food, and discount codes", False),
     ("/#join", "Get app updates", "One email or text when the app launches", False),
     ("/app/", "The Howlback app", "Coming soon to the RGV", False),
@@ -389,13 +487,13 @@ write("/links/", pg)
 
 
 # ---------- SITEMAP + ROBOTS ----------
-pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/must-haves/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
+pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/lost-found/", "/lost-found/post/", "/must-haves/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in pages:
     sm += f"  <url><loc>{SITE}{u}</loc></url>\n"
 sm += "</urlset>\n"
 open(os.path.join(ROOT, "sitemap.xml"), "w").write(sm)
-open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nSitemap: {SITE}/sitemap.xml\n")
+open(os.path.join(ROOT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: {SITE}/sitemap.xml\n")
 
 
 # ---------- GITHUB PAGES EXTRAS ----------
