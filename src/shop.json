@@ -57,10 +57,10 @@
      "link": "https://www.amazon.com/dp/B089RGDQBB?tag=buddyinmoti0e-20"
     },
     {
-     "name": "Calming bed",
-     "why": "Bedsure donut bed. The raised rim helps anxious dogs curl up and settle.",
-     "asin": "B08CXGYW1Q",
-     "link": "https://www.amazon.com/dp/B08CXGYW1Q?tag=buddyinmoti0e-20"
+     "name": "Harness",
+     "why": "Ruffwear Front Range harness. Padded, two leash spots, and built to last for years of walks.",
+     "asin": "B0CLB4ZBWF",
+     "link": "https://www.amazon.com/dp/B0CLB4ZBWF?tag=buddyinmoti0e-20"
     },
     {
      "name": "GPS tracker",
@@ -86,7 +86,9 @@
      "link": "https://www.getjoyfood.com/NICOLE91680",
      "code": "",
      "deal": "",
-     "show": true
+     "show": true,
+     "img": "https://cdn.shopify.com/s/files/1/0015/5919/9790/files/GJ_PDP_FDR_Beef-FOP.webp?v=1785277204&width=700",
+     "alt": "Get Joy Beef Freeze-Dried Raw dog food bag"
     },
     {
      "name": "Rigby",
@@ -108,7 +110,9 @@
      "link": "https://goldiedogessentials.com/",
      "code": "BUDDY10",
      "deal": "10% off your order",
-     "show": true
+     "show": true,
+     "img": "https://cdn.shopify.com/s/files/1/0820/3177/1936/files/Healthy_Coat_Shampoo.png?v=1781111081&width=700",
+     "alt": "Goldie Healthy Coat dog shampoo"
     }
    ]
   },

@@ -480,7 +480,8 @@ def shop_item(it, checklist):
     deal = html.escape(it.get("deal", ""))
     codebox = (f'<button class="code" type="button" data-copy="{html.escape(code)}">Code <b>{html.escape(code)}</b><small>Tap to copy</small></button>' if code else "")
     btn = f'<a class="btn" href="{link}" target="_blank" rel="sponsored noopener">Shop {name}</a>' if link else ""
-    return (f'<li class="prod"><div class="prod-top"><b>{name}</b>{f"<span class=deal>{deal}</span>" if deal else ""}</div>'
+    img = f'<img class="prod-img" src="{it["img"]}" alt="{html.escape(it.get("alt",""))}" loading="lazy">' if it.get("img") else ""
+    return (f'<li class="prod">{img}<div class="prod-top"><b>{name}</b>{f"<span class=deal>{deal}</span>" if deal else ""}</div>'
             f'<p>{why}</p><div class="prod-act">{btn}{codebox}</div></li>\n')
 
 pg = head("New to fostering? Must-haves", "Everything you need when you foster or take in a dog in the Rio Grande Valley: day one basics, food, grooming, and calming picks, with discount codes.", "/must-haves/", "/img/rescue-dog.jpg")
