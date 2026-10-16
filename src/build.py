@@ -351,37 +351,59 @@ CITIES = ["Brownsville", "Harlingen", "San Benito", "Los Fresnos", "Port Isabel"
 city_opts = "".join(f'<option>{c}</option>' for c in CITIES)
 SCAM = '<p class="lf-scam"><b>Stay safe:</b> never pay someone to return a pet, and meet in a public place. Scammers sometimes contact lost-pet posters asking for money.</p>'
 
-pg = head("Lost and found dogs in the RGV", "Lost or found a dog in the Rio Grande Valley? See lost and found dogs in Brownsville, Harlingen, McAllen, and across the Valley, or post one for free.", "/lost-found/")
-pg += header("/lost-found/")
-pg += page_head("Lost and found dogs", "Lost dogs and found strays across the Rio Grande Valley. Free to post. Every post is checked before it goes up.")
-pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap lf">
-    <a class="btn lf-post lf-red" href="/lost-found/post/">Post a lost or found dog</a>
-    <div class="lf-filters">
-      <div class="os-tabs" role="tablist" aria-label="Show">
-        <button type="button" data-kind="all" aria-selected="true">All</button>
-        <button type="button" data-kind="lost" aria-selected="false">Lost</button>
-        <button type="button" data-kind="found" aria-selected="false">Found</button>
-      </div>
-      <select id="lf-city" aria-label="City"><option value="">All cities</option>{city_opts}</select>
-    </div>
-    <div id="lf-list" class="lf-list"><p class="muted lf-empty">Loading...</p></div>
-    {SCAM}
-    <p class="muted">Found a dog? See <a href="/help/">what to do first</a>.</p>
-  </div></section>
-  <dialog id="lf-msg" class="lf-dialog"><form method="dialog">
-    <h3>Message the poster</h3>
-    <p class="muted">Howlback passes your message along. Your contact info goes only to the poster.</p>
-    <input type="hidden" name="post_id">
-    <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <label>Your name<input name="from_name" maxlength="80"></label>
-    <label>Your phone or email<input name="from_contact" required maxlength="120"></label>
-    <label>Message<textarea name="message" required minlength="5" maxlength="1000" rows="4" placeholder="I think I saw this dog near..."></textarea></label>
-    <p class="lf-note" aria-live="polite"></p>
-    <div class="lf-act"><button class="btn" type="submit">Send</button><button class="btn soft" type="button" data-close>Cancel</button></div>
-  </form></dialog>
-"""
-pg += foot().replace('<script src="/site.js"></script>', '<script src="/site.js"></script>\n<script src="/lf.js"></script>')
-write("/lost-found/", pg)
+LF_PAGES = ["Brownsville", "Harlingen", "McAllen", "Edinburg", "Mission", "Pharr", "Weslaco", "San Benito", "Mercedes", "Los Fresnos", "Port Isabel", "South Padre Island", "Rio Grande City", "San Juan", "Donna", "Raymondville"]
+def slug(c): return c.lower().replace(" ", "-")
+LF_LOCAL = {
+    "Brownsville": "If your dog was picked up in Brownsville, check the Brownsville Animal Regulation &amp; Care Center in person: 416 FM 511, (956) 544-7351. Call ahead for hours.",
+    "Harlingen": "If your dog was picked up in Harlingen, check the Harlingen Animal Shelter in person: 1106 Markowsky Ave, (956) 216-5250, Tuesday to Saturday, 1 to 6 PM. Strays are held at least 72 hours.",
+}
+city_links = " · ".join(f'<a href="/lost-found/{slug(c)}/">{c}</a>' for c in LF_PAGES)
+def lf_board(city=None):
+    opts = "".join(f'<option{" selected" if c == city else ""}>{c}</option>' for c in CITIES)
+    extra = f'<p class="lf-local">{LF_LOCAL[city]}</p>' if city in LF_LOCAL else ""
+    path = f"/lost-found/{slug(city)}/" if city else "/lost-found/"
+    if city:
+        pg = head(f"Lost and found dogs in {city}, TX", f"Lost or found a dog in {city}, Texas? See lost and found dogs in {city} and nearby, or post one free. Every post is checked before it goes live.", path)
+    else:
+        pg = head("Lost and found dogs in the RGV", "Lost or found a dog in the Rio Grande Valley? See lost and found dogs in Brownsville, Harlingen, McAllen, and across the Valley, or post one for free.", "/lost-found/")
+    pg += header("/lost-found/")
+    if city:
+        pg += page_head(f"Lost and found dogs in {city}", f"Lost dogs and found strays in {city} and across the Rio Grande Valley. Free to post. Every post is checked before it goes up.")
+    else:
+        pg += page_head("Lost and found dogs", "Lost dogs and found strays across the Rio Grande Valley. Free to post. Every post is checked before it goes up.")
+    pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap lf">
+        <a class="btn lf-post lf-red" href="/lost-found/post/">Post a lost or found dog</a>
+        <div class="lf-filters">
+          <div class="os-tabs" role="tablist" aria-label="Show">
+            <button type="button" data-kind="all" aria-selected="true">All</button>
+            <button type="button" data-kind="lost" aria-selected="false">Lost</button>
+            <button type="button" data-kind="found" aria-selected="false">Found</button>
+          </div>
+          <select id="lf-city" aria-label="City"><option value="">All cities</option>{opts}</select>
+        </div>
+        <div id="lf-list" class="lf-list"><p class="muted lf-empty">Loading...</p></div>
+        {SCAM}
+        {extra}
+    <p class="muted">Found a dog? See <a href="/help/">what to do first</a>. Lost your dog? Read <a href="/blog/lost-dog-rgv/">what to do first</a>.</p>
+    <p class="lf-cities muted">Lost and found by city: {city_links}</p>
+      </div></section>
+      <dialog id="lf-msg" class="lf-dialog"><form method="dialog">
+        <h3>Message the poster</h3>
+        <p class="muted">Howlback passes your message along. Your contact info goes only to the poster.</p>
+        <input type="hidden" name="post_id">
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label>Your name<input name="from_name" maxlength="80"></label>
+        <label>Your phone or email<input name="from_contact" required maxlength="120"></label>
+        <label>Message<textarea name="message" required minlength="5" maxlength="1000" rows="4" placeholder="I think I saw this dog near..."></textarea></label>
+        <p class="lf-note" aria-live="polite"></p>
+        <div class="lf-act"><button class="btn" type="submit">Send</button><button class="btn soft" type="button" data-close>Cancel</button></div>
+      </form></dialog>
+    """
+    pg += foot().replace('<script src="/site.js"></script>', '<script src="/site.js"></script>\n<script src="/lf.js"></script>')
+    write(path, pg)
+lf_board()
+for _c in LF_PAGES:
+    lf_board(_c)
 
 pg = head("Post a lost or found dog", "Post a lost or found dog in the Rio Grande Valley for free. Add a photo, where and when, and how to reach you.", "/lost-found/post/")
 pg += header("/lost-found/")
@@ -531,7 +553,7 @@ write("/links/", pg)
 
 
 # ---------- SITEMAP + ROBOTS ----------
-pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/lost-found/", "/lost-found/post/", "/must-haves/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
+pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/lost-found/", "/lost-found/post/", *[f"/lost-found/{slug(c)}/" for c in LF_PAGES], "/must-haves/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in pages:
     sm += f"  <url><loc>{SITE}{u}</loc></url>\n"

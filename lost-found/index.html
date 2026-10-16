@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=6f3244a6">
+<link rel="stylesheet" href="/style.css?v=581e1626">
 <script data-goatcounter="https://howlback.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -40,31 +40,33 @@
 <main id="top">
   <div class="wrap page-head"><div class="head"><h1 style="font-size:clamp(36px,5vw,56px)">Lost and found dogs</h1><p class="lead">Lost dogs and found strays across the Rio Grande Valley. Free to post. Every post is checked before it goes up.</p></div></div>
   <section class="page" style="padding-top:8px"><div class="wrap lf">
-    <a class="btn lf-post lf-red" href="/lost-found/post/">Post a lost or found dog</a>
-    <div class="lf-filters">
-      <div class="os-tabs" role="tablist" aria-label="Show">
-        <button type="button" data-kind="all" aria-selected="true">All</button>
-        <button type="button" data-kind="lost" aria-selected="false">Lost</button>
-        <button type="button" data-kind="found" aria-selected="false">Found</button>
-      </div>
-      <select id="lf-city" aria-label="City"><option value="">All cities</option><option>Brownsville</option><option>Harlingen</option><option>San Benito</option><option>Los Fresnos</option><option>Port Isabel</option><option>South Padre Island</option><option>Rio Hondo</option><option>Raymondville</option><option>Mercedes</option><option>Weslaco</option><option>Donna</option><option>Alamo</option><option>San Juan</option><option>Pharr</option><option>McAllen</option><option>Edinburg</option><option>Mission</option><option>Palmview</option><option>La Joya</option><option>Rio Grande City</option><option>Roma</option><option>Other RGV</option></select>
-    </div>
-    <div id="lf-list" class="lf-list"><p class="muted lf-empty">Loading...</p></div>
-    <p class="lf-scam"><b>Stay safe:</b> never pay someone to return a pet, and meet in a public place. Scammers sometimes contact lost-pet posters asking for money.</p>
-    <p class="muted">Found a dog? See <a href="/help/">what to do first</a>.</p>
-  </div></section>
-  <dialog id="lf-msg" class="lf-dialog"><form method="dialog">
-    <h3>Message the poster</h3>
-    <p class="muted">Howlback passes your message along. Your contact info goes only to the poster.</p>
-    <input type="hidden" name="post_id">
-    <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <label>Your name<input name="from_name" maxlength="80"></label>
-    <label>Your phone or email<input name="from_contact" required maxlength="120"></label>
-    <label>Message<textarea name="message" required minlength="5" maxlength="1000" rows="4" placeholder="I think I saw this dog near..."></textarea></label>
-    <p class="lf-note" aria-live="polite"></p>
-    <div class="lf-act"><button class="btn" type="submit">Send</button><button class="btn soft" type="button" data-close>Cancel</button></div>
-  </form></dialog>
-
+        <a class="btn lf-post lf-red" href="/lost-found/post/">Post a lost or found dog</a>
+        <div class="lf-filters">
+          <div class="os-tabs" role="tablist" aria-label="Show">
+            <button type="button" data-kind="all" aria-selected="true">All</button>
+            <button type="button" data-kind="lost" aria-selected="false">Lost</button>
+            <button type="button" data-kind="found" aria-selected="false">Found</button>
+          </div>
+          <select id="lf-city" aria-label="City"><option value="">All cities</option><option>Brownsville</option><option>Harlingen</option><option>San Benito</option><option>Los Fresnos</option><option>Port Isabel</option><option>South Padre Island</option><option>Rio Hondo</option><option>Raymondville</option><option>Mercedes</option><option>Weslaco</option><option>Donna</option><option>Alamo</option><option>San Juan</option><option>Pharr</option><option>McAllen</option><option>Edinburg</option><option>Mission</option><option>Palmview</option><option>La Joya</option><option>Rio Grande City</option><option>Roma</option><option>Other RGV</option></select>
+        </div>
+        <div id="lf-list" class="lf-list"><p class="muted lf-empty">Loading...</p></div>
+        <p class="lf-scam"><b>Stay safe:</b> never pay someone to return a pet, and meet in a public place. Scammers sometimes contact lost-pet posters asking for money.</p>
+        
+    <p class="muted">Found a dog? See <a href="/help/">what to do first</a>. Lost your dog? Read <a href="/blog/lost-dog-rgv/">what to do first</a>.</p>
+    <p class="lf-cities muted">Lost and found by city: <a href="/lost-found/brownsville/">Brownsville</a> · <a href="/lost-found/harlingen/">Harlingen</a> · <a href="/lost-found/mcallen/">McAllen</a> · <a href="/lost-found/edinburg/">Edinburg</a> · <a href="/lost-found/mission/">Mission</a> · <a href="/lost-found/pharr/">Pharr</a> · <a href="/lost-found/weslaco/">Weslaco</a> · <a href="/lost-found/san-benito/">San Benito</a> · <a href="/lost-found/mercedes/">Mercedes</a> · <a href="/lost-found/los-fresnos/">Los Fresnos</a> · <a href="/lost-found/port-isabel/">Port Isabel</a> · <a href="/lost-found/south-padre-island/">South Padre Island</a> · <a href="/lost-found/rio-grande-city/">Rio Grande City</a> · <a href="/lost-found/san-juan/">San Juan</a> · <a href="/lost-found/donna/">Donna</a> · <a href="/lost-found/raymondville/">Raymondville</a></p>
+      </div></section>
+      <dialog id="lf-msg" class="lf-dialog"><form method="dialog">
+        <h3>Message the poster</h3>
+        <p class="muted">Howlback passes your message along. Your contact info goes only to the poster.</p>
+        <input type="hidden" name="post_id">
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label>Your name<input name="from_name" maxlength="80"></label>
+        <label>Your phone or email<input name="from_contact" required maxlength="120"></label>
+        <label>Message<textarea name="message" required minlength="5" maxlength="1000" rows="4" placeholder="I think I saw this dog near..."></textarea></label>
+        <p class="lf-note" aria-live="polite"></p>
+        <div class="lf-act"><button class="btn" type="submit">Send</button><button class="btn soft" type="button" data-close>Cancel</button></div>
+      </form></dialog>
+    
   <section class="join">
     <div class="wrap">
       <div class="join-copy">
