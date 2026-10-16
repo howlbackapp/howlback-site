@@ -49,12 +49,29 @@
       <label>Photo of the dog<input type="file" name="photo" accept="image/*" required></label>
       <div id="lf-preview" class="lf-preview"></div>
       <p class="muted small">Please crop out faces, house numbers, and license plates.</p>
-      <label>Dog's name (if you know it)<input name="dog_name" maxlength="60"></label>
+      <label><span data-for="lost">Dog's name</span><span data-for="found">Dog's name (if you know it)</span><input name="dog_name" maxlength="60"></label>
+      <div class="lf-only" data-only="lost">
+        <div class="lf-two"><label>Breed or mix<input name="breed" maxlength="60" placeholder="Shepherd mix"></label>
+        <label>Age<input name="age" maxlength="30" placeholder="About 3 years"></label></div>
+        <div class="lf-two"><label>Wearing a collar?<select name="collar_lost"><option value="">Choose</option><option value="yes">Yes</option><option value="no">No</option><option value="not_sure">Not sure</option></select></label>
+        <label>Microchipped?<select name="chip_lost"><option value="">Choose</option><option value="yes">Yes</option><option value="no">No</option><option value="not_sure">Not sure</option></select></label></div>
+      </div>
+      <div class="lf-only" data-only="found">
+        <fieldset class="lf-kind"><legend>Where is the dog now?</legend>
+          <label><input type="radio" name="with_finder" value="with_me"> Safe with me</label>
+          <label><input type="radio" name="with_finder" value="loose"> Still loose in the area</label>
+        </fieldset>
+        <div class="lf-two"><label>Collar or tag?<select name="collar_found"><option value="">Choose</option><option value="yes">Yes</option><option value="no">No</option></select></label>
+        <label>Scanned for a microchip?<select name="chip_found"><option value="">Choose</option><option value="yes">Yes</option><option value="no">No</option><option value="not_sure">Not sure</option></select></label></div>
+        <label>Anything written on the collar or tag?<input name="tag_text" maxlength="120"></label>
+        <label>Does the dog seem hurt?<select name="hurt"><option value="">Choose</option><option value="no">No</option><option value="yes">Yes</option><option value="not_sure">Not sure</option></select></label>
+      </div>
+      <label>Friendly or scared?<select name="temperament"><option value="">Choose</option><option value="friendly">Friendly, comes to people</option><option value="scared">Scared, may run</option><option value="not_sure">Not sure</option></select></label>
       <label>City<select name="city" required><option value="">Choose a city</option><option>Brownsville</option><option>Harlingen</option><option>San Benito</option><option>Los Fresnos</option><option>Port Isabel</option><option>South Padre Island</option><option>Rio Hondo</option><option>Raymondville</option><option>Mercedes</option><option>Weslaco</option><option>Donna</option><option>Alamo</option><option>San Juan</option><option>Pharr</option><option>McAllen</option><option>Edinburg</option><option>Mission</option><option>Palmview</option><option>La Joya</option><option>Rio Grande City</option><option>Roma</option><option>Other RGV</option></select></label>
-      <label>Area or cross streets<input name="area" maxlength="120" placeholder="Near Boca Chica and Central"></label>
-      <p class="muted small">Don't put an exact home address.</p>
-      <label>Date seen<input type="date" name="seen_on"></label>
-      <label>Description<textarea name="description" required minlength="10" maxlength="1000" rows="4" placeholder="Color, size, collar, how they act, where you saw them"></textarea></label>
+      <label><span data-for="lost">Last seen near</span><span data-for="found">Found near</span><input name="area" maxlength="120" placeholder="Near Boca Chica and Central"></label>
+      <p class="muted small">Cross streets or a landmark. Don't put an exact home address.</p>
+      <label><span data-for="lost">Date last seen</span><span data-for="found">Date found</span><input type="date" name="seen_on"></label>
+      <label>Anything else?<textarea name="description" required minlength="10" maxlength="1000" rows="4" placeholder="Color, size, markings, how they act"></textarea></label>
       <h3>How can people reach you?</h3>
       <label>Your name<input name="contact_name" maxlength="80"></label>
       <label>Phone<input type="tel" name="contact_phone" maxlength="30"></label>

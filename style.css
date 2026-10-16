@@ -434,3 +434,8 @@ body{background:transparent!important;margin:0}
 .lf-save input{font:inherit;font-size:14px;border:1.5px solid var(--line);border-radius:12px;padding:10px;width:100%;box-sizing:border-box}
 .lf-form input[type=file]{padding:16px!important;border:2px dashed var(--teal)!important;background:var(--mint)!important;font-size:15px!important;color:var(--muted)!important;cursor:pointer}
 .lf-form input[type=file]::file-selector-button{font:inherit;font-weight:800;border:0;background:var(--teal);color:#fff;border-radius:999px;padding:11px 18px;margin-right:12px;cursor:pointer}
+.lf-only{display:flex;flex-direction:column;gap:14px}
+.lf-only[hidden],[data-for][hidden]{display:none!important}
+.lf-two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+.lf-chips{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0}
+.lf-chips span{background:var(--mint);color:var(--ink);font-weight:700;font-size:13px;border-radius:999px;padding:5px 11px}

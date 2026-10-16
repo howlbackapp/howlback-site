@@ -7,6 +7,19 @@ const photo = p => `${SB}/storage/v1/object/public/${BUCKET}/${p}`;
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmtDate = d => d ? new Date(d + (d.length === 10 ? "T12:00:00" : "")).toLocaleDateString("en-US", {month: "short", day: "numeric"}) : "";
 const $ = s => document.querySelector(s);
+const YN = {yes: "Yes", no: "No", not_sure: "Not sure"};
+function details(p) {
+  const c = [];
+  if (p.breed || p.age) c.push([p.breed, p.age].filter(Boolean).join(", "));
+  if (p.kind === "found" && p.with_finder) c.push(p.with_finder === "with_me" ? "Safe with finder" : "Still loose");
+  if (p.temperament) c.push({friendly: "Friendly", scared: "Scared, may run", not_sure: "Temperament unknown"}[p.temperament]);
+  if (p.collar) c.push((p.kind === "lost" ? "Collar: " : "Collar or tag: ") + YN[p.collar]);
+  if (p.chip) c.push((p.kind === "lost" ? "Microchipped: " : "Chip scanned: ") + YN[p.chip]);
+  if (p.hurt === "yes") c.push("Seems hurt");
+  let h = c.length ? `<div class="lf-chips">${c.map(x => `<span>${esc(x)}</span>`).join("")}</div>` : "";
+  if (p.tag_text) h += `<p class="muted">Tag says: ${esc(p.tag_text)}</p>`;
+  return h;
+}
 
 async function api(path, opts = {}, token) {
   const headers = Object.assign({apikey: KEY}, opts.headers || {});
@@ -46,6 +59,7 @@ if (list) {
           ${p.status === "reunited" ? '<span class="lf-reunited">REUNITED 🎉</span>' : `<span class="lf-tag ${p.kind}">${p.kind === "lost" ? "Lost" : "Found"}</span>`}
           <h3>${esc(p.dog_name || (p.kind === "lost" ? "Lost dog" : "Found dog"))}</h3>
           <p class="lf-where">${esc(p.city)}${p.area ? " · " + esc(p.area) : ""}${p.seen_on ? " · " + fmtDate(p.seen_on) : ""}</p>
+          ${details(p)}
           <p>${esc(p.description)}</p>
           ${p.status === "reunited" ? "" : `<div class="lf-act">${p.phone ? `<a class="btn" href="tel:${esc(p.phone.replace(/[^0-9+]/g, ""))}">Call ${esc(p.phone)}</a>` : ""}<button class="btn soft" type="button" data-msg="${p.id}">Message the poster</button></div>`}
         </div>
@@ -89,6 +103,13 @@ if (list) {
 const form = $("#lf-form");
 if (form) {
   const prev = $("#lf-preview"), file = form.querySelector("[name=photo]");
+  const sync = () => {
+    const k = form.kind.value || "found";
+    form.querySelectorAll("[data-only]").forEach(el => { el.hidden = el.dataset.only !== k; });
+    form.querySelectorAll("[data-for]").forEach(el => { el.hidden = el.dataset.for !== k; });
+  };
+  form.querySelectorAll("[name=kind]").forEach(r => r.addEventListener("change", sync));
+  sync();
   file.addEventListener("change", () => {
     const f = file.files[0];
     prev.innerHTML = f ? `<img src="${URL.createObjectURL(f)}" alt="Your photo">` : "";
@@ -100,6 +121,9 @@ if (form) {
     const f = file.files[0];
     const phone = form.contact_phone.value.trim(), email = form.contact_email.value.trim();
     if (!f) { note.textContent = "Please add a photo of the dog."; return; }
+    const lost = form.kind.value === "lost", v = n => (form[n] && form[n].value || "").trim() || null;
+    if (lost && !v("dog_name")) { note.textContent = "Please add your dog's name."; return; }
+    if (!form.city.value) { note.textContent = "Please choose a city."; return; }
     if (!phone && !email) { note.textContent = "Please add a phone number or email so people can reach you."; return; }
     btn.disabled = true; note.textContent = "Uploading photo...";
     try {
@@ -114,7 +138,12 @@ if (form) {
           seen_on: form.seen_on.value || null, dog_name: form.dog_name.value.trim() || null,
           description: form.description.value.trim(), photo_path: path,
           contact_name: form.contact_name.value.trim() || null, contact_phone: phone || null,
-          contact_email: email || null, show_phone: !!(phone && form.show_phone.checked)})});
+          contact_email: email || null, show_phone: !!(phone && form.show_phone.checked),
+          temperament: v("temperament"),
+          breed: lost ? v("breed") : null, age: lost ? v("age") : null,
+          collar: lost ? v("collar_lost") : v("collar_found"), chip: lost ? v("chip_lost") : v("chip_found"),
+          with_finder: lost ? null : (form.querySelector("[name=with_finder]:checked") || {}).value || null,
+          tag_text: lost ? null : v("tag_text"), hurt: lost ? null : v("hurt")})});
       const link = `${location.origin}/lost-found/update/?id=${id}&t=${tok}`;
       $("#lf-link").value = link;
       form.hidden = true; $("#lf-done").hidden = false; window.scrollTo(0, 0);
@@ -177,6 +206,7 @@ if (admin) {
       <div class="lf-body">
         <span class="lf-tag ${p.kind}">${p.kind}</span> <span class="muted">${new Date(p.created_at).toLocaleString()}</span>
         <h3>${esc(p.dog_name || "(no name)")} · ${esc(p.city)}${p.area ? " · " + esc(p.area) : ""}</h3>
+        ${details(p)}
         <p>${esc(p.description)}</p>
         <p class="muted">Seen: ${fmtDate(p.seen_on) || "?"} · ${esc(p.contact_name || "")} ${esc(p.contact_phone || "")} ${esc(p.contact_email || "")} ${p.show_phone ? "(phone public)" : "(phone hidden)"}</p>
         <div class="lf-act">
