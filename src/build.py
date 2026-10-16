@@ -348,7 +348,7 @@ def shop_item(it, checklist):
 
 pg = head("New to fostering? Must-haves", "Everything you need when you foster or take in a dog in the Rio Grande Valley: day one basics, food, grooming, and calming picks, with discount codes.", "/must-haves/", "/img/rescue-dog.jpg")
 pg += header("/must-haves/")
-pg += page_head("New to fostering? Must-haves", "What to have ready when a dog comes home with you, plus the brands Buddy actually uses.")
+pg += page_head("New to fostering? Must-haves", "What to have ready when a dog comes home with you, plus discount codes on brands we like.")
 disclose = "Some links on this page earn Howlback a small commission, at no extra cost to you."
 if SHOP.get("amazon_tag"):
     disclose += " As an Amazon Associate, Howlback earns from qualifying purchases."
