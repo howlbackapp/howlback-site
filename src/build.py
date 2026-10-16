@@ -289,7 +289,7 @@ pg += """  <div class="wrap app-hero">
         <div class="fcopy"><h2>See dogs near you</h2><p class="lead">Find foster dogs in your part of the Valley, get an alert when a local dog finds a home, and lend a hand on the help board with rides and supplies.</p></div>
         <div class="fimg" style="display:grid"><img src="/img/app/screen-4.webp" alt="Near you screen with an adoption alert, nearby foster dogs, and a help board" loading="lazy"></div>
       </div>
-      <p class="disclaim">Screens are an early preview. Names and amounts are examples. Photos by Nikki Bee.</p>
+      <p class="disclaim">Screens are an early preview. Names and amounts are examples.</p>
     </div>
   </section>
 """
