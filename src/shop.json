@@ -9,33 +9,70 @@
    "items": [
     {
      "name": "Slip leash",
-     "why": "Easy to put on a nervous dog, and hard to back out of.",
-     "link": "https://www.amazon.com/s?k=slip+lead+dog+leash&tag=buddyinmoti0e-20"
+     "why": "Fida Slip Lead, 6 ft. Easy to put on a nervous dog, and hard to back out of.",
+     "asin": "B08Y5RYPTS",
+     "link": "https://www.amazon.com/dp/B08Y5RYPTS?tag=buddyinmoti0e-20"
     },
     {
-     "name": "Collar and ID tag",
-     "why": "Put your phone number on it in case they slip out.",
-     "link": "https://www.amazon.com/s?k=dog+collar&tag=buddyinmoti0e-20"
+     "name": "Collar with ID",
+     "why": "Joytale collar with a name plate built in. Engrave your phone number in case they slip out.",
+     "asin": "B07R9JNT5T",
+     "link": "https://www.amazon.com/dp/B07R9JNT5T?tag=buddyinmoti0e-20"
     },
     {
      "name": "Food and water bowls",
-     "why": "Stainless steel is easy to clean and hard to chew.",
-     "link": "https://www.amazon.com/s?k=stainless+steel+dog+bowls&tag=buddyinmoti0e-20"
-    },
-    {
-     "name": "Crate or a washable bed",
-     "why": "A quiet spot of their own helps a scared dog settle in.",
-     "link": "https://www.amazon.com/s?k=dog+crate&tag=buddyinmoti0e-20"
+     "why": "Deep stainless steel bowls, 2-pack. Easy to clean and hard to chew.",
+     "asin": "B07L3HPQG7",
+     "link": "https://www.amazon.com/dp/B07L3HPQG7?tag=buddyinmoti0e-20"
     },
     {
      "name": "Enzyme cleaner",
-     "why": "For accidents. It breaks down the smell so they don't go there again.",
-     "link": "https://www.amazon.com/s?k=enzyme+cleaner+pet+urine&tag=buddyinmoti0e-20"
+     "why": "Nature's Miracle Stain and Odor Remover. Breaks down the smell so accidents don't repeat.",
+     "asin": "B071W6CQ7S",
+     "link": "https://www.amazon.com/dp/B071W6CQ7S?tag=buddyinmoti0e-20"
     },
     {
      "name": "Poop bags",
-     "why": "You'll need a lot of these.",
-     "link": "https://www.amazon.com/s?k=dog+poop+bags&tag=buddyinmoti0e-20"
+     "why": "Amazon Basics bags with a dispenser that clips to the leash.",
+     "asin": "B00NABTC8M",
+     "link": "https://www.amazon.com/dp/B00NABTC8M?tag=buddyinmoti0e-20"
+    },
+    {
+     "name": "Crate",
+     "why": "MidWest iCrate, double door. Comes in sizes, so pick one by your dog's weight.",
+     "asin": "B000QFT1R2",
+     "link": "https://www.amazon.com/dp/B000QFT1R2?tag=buddyinmoti0e-20"
+    }
+   ]
+  },
+  {
+   "title": "Worth the splurge",
+   "intro": "Nice extras if the budget allows.",
+   "checklist": true,
+   "items": [
+    {
+     "name": "Orthopedic bed",
+     "why": "Bedsure orthopedic foam bed. Good for older dogs and dogs who've been sleeping on concrete.",
+     "asin": "B089RGDQBB",
+     "link": "https://www.amazon.com/dp/B089RGDQBB?tag=buddyinmoti0e-20"
+    },
+    {
+     "name": "Calming bed",
+     "why": "Bedsure donut bed. The raised rim helps anxious dogs curl up and settle.",
+     "asin": "B08CXGYW1Q",
+     "link": "https://www.amazon.com/dp/B08CXGYW1Q?tag=buddyinmoti0e-20"
+    },
+    {
+     "name": "GPS tracker",
+     "why": "Tractive GPS tracker for dogs who might slip out. Needs a monthly plan.",
+     "asin": "B0D6Z74WJY",
+     "link": "https://www.amazon.com/dp/B0D6Z74WJY?tag=buddyinmoti0e-20"
+    },
+    {
+     "name": "Pet camera",
+     "why": "Furbo 360 camera. Check on them and toss a treat from your phone. Needs a paid plan.",
+     "asin": "B0BWN22T25",
+     "link": "https://www.amazon.com/dp/B0BWN22T25?tag=buddyinmoti0e-20"
     }
    ]
   },
@@ -46,10 +83,10 @@
     {
      "name": "Get Joy",
      "why": "Fresh and freeze-dried dog food, including a beef freeze-dried raw.",
-     "link": "",
+     "link": "https://www.getjoyfood.com/NICOLE91680",
      "code": "",
      "deal": "",
-     "show": false
+     "show": true
     },
     {
      "name": "Rigby",
