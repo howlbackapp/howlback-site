@@ -11,7 +11,7 @@ POSTS = json.load(open(os.path.join(ROOT, "src/posts.json")))
 SITE = "https://howlback.app"
 
 NAV = [("/lost-found/", "Lost & found"), ("/help/", "Local help"), ("/clinics/", "Clinics"), ("/rescues/", "Rescues"),
-       ("/blog/", "Blog"), ("/must-haves/", "Foster must-haves"), ("/app/", "The app"), ("/share/", "Share a story"),
+       ("/blog/", "Blog"), ("/places/", "Dog-friendly places"), ("/must-haves/", "Foster must-haves"), ("/app/", "The app"), ("/share/", "Share a story"),
        ("/install/", "Add to home screen")]
 
 TABS = [("/", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>'),
@@ -100,7 +100,7 @@ def _h(*files):
     m = hashlib.md5()
     for f in files: m.update(open(os.path.join(ROOT, f), "rb").read())
     return m.hexdigest()[:8]
-VER = {"/site.js": _h("site.js"), "/lf.js": _h("lf.js"), "/style.css": _h("src/base.css", "src/extra.css")}
+VER = {"/site.js": _h("site.js"), "/lf.js": _h("lf.js"), "/places.js": _h("places.js"), "/style.css": _h("src/base.css", "src/extra.css")}
 
 def write(path, content):
     for f, v in VER.items():
@@ -504,6 +504,24 @@ pg += foot()
 write("/must-haves/", pg)
 
 
+# ---------- PLACES (dog-friendly map) ----------
+PLACES = json.load(open(os.path.join(ROOT, "src/places.json")))
+pg = head("Dog-friendly places in the RGV", "Dog-friendly trails, beaches, dog parks, and patios in Brownsville, South Padre Island, Harlingen, San Benito, and Los Fresnos, on one map. Trails list parking, distance, and if they're paved.", "/places/", "/img/rescue-dog.jpg")
+pg = pg.replace('<link rel="stylesheet" href="/style.css">', '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">\n<link rel="stylesheet" href="/style.css">')
+pg += header("/places/")
+pg += page_head("Dog-friendly places", "Trails, beaches, dog parks, and patios around the Valley. Tap a pin or a card for details and directions. Policies change, so call ahead before you go.")
+cities = ["Brownsville", "South Padre Island", "Harlingen", "San Benito", "Los Fresnos"]
+types = [("trail", "🥾 Trails"), ("dogpark", "🐕 Dog parks"), ("beach", "🏖️ Beaches"), ("park", "🌳 Parks"), ("food", "🍔 Food & drinks")]
+pg += '  <section class="page" style="padding-top:8px"><div class="wrap places">\n'
+pg += '    <div class="pl-filters"><div class="pl-row" id="pl-city"><button type="button" class="on" data-v="">All cities</button>' + "".join(f'<button type="button" data-v="{c}">{c}</button>' for c in cities) + '</div>\n'
+pg += '    <div class="pl-row" id="pl-type"><button type="button" class="on" data-v="">Everything</button>' + "".join(f'<button type="button" data-v="{k}">{t}</button>' for k, t in types) + '</div></div>\n'
+pg += '    <div id="pl-map" role="region" aria-label="Map of dog-friendly places"></div>\n    <p class="muted pl-count" id="pl-count"></p>\n    <ul class="pl-list" id="pl-list"></ul>\n'
+pg += '    <p class="muted pl-foot">Know a spot we missed? Email <a href="mailto:hello@howlback.app">hello@howlback.app</a>. Always leash up, bring water, and skip hot pavement midday.</p>\n'
+pg += '  </div></section>\n'
+pg += '<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>\n<script>window.PLACES=' + json.dumps(PLACES) + ';</script>\n<script src="/places.js"></script>\n'
+pg += foot()
+write("/places/", pg)
+
 # ---------- LINKS (link in bio) ----------
 latest = sorted(enumerate(POSTS), key=lambda x: (x[1]["date"], x[0]))[-1][1]
 LINKS = [
@@ -513,6 +531,7 @@ LINKS = [
     ("/blog/", "All blog posts", "Laws, local guides, and RGV dog news", False),
     ("/clinics/", "Clinics and events", "Low-cost shots, spay and neuter, adoption days", False),
     ("/help/", "Found a dog?", "Who to call in your city", False),
+    ("/places/", "Dog-friendly places", "Trails, beaches, dog parks, and patios on a map", False),
     ("/must-haves/", "New to fostering? Must-haves", "Day one basics, food, and discount codes", False),
     ("/#join", "Get app updates", "One email or text when the app launches", False),
     ("/app/", "The Howlback app", "Coming soon to the RGV", False),
@@ -528,7 +547,7 @@ write("/links/", pg)
 
 
 # ---------- SITEMAP + ROBOTS ----------
-pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/lost-found/", "/lost-found/post/", "/must-haves/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
+pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/lost-found/", "/lost-found/post/", "/must-haves/", "/places/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in pages:
     sm += f"  <url><loc>{SITE}{u}</loc></url>\n"
