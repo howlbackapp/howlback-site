@@ -507,12 +507,12 @@ write("/must-haves/", pg)
 # ---------- LINKS (link in bio) ----------
 latest = sorted(enumerate(POSTS), key=lambda x: (x[1]["date"], x[0]))[-1][1]
 LINKS = [
-    ("/", "Visit howlback.app", "Local help, clinics, and rescues across the RGV", True),
+    ("/lost-found/", "🚨 Lost or found a dog? 🚨", "Post it free so the whole Valley can help get them home", "sos"),
+    ("/", "Visit howlback.app", "Local help, clinics, and rescues across the RGV", "main"),
     (f"/blog/{latest['slug']}/", "New on the blog", latest["title"], False),
     ("/blog/", "All blog posts", "Laws, local guides, and RGV dog news", False),
     ("/clinics/", "Clinics and events", "Low-cost shots, spay and neuter, adoption days", False),
     ("/help/", "Found a dog?", "Who to call in your city", False),
-    ("/lost-found/", "Lost or found a dog?", "See posts or post one for free", False),
     ("/must-haves/", "New to fostering? Must-haves", "Day one basics, food, and discount codes", False),
     ("/#join", "Get app updates", "One email or text when the app launches", False),
     ("/app/", "The Howlback app", "Coming soon to the RGV", False),
@@ -522,7 +522,7 @@ SOCIAL = [("https://www.instagram.com/howlback.app", "Instagram"),
 pg = head("Links", "Howlback links: the website, the blog, local help, clinics, and app updates for the Rio Grande Valley.", "/links/")
 pg += '<main class="links-page">\n  <div class="links-top"><img src="/img/icon-192.png" alt="" width="84" height="84"><h1>howl<i>back</i></h1><p>Can\'t foster? Help someone who can 🐾<br>Street dog help across the Rio Grande Valley.</p></div>\n  <div class="links-list">\n'
 for h, t, s, main in LINKS:
-    pg += f'    <a class="lnk{" main" if main else ""}" href="{h}"><b>{html.escape(t)}</b><span>{html.escape(s)}</span></a>\n'
+    pg += f'    <a class="lnk{" " + main if main else ""}" href="{h}"><b>{html.escape(t)}</b><span>{html.escape(s)}</span></a>\n'
 pg += '  </div>\n  <div class="links-social">' + "".join(f'<a href="{u}" target="_blank" rel="noopener">{n}</a>' for u, n in SOCIAL) + '</div>\n</main>\n</div>\n<script src="/site.js"></script>\n</body>\n</html>\n'
 write("/links/", pg)
 
