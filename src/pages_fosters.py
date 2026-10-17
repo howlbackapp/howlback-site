@@ -6,9 +6,9 @@ def with_js(pg):
 city_opts2 = "".join(f'<option>{c}</option>' for c in CITIES)
 
 # ---------- FOSTER DASHBOARD ----------
-pg = head("Foster dashboard", "Fostering a dog in the Rio Grande Valley? Make a profile for your foster dog, upload receipts, and get paid back by supporters.", "/foster/")
+pg = head("Chip In for fosters", "Chip In by Howlback: fostering a dog in the Rio Grande Valley? Make a profile for your foster dog, upload receipts, and get paid back by supporters.", "/foster/")
 pg += header("/foster/")
-pg += page_head("Get paid back for fostering", "Add the dog you’re fostering, upload your receipts for vet visits, meds, food, and supplies, and supporters chip in to pay you back.")
+pg += page_head("Chip In: get paid back for fostering", "Add the dog you’re fostering, upload your receipts for vet visits, meds, food, and supplies, and supporters chip in to pay you back.")
 pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap fb" id="fb-dash">
     <div data-step="login">
       <ol class="fb-how"><li><b>Sign in</b> with your email. No password.</li><li><b>Add your foster dog</b> with a photo and their story.</li><li><b>Upload receipts.</b> We verify each one.</li><li><b>Get paid back</b> straight to your bank as supporters chip in.</li></ol>
@@ -71,9 +71,9 @@ pg += foot()
 write("/foster/", with_js(pg))
 
 # ---------- BROWSE DOGS ----------
-pg = head("Foster dogs who need help in the RGV", "Foster dogs across the Rio Grande Valley with verified vet bills, food, and supply receipts. Chip in any amount to pay their foster back.", "/dogs/")
+pg = head("Chip In: foster dogs who need help in the RGV", "Chip In by Howlback. Foster dogs across the Rio Grande Valley with verified vet bills, food, and supply receipts. Chip in any amount to pay their foster back.", "/dogs/")
 pg += header("/dogs/")
-pg += page_head("Foster dogs who need help", "Can’t foster? You can still help. Every receipt is verified by Howlback, and your chip-in pays the foster back.")
+pg += page_head("Chip In", "<b>by Howlback.</b> Can’t foster? You can still help. Every receipt is verified by Howlback, and your chip-in pays the foster back.")
 pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap fb">
     <div class="fb-filters"><select id="fb-city" aria-label="City"><option value="">All cities</option>{city_opts2}</select>
     <a class="btn soft sm" href="/foster/">I’m a foster</a></div>
@@ -117,7 +117,8 @@ def policy(path, title, desc, body):
     pg += foot()
     write(path, pg)
 
-policy("/how-it-works/", "How Howlback payments work", "How fosters get paid back for verified dog care costs, and how supporters chip in on Howlback.", """
+policy("/how-it-works/", "How Chip In works", "How Chip In by Howlback works: how fosters get paid back for verified dog care costs, and how supporters chip in on Howlback.", """
+<p><b>Chip In by Howlback</b> lets neighbors help pay local fosters back for what they spend caring for street dogs.</p>
 <h2>For supporters</h2>
 <ol><li><b>Pick a dog.</b> Every dog on Howlback is in the care of a local foster in the Rio Grande Valley.</li>
 <li><b>See verified receipts.</b> Fosters upload receipts for vet visits, medication, food, supplies, toys, and grooming. Howlback checks each one before it shows up.</li>
