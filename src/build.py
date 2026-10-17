@@ -363,9 +363,9 @@ def lf_board(city=None):
     extra = f'<p class="lf-local">{LF_LOCAL[city]}</p>' if city in LF_LOCAL else ""
     path = f"/lost-found/{slug(city)}/" if city else "/lost-found/"
     if city:
-        pg = head(f"Lost and found dogs in {city}, TX", f"Lost or found a dog in {city}, Texas? See lost and found dogs in {city} and nearby, or post one free. Every post is checked before it goes live.", path)
+        pg = head(f"Lost and found dogs in {city}, TX", f"Lost or found a dog in {city}, Texas? See lost and found dogs in {city} and nearby, or post one free. Every post is checked before it goes live.", path, "/img/og-lost-found.jpg")
     else:
-        pg = head("Lost and found dogs in the RGV", "Lost or found a dog in the Rio Grande Valley? See lost and found dogs in Brownsville, Harlingen, McAllen, and across the Valley, or post one for free.", "/lost-found/")
+        pg = head("Lost and found dogs in the RGV", "Lost or found a dog in the Rio Grande Valley? See lost and found dogs in Brownsville, Harlingen, McAllen, and across the Valley, or post one for free.", "/lost-found/", "/img/og-lost-found.jpg")
     pg += header("/lost-found/")
     if city:
         pg += page_head(f"Lost and found dogs in {city}", f"Lost dogs and found strays in {city} and across the Rio Grande Valley. Free to post. Every post is checked before it goes up.")
@@ -405,7 +405,7 @@ lf_board()
 for _c in LF_PAGES:
     lf_board(_c)
 
-pg = head("Post a lost or found dog", "Post a lost or found dog in the Rio Grande Valley for free. Add a photo, where and when, and how to reach you.", "/lost-found/post/")
+pg = head("Post a lost or found dog", "Post a lost or found dog in the Rio Grande Valley for free. Add a photo, where and when, and how to reach you.", "/lost-found/post/", "/img/og-lost-found.jpg")
 pg += header("/lost-found/")
 pg += page_head("Post a lost or found dog", "Free. It takes 2 minutes. We check every post before it goes live, usually the same day.")
 pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap lf">
