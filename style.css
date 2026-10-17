@@ -485,3 +485,4 @@ body{background:transparent!important;margin:0}
 .pl-foot{font-size:14px}
 .hero:not(:has(.photo)){grid-template-columns:1fr;padding-block:48px 40px}
 .hero:not(:has(.photo)) .hero-copy{max-width:760px}
+.costume-list li{margin-bottom:6px}
