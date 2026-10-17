@@ -11,14 +11,14 @@ POSTS = json.load(open(os.path.join(ROOT, "src/posts.json")))
 SITE = "https://howlback.app"
 
 NAV = [("/lost-found/", "Lost & found"), ("/help/", "Local help"), ("/clinics/", "Clinics"), ("/rescues/", "Rescues"),
-       ("/blog/", "Blog"), ("/places/", "Dog-friendly places"), ("/must-haves/", "Foster must-haves"), ("/app/", "The app"), ("/share/", "Share a story"),
+       ("/blog/", "Blog"), ("/places/", "Dog-friendly places"), ("/must-haves/", "Foster must-haves"), ("/app/", "Chip In"), ("/share/", "Share a story"),
        ("/install/", "Add to home screen")]
 
 TABS = [("/", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>'),
         ("/help/", "Help", '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"/>'),
         ("/clinics/", "Clinics", '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
         ("/blog/", "Blog", '<path d="M5 4h14v16H5zM9 8h6M9 12h6M9 16h3"/>'),
-        ("/app/", "App", '<rect x="7" y="2" width="10" height="20" rx="3"/><path d="M11 18h2"/>')]
+        ("/app/", "Chip In", '<rect x="7" y="2" width="10" height="20" rx="3"/><path d="M11 18h2"/>')]
 
 def tabbar(active):
     out = ""
@@ -122,7 +122,7 @@ def card(p):
 hero = fix_paths(P["hero"])
 hero = hero.replace('class="wrap hero"', 'class="wrap hero home-hero"')
 hero = re.sub(r'<a class="where soon-pill"[^>]*>.*?</a>',
-              '<a class="where soon-pill" href="/app/">The app is coming soon. Take a peek</a>', hero)
+              '<a class="where soon-pill" href="/app/">Chip In by Howlback is coming soon. Take a peek</a>', hero)
 hero = hero.replace('href="#help"', 'href="/help/"').replace('href="#stories"', 'href="/blog/"')
 
 org = {"@context": "https://schema.org", "@type": "Organization", "name": "Howlback", "url": SITE, "logo": f"{SITE}/img/icon-512.png",
@@ -154,11 +154,11 @@ home += f"""
       <div class="teaser">
         <div class="teaser-copy">
           <span class="pill-dark">Coming soon</span>
-          <h2>The Howlback app</h2>
-          <p class="lead">Follow foster dogs near you and chip in toward their verified vet bills, food, and supplies.</p>
+          <h2>Chip In by Howlback</h2>
+          <p class="lead">Can’t foster? You can still help. Chip in toward local fosters’ verified vet bills, food, and supplies, and they get paid back.</p>
           <a class="btn" href="/app/" style="align-self:flex-start;background:#fff;color:var(--ink)">See a preview</a>
         </div>
-        <img src="/img/app/screen-1.webp" alt="Preview of the Howlback app showing a foster dog's profile" loading="lazy">
+        <img src="/img/app/screen-1.webp" alt="Preview of Chip In by Howlback showing a foster dog's profile" loading="lazy">
       </div>
     </div>
   </section>
@@ -246,14 +246,14 @@ pg += header("/share/") + '  <div style="padding-top:16px"></div>\n' + feat + "\
 write("/share/", pg)
 
 # ---------- APP ----------
-pg = head("The Howlback app", "Howlback is a coming-soon app where neighbors follow foster dogs and chip in toward their verified vet bills, food, and supplies.", "/app/", "/img/app/screen-1.webp")
+pg = head("Chip In by Howlback", "Chip In by Howlback is coming soon to the RGV: neighbors chip in toward local fosters' verified vet bills, food, and supplies, and fosters get paid back.", "/app/", "/img/app/screen-1.webp")
 pg += header("/app/")
 pg += """  <div class="wrap app-hero">
     <div style="display:flex;flex-direction:column;gap:18px">
-      <span class="soon-tag">Coming soon</span>
-      <h1 style="font-size:clamp(38px,5.4vw,60px)">Can’t foster? You can still help.</h1>
-      <p class="lead">Howlback is an app launching in the Rio Grande Valley, where an estimated 750,000 to 1 million stray animals live on the streets. Fosters get paid back for what they spend on street dogs, and neighbors chip in to help.</p>
-      <a class="btn" href="#join" data-focus-email style="align-self:flex-start">Get first word at launch</a>
+      <span class="soon-tag">Coming soon to the RGV</span>
+      <h1 style="font-size:clamp(38px,5.4vw,60px)">Chip In <span style="color:var(--peach-ink)">by Howlback</span></h1>
+      <p class="lead"><b>Can’t foster? You can still help.</b> In the Rio Grande Valley, an estimated 750,000 to 1 million stray animals live on the streets, and local fosters pay out of pocket to save them. With Chip In, fosters upload their receipts, we verify every one, and neighbors chip in any amount to pay them back.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn" href="#join" data-focus-email>Get first word at launch</a><a class="btn soft" href="/foster/">I’m a foster, sign me up early</a></div>
     </div>
     <div class="phones">
       <img src="/img/app/screen-1.webp" alt="App home screen with a feed of foster dogs near you">
@@ -294,7 +294,7 @@ pg += """  <div class="wrap app-hero">
         <div class="fimg" style="display:grid"><img src="/img/app/screen-5.webp" alt="Check-in screen with a live photo of a puppy stamped with the date, time, and place, and a row of past check-ins" loading="lazy"></div>
       </div>
       <div class="feature flip">
-        <div class="fcopy"><h2>Chip in for a dog you care about</h2><p class="lead">Pick a dog, pick an amount, and it goes toward their verified costs. You’ll get their updates, and a note when they find a home.</p><span class="soon-tag">Chipping in opens when the app launches</span></div>
+        <div class="fcopy"><h2>Chip in for a dog you care about</h2><p class="lead">Pick a dog, pick an amount, and it goes toward their verified costs. You’ll get their updates, and a note when they find a home.</p><span class="soon-tag">Chipping in opens at launch</span></div>
         <div class="fimg" style="display:grid"><img src="/img/app/screen-3.webp" alt="The chip in screen with amount options of 5, 10, and 25 dollars" loading="lazy"></div>
       </div>
       <div class="feature">
@@ -568,7 +568,7 @@ LINKS = [
     ("/places/", "Dog-friendly places", "Trails, beaches, dog parks, and patios on a map", False),
     ("/must-haves/", "New to fostering? Must-haves", "Day one basics, food, and discount codes", False),
     ("/#join", "Get app updates", "One email or text when the app launches", False),
-    ("/app/", "The Howlback app", "Coming soon to the RGV", False),
+    ("/app/", "Chip In by Howlback", "Help pay local fosters back. Coming soon", False),
 ]
 SOCIAL = [("https://www.instagram.com/howlback.app", "Instagram"),
           ("https://www.facebook.com/profile.php?id=61595201828343", "Facebook")]
