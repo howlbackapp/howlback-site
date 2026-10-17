@@ -4,7 +4,13 @@
 
 const STRIPE = Deno.env.get("STRIPE_SECRET_KEY")!;
 const SB = Deno.env.get("SUPABASE_URL")!;
-const SERVICE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+function serviceKey() {
+  const k = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (k) return k;
+  try { const all = JSON.parse(Deno.env.get("SUPABASE_SECRET_KEYS") || "{}"); return all.default || Object.values(all)[0]; } catch (_) { return ""; }
+}
+const SERVICE = serviceKey() as string;
+const svcHeaders = (): Record<string, string> => SERVICE.startsWith("sb_") ? { apikey: SERVICE } : { apikey: SERVICE, Authorization: "Bearer " + SERVICE };
 const SITE = "https://howlback.app";
 const FEE_FLAT = 100, FEE_MIN_PCT = 8, FEE_MAX_PCT = 50;
 
@@ -39,7 +45,7 @@ async function stripe(path: string, body?: Record<string, unknown>) {
 async function db(path: string, opts: RequestInit = {}) {
   const r = await fetch(SB + "/rest/v1/" + path, {
     ...opts,
-    headers: { apikey: SERVICE, Authorization: "Bearer " + SERVICE, "Content-Type": "application/json", Prefer: "return=representation", ...(opts.headers || {}) },
+    headers: { ...svcHeaders(), "Content-Type": "application/json", Prefer: "return=representation", ...(opts.headers || {}) },
   });
   const t = await r.text();
   if (!r.ok) throw new Error("db: " + t);
