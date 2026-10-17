@@ -11,13 +11,14 @@ POSTS = json.load(open(os.path.join(ROOT, "src/posts.json")))
 SITE = "https://howlback.app"
 
 NAV = [("/lost-found/", "Lost & found"), ("/help/", "Local help"), ("/clinics/", "Clinics"), ("/rescues/", "Rescues"),
-       ("/blog/", "Blog"), ("/places/", "Dog-friendly places"), ("/must-haves/", "Foster must-haves"), ("/app/", "Chip In"), ("/share/", "Share a story"),
+       ("/blog/", "Blog"), ("/must-haves/", "Shop our picks"), ("/places/", "Dog-friendly places"), ("/app/", "Chip In"), ("/share/", "Share a story"),
        ("/install/", "Add to home screen")]
 
 TABS = [("/", "Home", '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>'),
         ("/help/", "Help", '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M5.6 5.6l3.6 3.6M14.8 14.8l3.6 3.6M18.4 5.6l-3.6 3.6M9.2 14.8l-3.6 3.6"/>'),
         ("/clinics/", "Clinics", '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>'),
         ("/blog/", "Blog", '<path d="M5 4h14v16H5zM9 8h6M9 12h6M9 16h3"/>'),
+        ("/must-haves/", "Shop", '<path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'),
         ("/app/", "Chip In", '<rect x="7" y="2" width="10" height="20" rx="3"/><path d="M11 18h2"/>')]
 
 def tabbar(active):
@@ -146,6 +147,12 @@ home += f"""
     <div class="wrap">
       <div class="section-top"><h2>Upcoming clinics</h2><a class="link" href="/clinics/">All clinics</a></div>
       <div class="ev" id="ev" data-limit="2"></div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <a class="shop-card" href="/must-haves/"><span class="shop-ic">🛍️</span><div><b>Shop our picks</b><span>Foster must-haves, Halloween costumes, and discount codes</span></div><span class="go">Shop ›</span></a>
     </div>
   </section>
 
@@ -518,11 +525,12 @@ def shop_item(it, checklist):
 
 pg = head("New to fostering? Must-haves", "Everything you need when you foster or take in a dog in the Rio Grande Valley: day one basics, food, grooming, and calming picks, with discount codes.", "/must-haves/", "/img/rescue-dog.jpg")
 pg += header("/must-haves/")
-pg += page_head("New to fostering? Must-haves", "What to have ready when a dog comes home with you, plus discount codes on brands we like.")
+pg += page_head("Shop our picks", "Foster must-haves, what to have ready when a dog comes home with you, plus discount codes on brands we like.")
 disclose = "Some links on this page earn Howlback a small commission, at no extra cost to you."
 if SHOP.get("amazon_tag"):
     disclose += " As an Amazon Associate, Howlback earns from qualifying purchases."
 pg += f'  <section class="page" style="padding-top:8px"><div class="wrap shop">\n    <p class="disclose">{disclose}</p>\n'
+pg += '    <a class="shop-card" href="/blog/halloween-dog-safety/#costumes"><span class="shop-ic">🎃</span><div><b>15 best-selling dog costumes</b><span>Our Halloween picks on Amazon</span></div><span class="go">See ›</span></a>\n'
 for s in SHOP["sections"]:
     chk = s.get("checklist", False)
     items = [i for i in s["items"] if chk or (i.get("show", True) and (i.get("link") or i.get("code")))]
@@ -566,7 +574,7 @@ LINKS = [
     ("/clinics/", "Clinics and events", "Low-cost shots, spay and neuter, adoption days", False),
     ("/help/", "Found a dog?", "Who to call in your city", False),
     ("/places/", "Dog-friendly places", "Trails, beaches, dog parks, and patios on a map", False),
-    ("/must-haves/", "New to fostering? Must-haves", "Day one basics, food, and discount codes", False),
+    ("/must-haves/", "🛍️ Shop our picks", "Foster must-haves, costumes, and discount codes", False),
     ("/#join", "Get app updates", "One email or text when the app launches", False),
     ("/app/", "Chip In by Howlback", "Help pay local fosters back. Coming soon", False),
 ]

@@ -347,3 +347,10 @@ body{background:transparent!important;margin:0}
 @media (max-width:640px){.fb-hero{grid-template-columns:1fr}.fb-two{grid-template-columns:1fr}}
 .fb-biz{margin:0;display:flex;flex-direction:column}.fb-amt[hidden]{display:none!important}
 .fb-thanks{background:#dff3e6;border-radius:16px;padding:14px 16px;margin-bottom:16px}
+.shop-card{display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:18px;background:#fff4ea;border:1.5px solid #f2c9a6;text-decoration:none;color:var(--ink);margin:6px 0 14px}
+.shop-card .shop-ic{font-size:30px;line-height:1}
+.shop-card div{flex:1;display:flex;flex-direction:column;gap:2px}
+.shop-card b{font-size:17px}
+.shop-card div span{font-size:14px;color:#6b7a7c}
+.shop-card .go{font-weight:800;color:var(--peach-ink,#c0602a);white-space:nowrap}
+.tabbar a{min-width:0}.tabbar a span{white-space:nowrap}
