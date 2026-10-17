@@ -569,3 +569,25 @@ body{background:transparent!important;margin:0}
 .hw-grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;display:block}
 .hw-credit{font-size:12px;color:#93a3a5;margin:2px 0 12px}
 .hw-btn{display:block;text-align:center;background:var(--peach-ink,#c0602a);color:#fff}
+.fi-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:32px;align-items:center;padding:12px 0 28px}
+.fi-copy{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.fi-copy h1{font-size:clamp(34px,5vw,54px);line-height:1.05}
+.fi-phones{display:flex;justify-content:center;align-items:flex-end}
+.fi-phones img{width:48%;max-width:240px}
+.fi-phones img:last-child{margin-left:-8%;transform:translateY(-20px)}
+.fi-h{margin:34px 0 14px}
+.fi-steps{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(200px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.fi-steps figure{margin:0;scroll-snap-align:start;background:var(--mint);border-radius:22px;padding:14px 12px 16px;display:flex;flex-direction:column;gap:10px}
+.fi-steps img{width:100%;max-width:210px;align-self:center;display:block}
+.fi-steps figcaption{font-size:14px;color:var(--muted);line-height:1.45}
+.fi-steps figcaption b{display:block;color:var(--ink);font-size:16px;margin-bottom:3px}
+.fi-swipe{font-size:13px;margin:6px 0 0}
+.fi-why{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:28px 0 18px}
+.fi-why div{border:1.5px solid var(--line);border-radius:18px;padding:14px}
+.fi-why span{font-size:24px}.fi-why b{display:block;margin:6px 0 4px;font-size:16px}.fi-why p{font-size:14px;color:var(--muted);line-height:1.45;margin:0}
+.fi-faq{border-bottom:1px solid var(--line);padding:12px 0}
+.fi-faq summary{font-weight:700;cursor:pointer}
+.fi-faq p{color:var(--muted);margin:8px 0 0;line-height:1.5}
+@media (min-width:900px){.fi-swipe{display:none}.fi-steps{grid-auto-flow:row;grid-template-columns:repeat(4,1fr)}}
+@media (max-width:760px){.fi-hero{grid-template-columns:1fr;gap:20px}}
+@media (max-width:520px){.fi-why{gap:10px}.fi-why div{padding:12px}.fi-why span{font-size:20px}.fi-why b{font-size:15px}.fi-why p{font-size:13px}}
