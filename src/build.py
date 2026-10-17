@@ -103,7 +103,7 @@ def _h(*files):
     m = hashlib.md5()
     for f in files: m.update(open(os.path.join(ROOT, f), "rb").read())
     return m.hexdigest()[:8]
-VER = {"/site.js": _h("site.js"), "/lf.js": _h("lf.js"), "/places.js": _h("places.js"), "/style.css": _h("src/base.css", "src/extra.css")}
+VER = {"/site.js": _h("site.js"), "/lf.js": _h("lf.js"), "/places.js": _h("places.js"), "/fosters.js": _h("fosters.js"), "/style.css": _h("src/base.css", "src/extra.css")}
 
 def write(path, content):
     for f, v in VER.items():
@@ -477,10 +477,16 @@ write("/lost-found/update/", pg)
 
 pg = head("Admin", "Howlback admin", "/admin/").replace('<meta name="description"', '<meta name="robots" content="noindex, nofollow">\n<meta name="description"')
 pg += """<main id="lf-admin" class="wrap lf" style="padding:28px 20px 60px">
-  <h1 style="font-size:30px!important">Lost &amp; found admin</h1>
+  <h1 style="font-size:30px!important">Howlback admin</h1>
   <form id="lf-login" hidden><p>Log in with a one-time link sent to hello@howlback.app.</p><button class="btn" type="submit">Email me a login link</button><p class="lf-note" aria-live="polite"></p></form>
   <div id="lf-panel" hidden>
-    <h2>Waiting for review (<span id="lf-count">0</span>)</h2><div id="lf-pending" class="lf-list"></div>
+    <section id="fb-admin" hidden>
+      <h2>Fosters &amp; receipts waiting (<span id="fb-a-count">0</span>)</h2>
+      <h3>New fosters</h3><div id="fb-a-fosters"></div>
+      <h3>New dog profiles</h3><div id="fb-a-dogs"></div>
+      <h3>Receipts to verify</h3><div id="fb-a-receipts"></div>
+    </section>
+    <h2>Lost &amp; found waiting for review (<span id="lf-count">0</span>)</h2><div id="lf-pending" class="lf-list"></div>
     <h2>Messages to forward</h2><div id="lf-msgs"></div>
     <h2>Live posts</h2><div id="lf-live" class="lf-list"></div>
     <button class="btn soft" id="lf-logout" type="button">Log out</button>
@@ -488,6 +494,7 @@ pg += """<main id="lf-admin" class="wrap lf" style="padding:28px 20px 60px">
 </main>
 </div>
 <script src="/lf.js"></script>
+<script src="/fosters.js"></script>
 </body>
 </html>
 """
@@ -547,6 +554,8 @@ pg += '<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet
 pg += foot()
 write("/places/", pg)
 
+exec(open(os.path.join(ROOT, "src/pages_fosters.py")).read())
+
 # ---------- LINKS (link in bio) ----------
 latest = sorted(enumerate(POSTS), key=lambda x: (x[1]["date"], x[0]))[-1][1]
 LINKS = [
@@ -572,7 +581,7 @@ write("/links/", pg)
 
 
 # ---------- SITEMAP + ROBOTS ----------
-pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/lost-found/", "/lost-found/post/", *[f"/lost-found/{slug(c)}/" for c in LF_PAGES], "/must-haves/", "/places/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
+pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/lost-found/", "/lost-found/post/", *[f"/lost-found/{slug(c)}/" for c in LF_PAGES], "/must-haves/", "/places/", "/dogs/", "/foster/", "/how-it-works/", "/terms/", "/refunds/", "/privacy/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in pages:
     sm += f"  <url><loc>{SITE}{u}</loc></url>\n"

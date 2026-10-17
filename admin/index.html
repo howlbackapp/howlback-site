@@ -23,16 +23,22 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=f2b8b547">
+<link rel="stylesheet" href="/style.css?v=4db59974">
 <script data-goatcounter="https://howlback.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 <div class="shell">
 <main id="lf-admin" class="wrap lf" style="padding:28px 20px 60px">
-  <h1 style="font-size:30px!important">Lost &amp; found admin</h1>
+  <h1 style="font-size:30px!important">Howlback admin</h1>
   <form id="lf-login" hidden><p>Log in with a one-time link sent to hello@howlback.app.</p><button class="btn" type="submit">Email me a login link</button><p class="lf-note" aria-live="polite"></p></form>
   <div id="lf-panel" hidden>
-    <h2>Waiting for review (<span id="lf-count">0</span>)</h2><div id="lf-pending" class="lf-list"></div>
+    <section id="fb-admin" hidden>
+      <h2>Fosters &amp; receipts waiting (<span id="fb-a-count">0</span>)</h2>
+      <h3>New fosters</h3><div id="fb-a-fosters"></div>
+      <h3>New dog profiles</h3><div id="fb-a-dogs"></div>
+      <h3>Receipts to verify</h3><div id="fb-a-receipts"></div>
+    </section>
+    <h2>Lost &amp; found waiting for review (<span id="lf-count">0</span>)</h2><div id="lf-pending" class="lf-list"></div>
     <h2>Messages to forward</h2><div id="lf-msgs"></div>
     <h2>Live posts</h2><div id="lf-live" class="lf-list"></div>
     <button class="btn soft" id="lf-logout" type="button">Log out</button>
@@ -40,5 +46,6 @@
 </main>
 </div>
 <script src="/lf.js?v=5c9e5646"></script>
+<script src="/fosters.js?v=47c9ba8c"></script>
 </body>
 </html>
