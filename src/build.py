@@ -530,7 +530,12 @@ disclose = "Some links on this page earn Howlback a small commission, at no extr
 if SHOP.get("amazon_tag"):
     disclose += " As an Amazon Associate, Howlback earns from qualifying purchases."
 pg += f'  <section class="page" style="padding-top:8px"><div class="wrap shop">\n    <p class="disclose">{disclose}</p>\n'
-pg += '    <a class="shop-card" href="/blog/halloween-dog-safety/#costumes"><span class="shop-ic">🎃</span><div><b>15 best-selling dog costumes</b><span>Our Halloween picks on Amazon</span></div><span class="go">See ›</span></a>\n'
+HW_ALT = ["A small dog dressed as a ghost next to pumpkins", "A golden retriever in a vampire cape and bat ears", "A dog with a carved pumpkin on its head",
+          "A small dog in a red and black vampire cape", "A dog in a tiara and pink fairy wings", "A dog dressed as a ghost in a white sheet"]
+hw_imgs = "".join(f'<img src="/img/halloween/costume-{i}.webp" alt="{HW_ALT[i-1]}" loading="lazy">' for i in (2, 1, 4, 5, 3, 6))
+pg += ('    <div class="shop-sec hw-shop"><h2>🎃 Halloween costumes</h2><p class="muted">Amazon\'s 15 best sellers, picked out for you. Comfy ones for dogs who hate outfits too.</p>'
+       f'<div class="hw-grid">{hw_imgs}</div><p class="hw-credit">Photos: Unsplash</p>'
+       '<a class="btn hw-btn" href="/blog/halloween-dog-safety/#costumes">See all 15 costumes</a></div>\n')
 for s in SHOP["sections"]:
     chk = s.get("checklist", False)
     items = [i for i in s["items"] if chk or (i.get("show", True) and (i.get("link") or i.get("code")))]
