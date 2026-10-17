@@ -581,7 +581,7 @@ write("/links/", pg)
 
 
 # ---------- SITEMAP + ROBOTS ----------
-pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/lost-found/", "/lost-found/post/", *[f"/lost-found/{slug(c)}/" for c in LF_PAGES], "/must-haves/", "/places/", "/dogs/", "/foster/", "/how-it-works/", "/terms/", "/refunds/", "/privacy/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
+pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/lost-found/", "/lost-found/post/", *[f"/lost-found/{slug(c)}/" for c in LF_PAGES], "/must-haves/", "/places/", "/terms/", "/refunds/", "/privacy/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in pages:
     sm += f"  <url><loc>{SITE}{u}</loc></url>\n"

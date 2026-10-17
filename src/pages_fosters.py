@@ -1,7 +1,11 @@
 # Foster dashboard, public dog pages, and policy pages. Exec'd from build.py (shares its helpers).
 
 FB_JS = '<script src="/fosters.js"></script>'
+NOINDEX = True  # flip to False at launch
+def hide(pg):
+    return pg.replace('<meta name="description"', '<meta name="robots" content="noindex">\n<meta name="description"', 1) if NOINDEX else pg
 def with_js(pg):
+    pg = hide(pg)
     return pg.replace('<script src="/site.js"></script>', '<script src="/site.js"></script>\n' + FB_JS)
 city_opts2 = "".join(f'<option>{c}</option>' for c in CITIES)
 
@@ -115,7 +119,7 @@ def policy(path, title, desc, body):
     pg += page_head(title, '<span class="muted">Last updated October 16, 2026</span>')
     pg += f'  <section class="page" style="padding-top:8px"><div class="wrap post-body policy">{body}</div></section>\n'
     pg += foot()
-    write(path, pg)
+    write(path, hide(pg) if path == "/how-it-works/" else pg)
 
 policy("/how-it-works/", "How Chip In works", "How Chip In by Howlback works: how fosters get paid back for verified dog care costs, and how supporters chip in on Howlback.", """
 <p><b>Chip In by Howlback</b> lets neighbors help pay local fosters back for what they spend caring for street dogs.</p>
