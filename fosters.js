@@ -2,7 +2,7 @@
 (() => {
 const SB = "https://zgzrnlkffqkjtowziftk.supabase.co";
 const KEY = "sb_publishable_2xvvHFjLuvY_z1ewBIdwPw_hzlMXIhQ";
-const PAY_LIVE = false;            // flips to true once Stripe is connected
+const PAY_LIVE = true;
 const FEE_FLAT = 100, FEE_MIN_PCT = 8;
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -91,6 +91,10 @@ if (dash) {
       if (!me) { show("profile"); return; }
       dogs = await api(`/rest/v1/dogs?foster_id=eq.${uid}&select=*&order=created_at.desc`, {}, T);
       exps = await api(`/rest/v1/expenses?foster_id=eq.${uid}&select=*&order=created_at.desc`, {}, T);
+      if (me.status === "approved" && me.stripe_account_id && !me.payouts_ready) {
+        try { const r = await api("/functions/v1/chipin", json("POST", {action: "status"}), T); me.payouts_ready = r.ready; } catch (_) {}
+      }
+      if (new URLSearchParams(location.search).get("stripe")) history.replaceState(null, "", location.pathname);
       draw(); show("home");
     } catch (err) {
       if (err.status === 401) { sess.clear(); show("login"); return; }
@@ -119,8 +123,9 @@ if (dash) {
       : me.status === "pending" ? "We’re reviewing your profile, usually within a day. You can add your dog and receipts now."
       : "Your profile wasn’t approved. Email hello@howlback.app with questions.";
     $("#fb-bank").hidden = me.status !== "approved" || me.payouts_ready;
-    const raised = exps.reduce((s, x) => s + x.funded_cents, 0), owed = exps.reduce((s, x) => s + x.funded_cents - x.paid_out_cents, 0);
-    $("#fb-totals").innerHTML = `<div><b>${money(raised)}</b><span>raised so far</span></div><div><b>${money(owed)}</b><span>on the way to you</span></div>`;
+    const raised = exps.reduce((s, x) => s + x.funded_cents, 0), waiting = exps.filter(x => x.status === "approved").reduce((s, x) => s + x.amount_cents - x.funded_cents, 0);
+    $("#fb-totals").innerHTML = `<div><b>${money(raised)}</b><span>paid back so far</span></div><div><b>${money(waiting)}</b><span>still needed on verified receipts</span></div>`;
+    $("#fb-bank-btn").textContent = me.stripe_account_id ? "Finish connecting my bank" : "Connect my bank";
     const sel = $("#fb-receipt").dog_id;
     sel.innerHTML = dogs.map(d => `<option value="${d.id}">${esc(d.name)}</option>`).join("");
     $("#fb-receipt-box").hidden = !dogs.length;
@@ -190,7 +195,7 @@ if (dash) {
     const note = $("#fb-bank .fb-note");
     if (!PAY_LIVE) { note.textContent = "Bank connection opens soon. We’ll email you when it’s ready."; return; }
     note.textContent = "Opening Stripe...";
-    try { const r = await api("/functions/v1/connect-onboard", json("POST", {}), T); location.href = r.url; }
+    try { const r = await api("/functions/v1/chipin", json("POST", {action: "onboard"}), T); location.href = r.url; }
     catch (_) { note.textContent = "Couldn’t open Stripe. Try again in a minute."; }
   });
   load();
@@ -232,8 +237,9 @@ if (view) {
       exps = await api(`/rest/v1/expenses_public?dog_id=eq.${dog.id}&select=*&order=spent_on.desc`);
       const sup = await api(`/rest/v1/contributions_public?dog_id=eq.${dog.id}&select=*&order=created_at.desc&limit=30`);
       document.title = `Help ${dog.name} | Howlback`;
+      const paid = new URLSearchParams(location.search).get("paid");
       const open = exps.filter(x => x.funded_cents < x.amount_cents);
-      view.innerHTML = `
+      view.innerHTML = (paid ? `<div class="fb-thanks">🧡 <b>Thank you!</b> Your chip-in for ${esc(dog.name)} went through. It can take a minute to show up below. You’ll get a receipt by email from Stripe.</div>` : "") + `
         <div class="fb-hero"><img src="${pub("dogs", dog.photo_path)}" alt="${esc(dog.name)}">
           <div><span class="fb-st ${dog.status}">${dog.status === "adopted" ? "Adopted 🎉" : "In foster care"}</span>
           <h1>${esc(dog.name)}</h1>
@@ -303,7 +309,7 @@ if (view) {
     if (!PAY_LIVE) { note.textContent = "Chip-ins open very soon! We’re finishing secure checkout. Share this page in the meantime 🧡"; return; }
     b.disabled = true; note.textContent = "Opening secure checkout...";
     try {
-      const r = await api("/functions/v1/checkout", json("POST", {expense_id: cur.id, amount_cents: a, fee_percent: p,
+      const r = await api("/functions/v1/chipin", json("POST", {action: "checkout", expense_id: cur.id, amount_cents: a, fee_percent: p,
         name: f.sname.value.trim() || null, note: f.snote.value.trim() || null}));
       location.href = r.url;
     } catch (_) { note.textContent = "Couldn’t open checkout. Try again in a minute."; b.disabled = false; }
