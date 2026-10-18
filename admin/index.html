@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/style.css?v=04244692">
+<link rel="stylesheet" href="/style.css?v=e3f7fb33">
 <script data-goatcounter="https://howlback.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
@@ -38,6 +38,11 @@
       <h3>New dog profiles</h3><div id="fb-a-dogs"></div>
       <h3>Receipts to verify</h3><div id="fb-a-receipts"></div>
     </section>
+    <section id="hb-admin" hidden>
+      <h2>Help board waiting for review (<span id="hb-a-count">0</span>)</h2><div id="hb-a-pending" class="hb-list"></div>
+      <h2>Help offers to pass on</h2><div id="hb-a-offers"></div>
+      <h2>Live help requests</h2><div id="hb-a-live" class="hb-list"></div>
+    </section>
     <h2>Lost &amp; found waiting for review (<span id="lf-count">0</span>)</h2><div id="lf-pending" class="lf-list"></div>
     <h2>Messages to forward</h2><div id="lf-msgs"></div>
     <h2>Live posts</h2><div id="lf-live" class="lf-list"></div>
@@ -47,5 +52,6 @@
 </div>
 <script src="/lf.js?v=5c9e5646"></script>
 <script src="/fosters.js?v=d81a0f67"></script>
+<script src="/help.js?v=910d2f51"></script>
 </body>
 </html>

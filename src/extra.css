@@ -382,3 +382,14 @@ body{background:transparent!important;margin:0}
 @media (min-width:900px){.fi-swipe{display:none}.fi-steps{grid-auto-flow:row;grid-template-columns:repeat(4,1fr)}}
 @media (max-width:760px){.fi-hero{grid-template-columns:1fr;gap:20px}}
 @media (max-width:520px){.fi-why{gap:10px}.fi-why div{padding:12px}.fi-why span{font-size:20px}.fi-why b{font-size:15px}.fi-why p{font-size:13px}}
+.hb-list{display:flex;flex-direction:column;gap:12px;margin:14px 0 18px}
+.hb-card{border:1.5px solid var(--line);border-radius:18px;padding:16px;background:#fff;display:flex;flex-direction:column;gap:8px}
+.hb-card h3{font-size:18px;margin:0}.hb-card p{margin:0;line-height:1.5}
+.hb-card.done{opacity:.75;background:var(--mint)}
+.hb-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hb-where{font-size:13px;font-weight:700;color:var(--muted)}
+.hb-tag{font-size:13px;font-weight:800;padding:4px 10px;border-radius:99px;background:var(--mint);color:var(--teal)}
+.hb-tag.supplies{background:#fff4ea;color:var(--peach-ink,#b4532a)}
+.hb-tag.other{background:#eef0f6;color:#4a5878}
+.hb-tag.done{background:#3d6b73;color:#fff}
+.hb-what{font-weight:700}

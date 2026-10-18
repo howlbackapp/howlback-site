@@ -10,7 +10,7 @@ P = json.load(open(os.path.join(ROOT, "src/parts.json")))
 POSTS = json.load(open(os.path.join(ROOT, "src/posts.json")))
 SITE = "https://howlback.app"
 
-NAV = [("/lost-found/", "Lost & found"), ("/help/", "Local help"), ("/clinics/", "Clinics"), ("/rescues/", "Rescues"),
+NAV = [("/lost-found/", "Lost & found"), ("/help-board/", "Help board"), ("/help/", "Local help"), ("/clinics/", "Clinics"), ("/rescues/", "Rescues"),
        ("/blog/", "Blog"), ("/must-haves/", "Shop our picks"), ("/places/", "Dog-friendly places"), ("/app/", "Chip In"), ("/share/", "Share a story"),
        ("/install/", "Add to home screen")]
 
@@ -104,7 +104,7 @@ def _h(*files):
     m = hashlib.md5()
     for f in files: m.update(open(os.path.join(ROOT, f), "rb").read())
     return m.hexdigest()[:8]
-VER = {"/site.js": _h("site.js"), "/lf.js": _h("lf.js"), "/places.js": _h("places.js"), "/fosters.js": _h("fosters.js"), "/style.css": _h("src/base.css", "src/extra.css")}
+VER = {"/site.js": _h("site.js"), "/lf.js": _h("lf.js"), "/places.js": _h("places.js"), "/fosters.js": _h("fosters.js"), "/help.js": _h("help.js"), "/style.css": _h("src/base.css", "src/extra.css")}
 
 def write(path, content):
     for f, v in VER.items():
@@ -177,6 +177,7 @@ write("/", home)
 pg = head("Local help", "Found a stray in the Rio Grande Valley? What to do first, plus low-cost vets, after-hours vets, pet food help, and pet stores.", "/help/")
 pg += header("/help/") + page_head("Local help in the Valley", "What to do when you find a dog, plus low-cost vets, after-hours vets, and pet food help. Hours change often, so call ahead.")
 pg += '  <section class="page"><div class="wrap" style="display:flex;flex-direction:column">\n'
+pg += '<a class="shop-card" href="/help-board/" style="margin-bottom:22px"><span class="shop-ic">🚗</span><div><b>Need a ride or supplies for a dog?</b><span>Ask on the help board, or lend a neighbor a hand</span></div><span class="go">Help board ›</span></a>\n'
 pg += P["found"] + P["tools"] + "\n  </div></section>\n" + foot()
 write("/help/", pg)
 
@@ -501,6 +502,11 @@ pg += """<main id="lf-admin" class="wrap lf" style="padding:28px 20px 60px">
       <h3>New dog profiles</h3><div id="fb-a-dogs"></div>
       <h3>Receipts to verify</h3><div id="fb-a-receipts"></div>
     </section>
+    <section id="hb-admin" hidden>
+      <h2>Help board waiting for review (<span id="hb-a-count">0</span>)</h2><div id="hb-a-pending" class="hb-list"></div>
+      <h2>Help offers to pass on</h2><div id="hb-a-offers"></div>
+      <h2>Live help requests</h2><div id="hb-a-live" class="hb-list"></div>
+    </section>
     <h2>Lost &amp; found waiting for review (<span id="lf-count">0</span>)</h2><div id="lf-pending" class="lf-list"></div>
     <h2>Messages to forward</h2><div id="lf-msgs"></div>
     <h2>Live posts</h2><div id="lf-live" class="lf-list"></div>
@@ -510,10 +516,96 @@ pg += """<main id="lf-admin" class="wrap lf" style="padding:28px 20px 60px">
 </div>
 <script src="/lf.js"></script>
 <script src="/fosters.js"></script>
+<script src="/help.js"></script>
 </body>
 </html>
 """
 write("/admin/", pg)
+
+
+# ---------- HELP BOARD (rides + supplies) ----------
+HB_JS = '<script src="/site.js"></script>\n<script src="/help.js"></script>'
+pg = head("Help board: rides and supplies for dogs in the RGV", "Need a ride to the vet or supplies for a dog you’re caring for in the Rio Grande Valley? Ask on the Howlback help board, or offer to help a neighbor.", "/help-board/")
+pg += header("/help-board/")
+pg += page_head("Help board", "Need a ride to the vet, a crate, or puppy food for a dog you’re caring for? Ask here. Can lend a hand? Find someone near you.")
+pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap lf">
+    <a class="btn lf-post" href="/help-board/ask/">Ask for help</a>
+    <div class="lf-filters">
+      <div class="os-tabs" role="tablist" aria-label="Show">
+        <button type="button" data-hkind="all" aria-selected="true">All</button>
+        <button type="button" data-hkind="ride" aria-selected="false">🚗 Rides</button>
+        <button type="button" data-hkind="supplies" aria-selected="false">📦 Supplies</button>
+      </div>
+      <select id="hb-city" aria-label="City"><option value="">All cities</option>{city_opts}</select>
+    </div>
+    <div id="hb-list" class="hb-list"><p class="muted lf-empty">Loading...</p></div>
+    <p class="lf-scam"><b>Stay safe:</b> meet in a public place when you can, and never send money to a stranger. Howlback never asks for payment on the help board.</p>
+    <p class="muted">Want to help in other ways? Read <a href="/blog/">the blog</a>, see <a href="/rescues/">South Texas rescues</a>, or check out <a href="/app/">Chip In by Howlback</a>.</p>
+  </div></section>
+  <dialog id="hb-offer" class="lf-dialog"><form method="dialog">
+    <h3>Offer to help</h3>
+    <p class="hb-what"></p>
+    <p class="muted">Howlback passes your info to the person who asked. It isn’t shown on the site.</p>
+    <input type="hidden" name="request_id">
+    <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <label>Your name<input name="from_name" maxlength="80"></label>
+    <label>Your phone or email<input name="from_contact" required maxlength="120"></label>
+    <label>Message<textarea name="message" required minlength="5" maxlength="1000" rows="4" placeholder="I can drive Saturday morning. I have a medium crate too."></textarea></label>
+    <p class="lf-note" aria-live="polite"></p>
+    <div class="lf-act"><button class="btn" type="submit">Send</button><button class="btn soft" type="button" data-close>Cancel</button></div>
+  </form></dialog>
+"""
+pg += foot().replace('<script src="/site.js"></script>', HB_JS)
+write("/help-board/", pg)
+
+pg = head("Ask for help: a ride or supplies for a dog", "Post a free request on the Howlback help board for a ride to the vet or supplies for a dog in the Rio Grande Valley.", "/help-board/ask/")
+pg += header("/help-board/")
+pg += page_head("Ask for help", "Free. Tell neighbors what you need for the dog you’re caring for. We check every request before it goes up, usually the same day.")
+pg += f"""  <section class="page" style="padding-top:8px"><div class="wrap lf">
+    <form id="hb-form" class="lf-form" novalidate>
+      <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <fieldset class="lf-kind"><legend>What do you need?</legend>
+        <label><input type="radio" name="kind" value="ride"> 🚗 A ride (vet, spay or neuter, adoption event, pickup)</label>
+        <label><input type="radio" name="kind" value="supplies"> 📦 Supplies (food, crate, puppy pads, meds, blankets)</label>
+        <label><input type="radio" name="kind" value="other"> 🤝 Something else</label>
+      </fieldset>
+      <label>Short title<input name="title" required minlength="5" maxlength="100" placeholder="Ride to Harlingen vet Saturday morning"></label>
+      <label>Details<textarea name="details" required minlength="10" maxlength="1000" rows="5" placeholder="Where from and to, what time, the dog’s size, or exactly what supplies you need"></textarea></label>
+      <div class="lf-two"><label>City<select name="city" required><option value="">Choose a city</option>{city_opts}</select></label>
+      <label>Needed by (optional)<input type="date" name="needed_by"></label></div>
+      <p class="muted small">Don’t put your home address. Share it privately once someone offers to help.</p>
+      <h3>How can helpers reach you?</h3>
+      <label>Your name<input name="contact_name" maxlength="80"></label>
+      <label>Phone<input type="tel" name="contact_phone" maxlength="30"></label>
+      <label>Email<input type="email" name="contact_email" maxlength="120"></label>
+      <label class="lf-check"><input type="checkbox" name="show_phone"> Show my phone number on the request</label>
+      <p class="muted small">If you leave this unchecked, your number stays hidden and helpers reach you through Howlback.</p>
+      <p id="hb-status" class="lf-note" aria-live="polite"></p>
+      <button class="btn" type="submit">Submit for review</button>
+    </form>
+    <div id="hb-done" class="lf-done" hidden>
+      <h2>Thanks! Your request is in. 🐾</h2>
+      <p>We check every request before it goes live, usually the same day. When someone offers to help, we’ll pass their info to you.</p>
+      <div class="lf-save"><b>Save this link.</b> Once you’ve got the help you need, open it and tap <b>Covered</b> so your request comes down.
+        <input id="hb-link" readonly aria-label="Your private link"><button class="btn soft" id="hb-copy-link" type="button">Copy my link</button></div>
+      <a class="btn" href="/help-board/">See the help board</a>
+    </div>
+  </div></section>
+"""
+pg += foot().replace('<script src="/site.js"></script>', HB_JS)
+write("/help-board/ask/", pg)
+
+pg = head("Update your request", "Mark your help board request as covered.", "/help-board/update/").replace('<meta name="description"', '<meta name="robots" content="noindex">\n<meta name="description"')
+pg += header("/help-board/")
+pg += page_head("Got the help you needed?", "Tap below and your request will say Covered for 2 days, then it comes down.")
+pg += """  <section class="page" style="padding-top:8px"><div class="wrap lf" id="hb-update">
+    <button class="btn lf-post" id="hb-mark" type="button">Yes, mark it Covered 🎉</button>
+    <p id="hb-upd-note" class="lf-note" aria-live="polite"></p>
+    <a href="/help-board/">Back to the help board</a>
+  </div></section>
+"""
+pg += foot().replace('<script src="/site.js"></script>', HB_JS)
+write("/help-board/update/", pg)
 
 
 # ---------- MUST-HAVES (affiliate page) ----------
@@ -585,6 +677,7 @@ LINKS = [
     (f"/blog/{latest['slug']}/", "New on the blog", latest["title"], False),
     ("/blog/", "All blog posts", "Laws, local guides, and RGV dog news", False),
     ("/clinics/", "Clinics and events", "Low-cost shots, spay and neuter, adoption days", False),
+    ("/help-board/", "🚗 Help board", "Need a ride or supplies for a dog? Ask here, or lend a hand", False),
     ("/help/", "Found a dog?", "Who to call in your city", False),
     ("/places/", "Dog-friendly places", "Trails, beaches, dog parks, and patios on a map", False),
     ("/must-haves/", "🛍️ Shop our picks", "Foster must-haves, costumes, and discount codes", False),
@@ -602,7 +695,7 @@ write("/links/", pg)
 
 
 # ---------- SITEMAP + ROBOTS ----------
-pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/lost-found/", "/lost-found/post/", *[f"/lost-found/{slug(c)}/" for c in LF_PAGES], "/must-haves/", "/places/", "/terms/", "/refunds/", "/privacy/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
+pages = ["/", "/help/", "/clinics/", "/rescues/", "/blog/", "/lost-found/", "/lost-found/post/", "/help-board/", "/help-board/ask/", *[f"/lost-found/{slug(c)}/" for c in LF_PAGES], "/must-haves/", "/places/", "/terms/", "/refunds/", "/privacy/", "/share/", "/app/", "/install/"] + [f"/blog/{p['slug']}/" for p in POSTS]
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
 for u in pages:
     sm += f"  <url><loc>{SITE}{u}</loc></url>\n"
