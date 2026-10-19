@@ -235,10 +235,10 @@ for p in POSTS:
     </header>
     {cover}
     <div class="prose">{p["html"]}
-      <p><a href="/app/">See a preview of the app</a>, or sign up below to hear when it launches.</p>
+      <p>Can’t foster? Check out <a href="/app/">Chip In by Howlback</a>, or sign up below to hear when it launches.</p>
     </div>
     <div class="share-row">
-      <a class="btn soft" href="https://www.facebook.com/sharer/sharer.php?u={url}" target="_blank" rel="noopener">Share on Facebook</a>
+      <a class="btn soft" href="https://www.facebook.com/sharer/sharer.php?u={url}" target="_blank" rel="noopener" data-share="{url}" data-share-title="{html.escape(p['title'])}">Share on Facebook</a>
       <button class="btn soft" type="button" onclick="navigator.clipboard.writeText('{url}');this.textContent='Link copied'">Copy link</button>
     </div>
     <div class="sources"><b>Sources</b><ol>{srcs}</ol></div>

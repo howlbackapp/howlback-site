@@ -192,3 +192,14 @@ document.querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click"
   catch (e) { if (small) small.textContent = "Code: " + b.dataset.copy; }
   setTimeout(() => { if (small) small.textContent = "Tap to copy"; }, 2000);
 }));
+
+// share: on phones use the phone's own share menu (Facebook's app drops links from its web share page)
+if (navigator.share && matchMedia("(pointer: coarse)").matches) {
+  document.querySelectorAll("[data-share]").forEach(a => {
+    a.textContent = "Share";
+    a.addEventListener("click", async e => {
+      e.preventDefault();
+      try { await navigator.share({title: a.dataset.shareTitle || document.title, url: a.dataset.share}); } catch (_) {}
+    });
+  });
+}
